@@ -1,0 +1,6 @@
+.cmake
+cmake-*
+CMakeFiles
+.idea
+.ninja_*
+bin
