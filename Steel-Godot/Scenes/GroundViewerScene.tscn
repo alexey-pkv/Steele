@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://b6fvvkg7qyb2"]
+
+[ext_resource type="Script" path="res://Scenes/GroundViewerScene.gd" id="1_0rtu0"]
+[ext_resource type="PackedScene" uid="uid://d08u8mq5641ct" path="res://Components/UI/Editor/Ground/GroundView2D.tscn" id="2_rgnsu"]
+
+[node name="GroundViewerScene" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_0rtu0")
+
+[node name="GroundView" parent="." instance=ExtResource("2_rgnsu")]
+position = Vector2(532, 276)
+scale = Vector2(3, 3)
+cell_spacing = 10
+cell_width = 32

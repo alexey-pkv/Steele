@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://vpfw1ynrrqh8"]
+
+[ext_resource type="Script" path="res://Components/Elements/GroundSprite2D.gd" id="1_owhfx"]
+
+[node name="GroundSprite2D" type="Sprite2D"]
+script = ExtResource("1_owhfx")

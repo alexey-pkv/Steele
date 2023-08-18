@@ -1,0 +1,46 @@
+[gd_scene load_steps=3 format=3 uid="uid://4yt3tih4wsk4"]
+
+[ext_resource type="Script" path="res://Test_Scene.gd" id="1_w5nkg"]
+[ext_resource type="PackedScene" uid="uid://mj8bu2fps5l3" path="res://Components/UI/Editor/TextureExplorer.tscn" id="2_ahkwo"]
+
+[node name="Main" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_w5nkg")
+metadata/_edit_vertical_guides_ = []
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -792.0
+offset_bottom = -52.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="Panel" type="Panel" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="TextureExplorer" parent="MarginContainer/Panel/MarginContainer" instance=ExtResource("2_ahkwo")]
+layout_mode = 2

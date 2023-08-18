@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://c1yp6jlykghlh"]
+
+[ext_resource type="Script" path="res://Components/Elements/Cell2D.gd" id="1_r8ady"]
+[ext_resource type="PackedScene" uid="uid://vpfw1ynrrqh8" path="res://Components/Elements/GroundSprite2D.tscn" id="2_ne2mf"]
+
+[node name="Cell2D" type="Node2D"]
+script = ExtResource("1_r8ady")
+
+[node name="GroundSprite2D" parent="." instance=ExtResource("2_ne2mf")]

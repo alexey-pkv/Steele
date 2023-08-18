@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://d08u8mq5641ct"]
+
+[ext_resource type="Script" path="res://Components/UI/Editor/Ground/GroundView2D.gd" id="1_kcjiq"]
+[ext_resource type="PackedScene" uid="uid://vpfw1ynrrqh8" path="res://Components/Elements/GroundSprite2D.tscn" id="2_hn3id"]
+
+[node name="GroundView2D" type="Node2D"]
+script = ExtResource("1_kcjiq")
+
+[node name="North" parent="." instance=ExtResource("2_hn3id")]
+
+[node name="East" parent="." instance=ExtResource("2_hn3id")]
+
+[node name="South" parent="." instance=ExtResource("2_hn3id")]
+
+[node name="West" parent="." instance=ExtResource("2_hn3id")]
