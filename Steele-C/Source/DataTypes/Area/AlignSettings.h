@@ -20,13 +20,14 @@ namespace Steele::Align
 		const Area&	Source;
 		const Area& Target;
 		
-		v2i 		Offset;
-		v2i 		AlignmentVector;
-		bool 		AllowGap;
-		Style		Positioning;
-		
 		outline_scalar_iterator_provider SourceIterator;
 		outline_scalar_iterator_provider TargetIterator;
+		
+		Style		Positioning;
+		Direction	AlignmentDirection;
+		v2i 		AlignmentVector;
+		
+		bool 		AllowGap;
 	};
 }
 

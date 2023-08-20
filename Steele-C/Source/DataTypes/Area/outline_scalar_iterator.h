@@ -39,7 +39,7 @@ namespace Steele::Align
 		
 		
 	public:
-		outline_scalar_iterator_provider(Area::outline_iterator_provider provider, bool isX);
+		outline_scalar_iterator_provider(const Area::outline_iterator_provider& provider, Axis axis);
 		
 		~outline_scalar_iterator_provider() = default;
 		outline_scalar_iterator_provider(const outline_scalar_iterator_provider&) = default;
@@ -47,8 +47,8 @@ namespace Steele::Align
 		
 		
 	public:
-		inline outline_scalar_iterator begin() const { return { m_provider.begin(), m_isXAxis }; }
-		inline outline_scalar_iterator end() const { return { m_provider.end(), m_isXAxis }; }
+		[[nodiscard]] inline outline_scalar_iterator begin() const { return { m_provider.begin(), m_isXAxis }; }
+		[[nodiscard]] inline outline_scalar_iterator end() const { return { m_provider.end(), m_isXAxis }; }
 	};
 }
 

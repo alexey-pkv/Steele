@@ -242,7 +242,12 @@ namespace Steele
 		inline Area operator|(const Area& a) const { return (Area(*this) |= a); }
 		inline Area operator&(const Area& a) const { return (Area(*this) &= a); }
 		inline Area operator-(const Area& a) const { return (Area(*this) -= a); }
+		inline Area operator^(const Area& a) const { return (*this | a) - (*this & a); }
 		inline Area operator*(Direction dir) const { return (Area(*this) *= dir); }
+		
+		
+		inline Area operator+(const v2i& v) const { return (Area(*this) += v); }
+		inline Area operator-(const v2i& v) const { return (Area(*this) += v); }
 		
 		Area& operator+=(const Vector2i& v);
 		Area& operator*=(Direction dir);
@@ -250,6 +255,8 @@ namespace Steele
 		Area& operator|=(const Area& a);
 		Area& operator&=(const Area& a);
 		Area& operator-=(const Area& a);
+		
+		inline Area& operator^=(const Area& a) { return *this = *this ^ a;}
 		
 		bool operator[](v2i at);
 		
@@ -265,6 +272,8 @@ namespace Steele
 		inline int Right() const	{ return m_offset.x + (int)m_vertical.size() - 1; }
 		inline int Left() const		{ return m_offset.x; }
 		
+		inline int X() const { return m_offset.x; }
+		inline int Y() const { return m_offset.y; }
 		inline v2i Offset() const	{ return m_offset; }
 		inline bool IsEmpty() const { return m_vertical.empty(); }
 		

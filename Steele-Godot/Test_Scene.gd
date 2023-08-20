@@ -14,9 +14,11 @@ func _ready():
 	var t: GroundTextures = TileSetLoader.load(
 		"res://Resources/TestResources/Ground/marble.32x16.tile-set.png")
 	
+	print(get_viewport().size);
 	
+	get_viewport().size = Vector2i(1200, 1200)
 	
-	
+	return
 	
 	var n = {}
 	var v = Vector2i(1, 2)

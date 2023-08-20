@@ -12,4 +12,3 @@ script = ExtResource("1_0rtu0")
 position = Vector2(532, 276)
 scale = Vector2(3, 3)
 cell_spacing = 10
-cell_width = 32

@@ -12,9 +12,9 @@ outline_scalar_iterator::outline_scalar_iterator(const Area::outline_iterator& o
 	
 }
 
-outline_scalar_iterator_provider::outline_scalar_iterator_provider(Area::outline_iterator_provider provider, bool isX):
+outline_scalar_iterator_provider::outline_scalar_iterator_provider(const Area::outline_iterator_provider& provider, Axis axis):
 	m_provider(provider),
-	m_isXAxis(isX)
+	m_isXAxis(axis == Axis::X)
 {
 	
 }

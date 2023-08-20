@@ -10,19 +10,7 @@ config_version=5
 
 [application]
 
-config/name="Steel"
+config/name="Steele-godot"
 run/main_scene="res://Test_Scene.tscn"
 config/features=PackedStringArray("4.1", "Forward Plus")
 config/icon="res://icon.svg"
-
-[autoload]
-
-SceneParams="*res://Scenes/SceneParams.gd"
-
-[debug]
-
-gdscript/warnings/enable=false
-
-[rendering]
-
-textures/canvas_textures/default_texture_filter=0

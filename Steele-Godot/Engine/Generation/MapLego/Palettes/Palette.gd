@@ -13,6 +13,7 @@ func _handle_component_modified() -> void:
 	if len(_basePalettes) != 0:
 		_combine()
 	
+	DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN
 	on_modified.emit()
 
 func _combine() -> void:

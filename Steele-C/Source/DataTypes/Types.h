@@ -37,6 +37,12 @@ namespace Steele
 	};
 }
 
+enum class Axis
+{
+	X,
+	Y
+};
+
 
 #define SORT_BY_FIELD_REF(source, type, field)		\
 	std::sort(										\

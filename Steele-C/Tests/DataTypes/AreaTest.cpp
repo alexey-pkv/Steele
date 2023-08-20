@@ -6,7 +6,6 @@
 
 
 #include "DataTypes/Area.h"
-#include "DataTypes/Area/Alignment.h"
 
 
 using namespace Steele;
@@ -1207,19 +1206,6 @@ TEST(Area__Contains__Vector)
 	
 	ASSERT_FALSE(a[v2i(2, 1)]);
 	ASSERT_TRUE(a[v2i(2, 1) - v2i(5, 5)]);
-}
-
-TEST(Area__Align)
-{
-	Area a = Area();
-	Area b = Area();
-	
-	/*
-	auto res = a.Align(b);
-	
-	ASSERT_TRUE(&a == &res.Source());
-	ASSERT_TRUE(&b == &res.Target());
-	 */
 }
 
 
