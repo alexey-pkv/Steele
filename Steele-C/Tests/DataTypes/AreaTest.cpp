@@ -11,6 +11,48 @@
 using namespace Steele;
 
 
+void assert_contains(const Area& small, const Area& big)
+{
+	ASSERT_TRUE(small <= big);
+	ASSERT_TRUE(big >= small);
+	
+	if (small == big)
+	{
+		ASSERT_TRUE(small >= big);
+		ASSERT_TRUE(big <= small);
+		
+		ASSERT_FALSE(small < big);
+		ASSERT_FALSE(small > big);
+		
+		ASSERT_FALSE(big < small);
+		ASSERT_FALSE(big > small);
+	}
+	else
+	{
+		ASSERT_FALSE(small >= big);
+		ASSERT_FALSE(big <= small);
+		
+		ASSERT_TRUE(small < big);
+		ASSERT_TRUE(big > small);
+		
+		ASSERT_FALSE(small > big);
+		ASSERT_FALSE(big < small);
+	}
+}
+
+void assert_not_contains_both(const Area& a, const Area& b)
+{
+	ASSERT_FALSE(a <= b);
+	ASSERT_FALSE(a >= b);
+	ASSERT_FALSE(a < b);
+	ASSERT_FALSE(a > b);
+	
+	ASSERT_FALSE(b <= a);
+	ASSERT_FALSE(b >= a);
+	ASSERT_FALSE(b < a);
+	ASSERT_FALSE(b > a);
+}
+
 void assert_area_equals(const Area& a, const string& expected)
 {
 	ASSERT_IS(a, Area{expected});
@@ -52,6 +94,12 @@ void assert_and(const Area& a, const Area& b, const Area& expected)
 void assert_and(const string& a, const string& b, const string& expected)
 {
 	assert_and(Area { a }, Area { b }, Area { expected });
+}
+
+void assert_overlap(const Area& a, const Area&b, bool expected)
+{
+	ASSERT_IS(expected, a && b);
+	ASSERT_IS(expected, b && a);
 }
 
 
@@ -1206,6 +1254,376 @@ TEST(Area__Contains__Vector)
 	
 	ASSERT_FALSE(a[v2i(2, 1)]);
 	ASSERT_TRUE(a[v2i(2, 1) - v2i(5, 5)]);
+}
+
+
+TEST(Area__Overlap__WithEmpty)
+{
+	assert_overlap(Area(), Area(), false);
+	assert_overlap(Area("*\n"), Area(), false);
+}
+
+TEST(Area__Overlap__Basic)
+{
+	assert_overlap(Area("*\n"), Area("*\n"), true);
+}
+
+TEST(Area__Overlap__WithOffset)
+{
+	assert_overlap(
+		Area("*\n"),
+		Area(
+			"*\n"
+			".\n"
+		),
+		false);
+	
+	assert_overlap(
+		Area("*\n"),
+		Area(
+			".*\n"
+		),
+		false);
+	
+	assert_overlap(
+		Area(
+			"**\n"
+			"**\n"
+		),
+		Area(
+			"..**\n"
+			"..**\n"
+			"....\n"
+			"....\n"
+		),
+		false);
+}
+
+TEST(Area__Overlap)
+{
+	auto main = Area(
+		"...******..\n"
+		"...******..\n"
+		"...**..**..\n"
+		"...**..**..\n"
+		"...******..\n"
+		"...******..\n"
+		"...........\n"
+		"...........\n"
+	);
+	
+	assert_overlap(
+		main,
+		Area(
+			"..***..***.\n"
+			"..*......*.\n"
+			"...........\n"
+			"..*..**..*.\n"
+			"..*..**..*.\n"
+			"...........\n"
+			"..*......*.\n"
+			"..**...***.\n"
+			"...........\n"
+		),
+		false);
+	
+	assert_overlap(
+		main,
+		Area(
+			"...........\n"
+			"...........\n"
+			"...........\n"
+			"...........\n"
+			"...........\n"
+			"...*.......\n"
+			"...........\n"
+			"...........\n"
+		),
+		true);
+	
+	assert_overlap(
+		main,
+		Area(
+			"........*..\n"
+			"...........\n"
+			"...........\n"
+			"...........\n"
+			"...........\n"
+			"...........\n"
+			"...........\n"
+			"...........\n"
+		),
+		true);
+	
+	assert_overlap(
+		main,
+		Area(
+			"...........\n"
+			"...........\n"
+			"...........\n"
+			"...........\n"
+			"...........\n"
+			"........*..\n"
+			"...........\n"
+			"...........\n"
+		),
+		true);
+	
+	assert_overlap(
+		main,
+		Area(
+			"...*.......\n"
+			"...........\n"
+			"...........\n"
+			"...........\n"
+			"...........\n"
+			"...........\n"
+			"...........\n"
+			"...........\n"
+		),
+		true);
+}
+
+
+TEST(Area__Contains__Empty)
+{
+	assert_contains(Area(), Area());
+	assert_contains(Area(), Area("*\n"));
+}
+
+TEST(Area__Contains__Equal)
+{
+	assert_contains(Area("*\n"), Area("*\n"));
+}
+
+TEST(Area__Contains__WithOffset)
+{
+	assert_not_contains_both(Area(".*\n"), Area("*\n"));
+	
+	assert_not_contains_both(
+		Area(
+			"*\n"
+			".\n"
+		),
+		Area("*\n"));
+	
+	assert_not_contains_both(
+		Area(
+			"*\n"
+			".\n"
+		),
+		Area(".*\n"));
+	
+	assert_not_contains_both(
+		Area(
+			".*\n"
+			"..\n"
+		),
+		Area("*\n"));
+}
+
+TEST(Area__Contains__SimpleCase)
+{
+	assert_not_contains_both(
+		Area(
+			"...........\n"
+			"...........\n"
+			"...........\n"
+			"...........\n"
+			"...........\n"
+			"...........\n"
+			"...*.......\n"
+			"...*.......\n"
+		),
+		Area(
+			"...........\n"
+			"...******..\n"
+			"...******..\n"
+			"...******..\n"
+			"...******..\n"
+			"...******..\n"
+			"...******..\n"
+			"...........\n"
+		));
+	
+	assert_not_contains_both(
+		Area(
+			"...........\n"
+			"...........\n"
+			"...........\n"
+			"...........\n"
+			"...........\n"
+			"...........\n"
+			"..**.......\n"
+			"...........\n"
+		),
+		Area(
+			"...........\n"
+			"...******..\n"
+			"...******..\n"
+			"...******..\n"
+			"...******..\n"
+			"...******..\n"
+			"...******..\n"
+			"...........\n"
+		));
+	
+	assert_not_contains_both(
+		Area(
+			"........*..\n"
+			"........*..\n"
+			"...........\n"
+			"...........\n"
+			"...........\n"
+			"...........\n"
+			"...........\n"
+			"...........\n"
+		),
+		Area(
+			"...........\n"
+			"...******..\n"
+			"...******..\n"
+			"...******..\n"
+			"...******..\n"
+			"...******..\n"
+			"...******..\n"
+			"...........\n"
+		));
+	
+	assert_not_contains_both(
+		Area(
+			"...........\n"
+			"........**.\n"
+			"...........\n"
+			"...........\n"
+			"...........\n"
+			"...........\n"
+			"...........\n"
+			"...........\n"
+		),
+		Area(
+			"...........\n"
+			"...******..\n"
+			"...******..\n"
+			"...******..\n"
+			"...******..\n"
+			"...******..\n"
+			"...******..\n"
+			"...........\n"
+		));
+	
+	assert_contains(
+		Area(
+			"...........\n"
+			"........*..\n"
+			"...........\n"
+			"....*......\n"
+			"......*....\n"
+			"...........\n"
+			"....*......\n"
+			"...........\n"
+		),
+		Area(
+			"...........\n"
+			"...******..\n"
+			"...******..\n"
+			"...******..\n"
+			"...******..\n"
+			"...******..\n"
+			"...******..\n"
+			"...........\n"
+		));
+}
+
+TEST(Area__Contains__Inside)
+{
+	assert_not_contains_both(
+		Area(
+			"...........\n"
+			"...........\n"
+			"...........\n"
+			".....**....\n"
+			".....**....\n"
+			"...........\n"
+			"...........\n"
+			"...........\n"
+		),
+		Area(
+			"...........\n"
+			"...******..\n"
+			"...******..\n"
+			"...**..**..\n"
+			"...**..**..\n"
+			"...******..\n"
+			"...******..\n"
+			"...........\n"
+		));
+	
+	assert_not_contains_both(
+		Area(
+			"...........\n"
+			"...........\n"
+			".....**....\n"
+			"....****...\n"
+			"....****...\n"
+			".....**....\n"
+			"...........\n"
+			"...........\n"
+		),
+		Area(
+			"...........\n"
+			"...******..\n"
+			"...******..\n"
+			"...**..**..\n"
+			"...**..**..\n"
+			"...******..\n"
+			"...******..\n"
+			"...........\n"
+		));
+	
+	assert_contains(
+		Area(
+			"...........\n"
+			"...........\n"
+			".....**....\n"
+			"....*..*...\n"
+			"....*..*...\n"
+			".....**....\n"
+			"...........\n"
+			"...........\n"
+		),
+		Area(
+			"...........\n"
+			"...******..\n"
+			"...******..\n"
+			"...**..**..\n"
+			"...**..**..\n"
+			"...******..\n"
+			"...******..\n"
+			"...........\n"
+		));
+	
+	assert_contains(
+		Area(
+			"...........\n"
+			"...******..\n"
+			"...******..\n"
+			"...**..**..\n"
+			"...**..**..\n"
+			"...******..\n"
+			"...******..\n"
+			"...........\n"
+		),
+		Area(
+			"...........\n"
+			"...******..\n"
+			"...******..\n"
+			"...**..**..\n"
+			"...**..**..\n"
+			"...******..\n"
+			"...******..\n"
+			"...........\n"
+		));
 }
 
 

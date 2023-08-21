@@ -469,3 +469,55 @@ bool Area::operator[](v2i at)
 	
 	return m_vertical[at.x].Contains(at);
 }
+
+bool Area::operator&&(const Area &a) const
+{
+	auto myOffset = m_offset.x;
+	auto aOffset = a.m_offset.x; 
+	
+	v2i common = GetCommonRange(myOffset, m_vertical, aOffset, a.m_vertical);
+	
+	if (common.x > common.y)
+		return false;
+	
+	for (auto i = common.x; i <= common.y; i++)
+	{
+		auto my_index= i - myOffset;
+		auto a_index	= i - aOffset;
+		
+		auto& my_line = m_vertical[my_index];
+		auto& a_line = a.m_vertical[a_index];
+		
+		if (my_line && a_line)
+		{
+			return true;
+		}
+	}
+	
+	return false;
+}
+
+bool Area::operator>=(const Area &a) const
+{
+	if (a.IsEmpty()) return true;
+	else if (IsEmpty()) return false;
+	
+	if (a.Left() < Left() || a.Right() > Right() || 
+		a.Bottom() < Bottom() || a.Top() > Top())
+	{
+		return false;
+	}
+	
+	auto size = a.m_vertical.size();
+	auto offset = a.Left() - Left();
+	
+	for (int i = 0; i < size; i++)
+	{
+		if (!m_vertical[i + offset].Contains(a.m_vertical[i]))
+		{
+			return false;
+		}
+	}
+	
+	return true;
+}

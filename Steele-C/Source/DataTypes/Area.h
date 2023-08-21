@@ -98,6 +98,8 @@ namespace Steele
 			void operator>>=(int by);
 			void operator<<=(int by);
 			
+			bool operator&&(const AreaLine& yva) const;
+			
 		public:
 			Iterator begin() const; 
 			Iterator end() const;
@@ -246,6 +248,9 @@ namespace Steele
 		inline Area operator*(Direction dir) const { return (Area(*this) *= dir); }
 		
 		
+		bool operator&&(const Area& a) const;
+		
+		
 		inline Area operator+(const v2i& v) const { return (Area(*this) += v); }
 		inline Area operator-(const v2i& v) const { return (Area(*this) += v); }
 		
@@ -259,6 +264,11 @@ namespace Steele
 		inline Area& operator^=(const Area& a) { return *this = *this ^ a;}
 		
 		bool operator[](v2i at);
+		
+		inline bool operator< (const Area& a) const { return (*this <= a && this->GetArea() != a.GetArea()); }
+		inline bool operator> (const Area& a) const { return (*this >= a && this->GetArea() != a.GetArea()); }
+		inline bool operator<=(const Area& a) const { return a >= *this; }
+		bool operator>=(const Area& a) const;
 		
 	
 	public:

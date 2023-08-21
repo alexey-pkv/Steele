@@ -276,10 +276,10 @@ void Area::AreaLine::operator&=(const AreaLine &yva)
 	{
 		if (b_curr->x <= a_curr->y && a_curr->x <= b_curr->y)
 		{
-			result.push_back({ 
+			result.emplace_back( 
 				max(a_curr->x, b_curr->x),
 				min(a_curr->y, b_curr->y)
-			});
+			);
 		}
 		
 		if (a_curr->y < b_curr->y)
@@ -293,6 +293,33 @@ void Area::AreaLine::operator&=(const AreaLine &yva)
 	}
 	
 	m_line = result;
+}
+
+bool Area::AreaLine::operator&&(const Area::AreaLine &yva) const
+{
+	vector<v2i> result;
+	
+	auto a_curr = m_line.begin();
+	auto b_curr	= yva.m_line.begin();
+	
+	while (a_curr != m_line.end() && b_curr != yva.m_line.end())
+	{
+		if (b_curr->x <= a_curr->y && a_curr->x <= b_curr->y)
+		{
+			return true;
+		}
+		
+		if (a_curr->y < b_curr->y)
+		{
+			a_curr++;
+		}
+		else
+		{
+			b_curr++;
+		}
+	}
+	
+	return false;
 }
 
 void Area::AreaLine::operator>>=(int by)
