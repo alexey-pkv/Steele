@@ -2,7 +2,7 @@
 #define STEELE_WORLDMAP_H
 
 
-#include "Cell.h"
+#include "Components/Cell.h"
 #include "DataTypes/GenericMap.h"
 #include "DataTypes/TransformationStack.h"
 

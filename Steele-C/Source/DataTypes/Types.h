@@ -23,7 +23,7 @@ typedef godot::Vector3 	v3;
 #define v3i_zero	{ 0, 0, 0 }
 
 
-typedef std::uint16_t	t_id;
+typedef std::int32_t	t_id;
 #define NULL_ID 0
 
 

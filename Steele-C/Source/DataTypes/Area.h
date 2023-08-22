@@ -132,6 +132,7 @@ namespace Steele
 			void operator++();
 		};
 		
+		
 		struct outline_iterator
 		{
 		public:
@@ -155,8 +156,8 @@ namespace Steele
 			outline_iterator(outline_iterator&&) = default;
 			
 			outline_iterator(const vector <AreaLine>& source, int offset, int direction, int index, IterationStyle style);
-		
-		
+			
+			
 		public:
 			inline bool operator!=(const outline_iterator& to) const { return to.Index != Index; }
 			inline bool operator==(const outline_iterator& to) const { return to.Index == Index; }
@@ -270,9 +271,10 @@ namespace Steele
 		inline bool operator<=(const Area& a) const { return a >= *this; }
 		bool operator>=(const Area& a) const;
 		
-	
+		
 	public:
 		uint64_t GetArea() const;
+		
 		
 	public:
 		inline int Height() const	{ return (int)m_horizontal.size(); }
@@ -290,7 +292,16 @@ namespace Steele
 		inline void SetOffset(const v2i& v) { *this += (v - m_offset); }
 		inline void ResetOffset() { *this -= m_offset; }
 		
-	
+		inline Rect2i GetRect() const
+		{
+			return 
+			{ 
+				{ Left(), Bottom() }, 
+				{ (int)m_vertical.size(), (int)m_horizontal.size()} 
+			}; 
+		}
+		
+		
 	public:
 		string DebugInfo(char fill = '*', char empty = '.', bool withBoarder = true) const;
 		

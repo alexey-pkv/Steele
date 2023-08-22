@@ -1626,5 +1626,37 @@ TEST(Area__Contains__Inside)
 		));
 }
 
+TEST(Area__GetRect)
+{
+	ASSERT_IS(
+		Rect2i({0, 0}, {0, 0}),
+		(Area()).GetRect()
+	);
+	
+	ASSERT_IS(
+		Rect2i({0, 0}, {1, 1}),
+		(Area("*\n")).GetRect()
+	);
+	
+	ASSERT_IS(
+		Rect2i({1, 1}, {1, 1}),
+		(Area(".*\n..\n")).GetRect()
+	);
+	
+	ASSERT_IS(
+		Rect2i({4, 1}, {5, 6}),
+		(Area(
+			"...........\n"
+			"........*..\n"
+			"...........\n"
+			"....*......\n"
+			"......*....\n"
+			"...........\n"
+			"....*......\n"
+			"...........\n"
+		)).GetRect()
+	);
+}
+
 
 #pragma clang diagnostic pop

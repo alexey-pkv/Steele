@@ -2,7 +2,7 @@
 #define STEELE_CELL_H
 
 
-#include "Map/GroundTile.h"
+#include "Ground.h"
 
 #include <vector>
 
@@ -15,7 +15,6 @@ namespace Steele
 		std::vector<GroundTile>	Ground = {};
 		
 		bool	IsRoad = false;
-		v3i		RoadOffset = {};
 	
 	
 	public:
@@ -34,8 +33,6 @@ namespace Steele
 		
 		
 	public:
-		inline Cell operator*(Direction dir) { auto c = *this; c *= dir; return c; }
-		void operator*=(Direction dir);
 		
 		
 	public:

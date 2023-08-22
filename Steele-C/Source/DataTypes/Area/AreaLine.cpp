@@ -53,7 +53,7 @@ bool Area::AreaLine::Contains(const AreaLine &yva) const
 
 bool Area::AreaLine::Overlaps(const v2i& v) const
 {
-	for (auto n : m_line)
+	for (auto& n : m_line)
 	{
 		if (n.x > v.y)
 			return false;
@@ -66,7 +66,7 @@ bool Area::AreaLine::Overlaps(const v2i& v) const
 
 bool Area::AreaLine::Overlaps(const AreaLine &yva) const
 {
-	for (auto n : yva.m_line)
+	for (auto& n : yva.m_line)
 	{
 		if (Overlaps(n))
 		{
@@ -170,7 +170,7 @@ void Area::AreaLine::operator|=(const AreaLine &yva)
 		
 		if (curr.y < curr_compare.x - 1)
 		{
-			result.push_back(curr);
+			result.emplace_back(curr);
 			curr = curr_compare;
 		}
 		else
@@ -179,7 +179,7 @@ void Area::AreaLine::operator|=(const AreaLine &yva)
 		}
 	}
 	
-	result.push_back(curr);
+	result.emplace_back(curr);
 	
 	m_line = result;
 }

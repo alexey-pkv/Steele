@@ -28,8 +28,3 @@ bool Steele::Cell::RemoveGroundTile(const Steele::GroundTile &tile)
 	
 	return false;
 }
-
-void Steele::Cell::operator*=(Steele::Direction dir)
-{
-	RoadOffset = RoadOffset * dir;
-}

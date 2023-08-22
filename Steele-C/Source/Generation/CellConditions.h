@@ -2,7 +2,8 @@
 #define STEELE_CELLCONDITIONS_H
 
 
-#include "Map/Cell.h"
+#include "Map/Components/Cell.h"
+
 
 namespace Steele
 {

@@ -110,4 +110,18 @@ void reverse(std::vector<T>& target)
 	std::reverse(target.begin(), target.end());
 }
 
+template <typename T>
+void clear(std::vector<T>& a)
+{
+	std::vector<T> b;
+	a.swap(b);
+}
+
+template <template<class> class A, class T>
+inline size_t sizeof_template(A<T> c) { return sizeof(T); } 
+
+template <template<class, class> class A, class T, class N>
+inline size_t sizeof_template(A<T, N> c) { return sizeof(T) + sizeof(N); } 
+
+
 #endif
