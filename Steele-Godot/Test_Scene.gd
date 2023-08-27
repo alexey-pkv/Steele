@@ -38,8 +38,11 @@ func _ready():
 	
 
 func _input(event):
-	if event is InputEventKey and event.pressed:
-		_world_data.roate_clockwise()
+	if Input.is_action_pressed("ui_cancel"):
+		_show_main_menu()
+		
+	#if event is InputEventKey and event.pressed:
+	#	_world_data.roate_clockwise()
 		
 		
 func _notification(what):
@@ -47,3 +50,6 @@ func _notification(what):
 		print("focus in")
 	elif what == MainLoop.NOTIFICATION_APPLICATION_FOCUS_OUT:
 		print("focus out")
+
+func _show_main_menu():
+	get_tree().change_scene_to_file("res://Components/UI/MainMenu/MainMenu.tscn")
