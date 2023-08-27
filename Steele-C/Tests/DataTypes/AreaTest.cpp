@@ -105,22 +105,22 @@ void assert_overlap(const Area& a, const Area&b, bool expected)
 
 TEST(Area__GetArea__EmptyArea__AreaIsZero)
 {
-	ASSERT_IS(Area().GetArea(), 0);
-	ASSERT_IS(Area(Rect2i(0, 0, 0, 0)).GetArea(), 0);
+	ASSERT_IS(Area().get_area(), 0);
+	ASSERT_IS(Area(Rect2i(0, 0, 0, 0)).get_area(), 0);
 }
 
 TEST(Area__GetArea__NotEmpty__AreaCalculatedCorrectly)
 {
-	ASSERT_IS(Area(Rect2i(0, 0, 1, 1)).GetArea(), 1);
-	ASSERT_IS(Area(Rect2i(0, 0, 5, 1)).GetArea(), 5);
-	ASSERT_IS(Area(Rect2i(0, 0, 1, 5)).GetArea(), 5);
-	ASSERT_IS(Area(Rect2i(0, 0, 5, 5)).GetArea(), 25);
+	ASSERT_IS(Area(Rect2i(0, 0, 1, 1)).get_area(), 1);
+	ASSERT_IS(Area(Rect2i(0, 0, 5, 1)).get_area(), 5);
+	ASSERT_IS(Area(Rect2i(0, 0, 1, 5)).get_area(), 5);
+	ASSERT_IS(Area(Rect2i(0, 0, 5, 5)).get_area(), 25);
 	
-	ASSERT_IS(Area(Rect2i(0, 0, 5, 6)).GetArea(), 30);
-	ASSERT_IS(Area(Rect2i(0, 0, 7, 5)).GetArea(), 35);
+	ASSERT_IS(Area(Rect2i(0, 0, 5, 6)).get_area(), 30);
+	ASSERT_IS(Area(Rect2i(0, 0, 7, 5)).get_area(), 35);
 	
-	ASSERT_IS(Area(Rect2i(1, 2, 5, 6)).GetArea(), 30);
-	ASSERT_IS(Area(Rect2i(2, 1, 7, 5)).GetArea(), 35);
+	ASSERT_IS(Area(Rect2i(1, 2, 5, 6)).get_area(), 30);
+	ASSERT_IS(Area(Rect2i(2, 1, 7, 5)).get_area(), 35);
 }
 
 
@@ -160,7 +160,7 @@ TEST(Area__EQUAL__SIGN)
 	ASSERT		(a != d);
 	ASSERT_NOT	(a == d);
 	
-	a.SetOffset({ 0, 0});
+	a.set_offset({0, 0});
 	
 	a += v2i (3, 2);
 	b += v2i (3, 2);

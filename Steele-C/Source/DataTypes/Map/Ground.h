@@ -1,0 +1,67 @@
+#ifndef STEELE_GROUND_H
+#define STEELE_GROUND_H
+
+
+#include "Utils.h"
+#include "DataTypes/Types.h"
+#include "DataTypes/Direction.h"
+
+
+namespace Steele
+{
+	struct GroundTile
+	{
+	public:
+		t_id		ID;
+		Direction	Dir; 
+		uint8_t 	Index;
+	};
+	
+	
+	class Ground
+	{
+	private:
+		std::vector<GroundTile>	m_ground;
+		
+		
+	public:
+		~Ground() = default;
+		
+		Ground() = default;
+		Ground(const Ground&) = default;
+		Ground(Ground&&) = default;
+		
+		Ground& operator=(Ground&&) = default;
+		Ground& operator=(const Ground&) = default;
+		
+		
+	public:
+		void add(const GroundTile &gt);
+		inline void add(t_id id, Direction d, uint8_t index) { add({id, d, index}); }
+		
+		bool has(t_id id) const;
+		inline bool has(const GroundTile& gt) const { return has(gt.ID); }
+		
+		bool remove(t_id id);
+		inline bool remove(const GroundTile& gt) { return remove(gt.ID); }
+		
+		inline void clear() { ::clear(m_ground); }
+		inline size_t size() { return m_ground.size(); }
+		inline bool is_empty() { return m_ground.empty(); }
+		
+		
+	public:
+		inline std::vector<GroundTile>::const_iterator begin() const { return m_ground.cbegin(); }
+		inline std::vector<GroundTile>::const_iterator end() const { return m_ground.cend(); }
+		inline std::vector<GroundTile>::iterator begin() { return m_ground.begin(); }
+		inline std::vector<GroundTile>::iterator end() { return m_ground.end(); }
+		
+		inline std::vector<GroundTile>::const_reverse_iterator rbegin() const { return m_ground.crbegin(); }
+		inline std::vector<GroundTile>::const_reverse_iterator rend() const { return m_ground.crend(); }
+		inline std::vector<GroundTile>::reverse_iterator rbegin() { return m_ground.rbegin(); }
+		inline std::vector<GroundTile>::reverse_iterator rend() { return m_ground.rend(); }
+	};
+}
+
+
+#endif

@@ -7,7 +7,7 @@
 
 #include "Utils.h"
 #include "Types.h"
-#include "TransformationStack.h"
+#include "Map/TransformationStack.h"
 
 
 namespace Steele
@@ -136,7 +136,7 @@ namespace Steele
 				
 				if (stuckRes != m_stackMap.end())
 				{
-					if (stuckRes->second.IsEmpty)
+					if (stuckRes->second.is_empty)
 					{
 						return nullptr;
 					}
@@ -186,7 +186,7 @@ namespace Steele
 				}
 				else if (cell == nullptr)
 				{
-					curr->second.IsEmpty = true;
+					curr->second.is_empty = true;
 				}
 				else
 				{
@@ -213,7 +213,7 @@ namespace Steele
 				
 				if (res != m_stackMap.end())
 				{
-					return res->second.IsEmpty;
+					return res->second.is_empty;
 				}
 			}
 			
@@ -222,12 +222,12 @@ namespace Steele
 		
 		void PushTransformationStack(const Transformation& t) override
 		{
-			m_transformation.Push(t);
+			m_transformation.push(t);
 		}
 		
 		bool PopTransformationStack() override
 		{
-			return m_transformation.Pop();
+			return m_transformation.pop();
 		}
 		
 	public:
@@ -310,7 +310,7 @@ namespace Steele
 		{
 			for (auto& kvp : m_stackMap)
 			{
-				if (kvp.second.IsEmpty)
+				if (kvp.second.is_empty)
 				{
 					remove(m_map, kvp.first);
 				}

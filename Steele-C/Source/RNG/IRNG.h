@@ -44,6 +44,12 @@ namespace Steele::RNG
 			
 			return v[NextInt(0, v.size() - 1)];
 		}
+		template<typename K, typename V>
+		inline V& NextElement(const std::map<K, V>& map) 
+		{
+			int next = NextInt(0, map.size() - 1);
+			return (map.begin())->second;
+		}
 	};
 }
 

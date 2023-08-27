@@ -1,7 +1,7 @@
 #include "Transformation.h"
 
 
-godot::Vector3i Steele::Transformation::Apply(godot::Vector3i target)
+godot::Vector3i Steele::Transformation::apply(godot::Vector3i target) const
 {
 	target = target - Offset;
 	target = Dir.Rotate(target);

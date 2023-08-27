@@ -5,7 +5,10 @@
 #include "Utils.h"
 #include "DataTypes/Area/outline_scalar_iterator.h"
 #include "DataTypes/Area/AlignSettings.h"
-#include "Map/Components/Cell.h"
+#include "Exceptions/SteeleException.h"
+#include "Base/Map/TransformedMap.h"
+#include "Base/Map/SimpleMap.h"
+#include "Base/Map/StackedMap.h"
 
 #include <chrono>
 #include <set>
@@ -17,64 +20,12 @@ using namespace Steele;
 
 
 
-void print(const Area& data)
-{
-	set<v2i> set;
-	
-	for (auto n : data)
-	{
-		set.insert(n);
-	}
-	
-	cout << "---------" << endl;
-	
-	for (int y = data.Top(); y >= 0; y--)
-	{
-		for (int x = 0; x <= data.Right(); x++)
-		{
-			if (set.find(v2i(x, y)) != set.end())
-			{
-				cout << '*';
-			}
-			else
-			{
-				cout << " ";
-			}
-		}
-		
-		cout << endl;
-	}
-	
-	cout << "---------" << endl;
-}
-
-
-
-
 
 int main()
 {
-	std::vector<int> a;
+	SimpleMap<int> map1;
+	StackedMap<int> map(map1);
 	
-	
-	a.push_back(1);
-	cout << a.capacity() << endl;
-	a.push_back(2);
-	cout << a.capacity() << endl;
-	a.push_back(3);
-	cout << a.capacity() << endl;
-	a.push_back(4);
-	cout << a.capacity() << endl;
-	a.push_back(5);
-	
-	cout << a.capacity() << endl;
-	a.clear();
-	cout << a.capacity() << endl;
-	{
-		std::vector<int> b;
-		a.swap(b);
-	}
-	cout << a.capacity() << endl;
 	
 	return 0;
 }

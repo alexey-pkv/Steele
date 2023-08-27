@@ -2,20 +2,30 @@
 #define STEELE_WORLDMAP_H
 
 
-#include "Components/Cell.h"
-#include "DataTypes/GenericMap.h"
-#include "DataTypes/TransformationStack.h"
-
-#include <map>
+#include "Base/Map/IMap.h"
+#include "DataTypes/Map/Cell.h"
+#include "Generation/Map/ITransformable.h"
 
 
 namespace Steele
 {
-	class WorldMap : public GenericMap<Cell>
+	class WorldMap :
+		public IMap<Cell>,
+		public AbstractTransformable
 	{
 	public:
 		WorldMap() = default;
 		~WorldMap() = default;
+		
+	
+	protected:
+		Cell* _try_get(v3i at) override;
+		Cell* _get(v3i at) override;
+		bool _is_empty(v3i at) const override;
+		bool _remove(v3i at) override;
+	
+	public:
+		void clear() override;
 	};
 }
 

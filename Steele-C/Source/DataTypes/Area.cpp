@@ -75,16 +75,16 @@ Area::Area(const std::string& area_template)
 }
 
 
-void Area::Clear()
+void Area::clear()
 {
 	m_vertical.clear();
 	m_horizontal.clear();
 	m_offset = v2i_zero;
 }
 
-void Area::CleanUp()
+void Area::clean_up()
 {
-	m_offset.x += CleanUp(m_vertical);
+	m_offset.x += clean_up(m_vertical);
 	
 	if (m_vertical.empty())
 	{
@@ -93,11 +93,11 @@ void Area::CleanUp()
 	}
 	else
 	{
-		m_offset.y += CleanUp(m_horizontal);
+		m_offset.y += clean_up(m_horizontal);
 	}
 }
 
-void Area::OffsetAll(vector<AreaLine> &lines, int by)
+void Area::offset_all(vector<AreaLine> &lines, int by)
 {
 	if (by == 0) return;
 	
@@ -107,7 +107,7 @@ void Area::OffsetAll(vector<AreaLine> &lines, int by)
 	}
 }
 
-void Area::FlipLines(vector<AreaLine>& lines, int offset)
+void Area::flip_lines(vector<AreaLine>& lines, int offset)
 {
 	for (auto& n : lines)
 	{
@@ -117,18 +117,18 @@ void Area::FlipLines(vector<AreaLine>& lines, int offset)
 
 Area &Area::operator+=(const Vector2i &v)
 {
-	if (IsEmpty()) return *this;
+	if (is_empty()) return *this;
 	
 	m_offset += v;
 	
 	if (v.x != 0)
 	{
-		OffsetAll(m_horizontal, v.x);
+		offset_all(m_horizontal, v.x);
 	}
 	
 	if (v.y != 0)
 	{
-		OffsetAll(m_vertical, v.y);
+		offset_all(m_vertical, v.y);
 	}
 	
 	return *this;
@@ -140,38 +140,38 @@ Area& Area::operator*=(Direction dir)
 	
 	auto offset = m_offset;
 	
-	ResetOffset();
+	reset_offset();
 	
 	if (dir == Direction::East)
 	{
 		reverse(m_vertical);
-		FlipLines(m_horizontal, Width() - 1);
+		flip_lines(m_horizontal, width() - 1);
 		
 		m_vertical.swap(m_horizontal);
 	}
 	else if (dir == Direction::South)
 	{
 		reverse(m_vertical);
-		FlipLines(m_vertical, Height() - 1);
+		flip_lines(m_vertical, height() - 1);
 		
 		reverse(m_horizontal);
-		FlipLines(m_horizontal, Width() - 1);
+		flip_lines(m_horizontal, width() - 1);
 	}
 	else if (dir == Direction::West)
 	{
 		reverse(m_horizontal);
-		FlipLines(m_vertical, Height() - 1);
+		flip_lines(m_vertical, height() - 1);
 		
 		m_vertical.swap(m_horizontal);
 	}
 	
-	SetOffset(offset);
+	set_offset(offset);
 	
 	return *this;
 }
 
 
-int Area::MergeVectors_Begin(int oa, vector<Area::AreaLine>& a, int ob, const vector<Area::AreaLine>& b)
+int Area::merge_vectors_begin(int oa, vector<Area::AreaLine>& a, int ob, const vector<Area::AreaLine>& b)
 {
 	if (oa <= ob) return 0;
 	
@@ -192,12 +192,12 @@ int Area::MergeVectors_Begin(int oa, vector<Area::AreaLine>& a, int ob, const ve
 	return toCopy + toFill;
 }
 
-void Area::MergeVectors_Overlapping(int oa, int offset, vector<Area::AreaLine>& a, int ob, const vector<Area::AreaLine>& b)
+void Area::merge_vectors_overlapping(int oa, int offset, vector<Area::AreaLine>& a, int ob, const vector<Area::AreaLine>& b)
 {
 	int from	= max(oa, ob);
 	int to		= min(oa + (int)a.size() - 1, ob + (int)b.size() - 1);
 	
-	// Offset is the part that was copied at the beginning, there is no need to merge it as it's going to be identical.
+	// offset is the part that was copied at the beginning, there is no need to merge it as it's going to be identical.
 	from = from + offset;
 	
 	for (int i = from; i <= to; i++)
@@ -206,7 +206,7 @@ void Area::MergeVectors_Overlapping(int oa, int offset, vector<Area::AreaLine>& 
 	}
 }
 
-void Area::MergeVectors_End(int oa, vector<Area::AreaLine>& a, int ob, const vector<Area::AreaLine>& b)
+void Area::merge_vectors_end(int oa, vector<Area::AreaLine>& a, int ob, const vector<Area::AreaLine>& b)
 {
 	auto last_a = oa + (int)a.size() - 1;
 	auto last_b = ob + (int)b.size() - 1;
@@ -230,12 +230,12 @@ void Area::MergeVectors_End(int oa, vector<Area::AreaLine>& a, int ob, const vec
 }
 
 
-v2i Area::GetCommonRange(int oa, const vector<Area::AreaLine>& a, int ob, const vector<Area::AreaLine>& b)
+v2i Area::get_common_range(int oa, const vector<Area::AreaLine>& a, int ob, const vector<Area::AreaLine>& b)
 {
 	return v2i {max(oa, ob), min(oa + (int)a.size() - 1, ob + (int)b.size() - 1) };
 }
 
-int Area::CleanUp(vector<AreaLine> &a)
+int Area::clean_up(vector<AreaLine> &a)
 {
 	int index = 0;
 	int offset;
@@ -276,9 +276,9 @@ int Area::CleanUp(vector<AreaLine> &a)
 	return offset;
 }
 
-int Area::SubtractVectors(int oa, vector<Area::AreaLine>& a, int ob, const vector<Area::AreaLine>& b)
+int Area::subtract_vectors(int oa, vector<Area::AreaLine>& a, int ob, const vector<Area::AreaLine>& b)
 {
-	v2i common = GetCommonRange(oa, a, ob, b);
+	v2i common = get_common_range(oa, a, ob, b);
 	
 	if (common.x > common.y)
 		return -1;
@@ -288,12 +288,12 @@ int Area::SubtractVectors(int oa, vector<Area::AreaLine>& a, int ob, const vecto
 		a[i - oa] -= b[i - ob];
 	}
 	
-	return CleanUp(a);
+	return clean_up(a);
 }
 
-int Area::IntersectVectors(int oa, vector<Area::AreaLine>& a, int ob, const vector<Area::AreaLine>& b)
+int Area::intersect_vectors(int oa, vector<Area::AreaLine>& a, int ob, const vector<Area::AreaLine>& b)
 {
-	v2i common = GetCommonRange(oa, a, ob, b);
+	v2i common = get_common_range(oa, a, ob, b);
 	
 	if (common.x > common.y)
 		return -1;
@@ -334,16 +334,16 @@ int Area::IntersectVectors(int oa, vector<Area::AreaLine>& a, int ob, const vect
 	return removeBefore;
 }
 
-int Area::MergeVectors(int oa, vector<Area::AreaLine>& a, int ob, const vector<Area::AreaLine>& b)
+int Area::merge_vectors(int oa, vector<Area::AreaLine>& a, int ob, const vector<Area::AreaLine>& b)
 {
-	auto diff = MergeVectors_Begin(oa, a, ob, b);
-	MergeVectors_Overlapping(oa - diff, diff, a, ob, b);
-	MergeVectors_End(oa - diff, a, ob, b);
+	auto diff = merge_vectors_begin(oa, a, ob, b);
+	merge_vectors_overlapping(oa - diff, diff, a, ob, b);
+	merge_vectors_end(oa - diff, a, ob, b);
 	
 	return diff;
 }
 
-uint64_t Area::GetArea() const
+uint64_t Area::get_area() const
 {
 	uint64_t sum = 0;
 	
@@ -357,39 +357,39 @@ uint64_t Area::GetArea() const
 
 Area& Area::operator|=(const Area &a)
 {
-	if (a.IsEmpty()) return *this;
-	else if (IsEmpty()) { *this = a; return *this; }
+	if (a.is_empty()) return *this;
+	else if (is_empty()) { *this = a; return *this; }
 	
-	m_offset.x -= MergeVectors(m_offset.x, m_vertical, a.m_offset.x, a.m_vertical);
-	m_offset.y -= MergeVectors(m_offset.y, m_horizontal, a.m_offset.y, a.m_horizontal);
+	m_offset.x -= merge_vectors(m_offset.x, m_vertical, a.m_offset.x, a.m_vertical);
+	m_offset.y -= merge_vectors(m_offset.y, m_horizontal, a.m_offset.y, a.m_horizontal);
 	
 	return *this;
 }
 
 Area& Area::operator&=(const Area &a)
 {
-	if (a.IsEmpty()) { *this = a; return *this; }
-	else if (IsEmpty()) return *this;
+	if (a.is_empty()) { *this = a; return *this; }
+	else if (is_empty()) return *this;
 	
-	auto diff = IntersectVectors(m_offset.x, m_vertical, a.m_offset.x, a.m_vertical);
+	auto diff = intersect_vectors(m_offset.x, m_vertical, a.m_offset.x, a.m_vertical);
 	
 	if (diff == -1)
 	{
-		Clear();
+		clear();
 		return *this;
 	}
 	
 	m_offset.x += diff;
-	m_offset.y += IntersectVectors(m_offset.y, m_horizontal, a.m_offset.y, a.m_horizontal);
+	m_offset.y += intersect_vectors(m_offset.y, m_horizontal, a.m_offset.y, a.m_horizontal);
 	
 	return *this;
 }
 
 Area& Area::operator-=(const Area &a)
 {
-	if (IsEmpty() || a.IsEmpty()) return *this;
+	if (is_empty() || a.is_empty()) return *this;
 	
-	int offset = SubtractVectors(m_offset.x, m_vertical, a.m_offset.x, a.m_vertical);
+	int offset = subtract_vectors(m_offset.x, m_vertical, a.m_offset.x, a.m_vertical);
 	
 	if (offset == -1)
 	{
@@ -397,18 +397,18 @@ Area& Area::operator-=(const Area &a)
 	}
 	else if (m_vertical.empty())
 	{
-		Clear();
+		clear();
 		return *this;
 	}
 	
 	m_offset.x += offset;
-	m_offset.y += SubtractVectors(m_offset.y, m_horizontal, a.m_offset.y, a.m_horizontal);
+	m_offset.y += subtract_vectors(m_offset.y, m_horizontal, a.m_offset.y, a.m_horizontal);
 	
 	return *this;
 }
 
 
-string Area::DebugInfo(char fill, char empty, bool withBoarder) const
+string Area::debug_info(char fill, char empty, bool withBoarder) const
 {
 	set<v2i> set;
 	stringstream ss;
@@ -420,17 +420,17 @@ string Area::DebugInfo(char fill, char empty, bool withBoarder) const
 	
 	if (withBoarder)
 	{
-		ss << "+" << string(Right() + 1, '-') << '+' << endl;
+		ss << "+" << string(right() + 1, '-') << '+' << endl;
 	}
 	
-	for (int y = Top(); y >= 0; y--)
+	for (int y = top(); y >= 0; y--)
 	{
 		if (withBoarder)
 		{
 			ss << "|";
 		}
 		
-		for (int x = 0; x <= Right(); x++)
+		for (int x = 0; x <= right(); x++)
 		{
 			if (set.find(v2i(x, y)) != set.end())
 			{
@@ -452,7 +452,7 @@ string Area::DebugInfo(char fill, char empty, bool withBoarder) const
 	
 	if (withBoarder)
 	{
-		ss << "+" << string(Right() + 1, '-') << '+';
+		ss << "+" << string(right() + 1, '-') << '+';
 	}
 	
 	return ss.str();
@@ -475,7 +475,7 @@ bool Area::operator&&(const Area &a) const
 	auto myOffset = m_offset.x;
 	auto aOffset = a.m_offset.x; 
 	
-	v2i common = GetCommonRange(myOffset, m_vertical, aOffset, a.m_vertical);
+	v2i common = get_common_range(myOffset, m_vertical, aOffset, a.m_vertical);
 	
 	if (common.x > common.y)
 		return false;
@@ -499,17 +499,17 @@ bool Area::operator&&(const Area &a) const
 
 bool Area::operator>=(const Area &a) const
 {
-	if (a.IsEmpty()) return true;
-	else if (IsEmpty()) return false;
+	if (a.is_empty()) return true;
+	else if (is_empty()) return false;
 	
-	if (a.Left() < Left() || a.Right() > Right() || 
-		a.Bottom() < Bottom() || a.Top() > Top())
+	if (a.left() < left() || a.right() > right() ||
+			a.bottom() < bottom() || a.top() > top())
 	{
 		return false;
 	}
 	
 	auto size = a.m_vertical.size();
-	auto offset = a.Left() - Left();
+	auto offset = a.left() - left();
 	
 	for (int i = 0; i < size; i++)
 	{

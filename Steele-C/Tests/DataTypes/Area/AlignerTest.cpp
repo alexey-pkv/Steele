@@ -30,8 +30,8 @@ void assert_alignment(Area& source, const Area& target, align_func f, const stri
 	if (at != aexp)
 	{
 		cout << endl;
-		cout << "Expected xor result to be: " << endl << aexp.DebugInfo() << endl;
-		cout << "Got result: " << endl << at.DebugInfo() << endl;
+		cout << "Expected xor result to be: " << endl << aexp.debug_info() << endl;
+		cout << "Got result: " << endl << at.debug_info() << endl;
 		ASSERT(false);
 	}
 }

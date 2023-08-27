@@ -73,13 +73,13 @@ namespace Steele
 		
 		public:
 			inline AreaLine operator|(int with) const				{ auto v = AreaLine(*this); v |= with; return v; }
-			inline AreaLine operator|(const v2i& with) const	{ auto v = AreaLine(*this); v |= with; return v; }
+			inline AreaLine operator|(const v2i& with) const		{ auto v = AreaLine(*this); v |= with; return v; }
 			inline AreaLine operator|(const AreaLine& yva) const	{ auto v = AreaLine(*this); v |= yva; return v; }
 			inline AreaLine operator-(int with) const				{ auto v = AreaLine(*this); v -= with; return v; }
-			inline AreaLine operator-(const v2i& with) const	{ auto v = AreaLine(*this); v -= with; return v; }
+			inline AreaLine operator-(const v2i& with) const		{ auto v = AreaLine(*this); v -= with; return v; }
 			inline AreaLine operator-(const AreaLine& yva) const	{ auto v = AreaLine(*this); v -= yva; return v; }
 			inline AreaLine operator&(int with) const				{ auto v = AreaLine(*this); v &= with; return v; }
-			inline AreaLine operator&(const v2i& with) const	{ auto v = AreaLine(*this); v &= with; return v; }
+			inline AreaLine operator&(const v2i& with) const		{ auto v = AreaLine(*this); v &= with; return v; }
 			inline AreaLine operator&(const AreaLine& yva) const	{ auto v = AreaLine(*this); v &= yva; return v; }
 			inline AreaLine operator>>(int by) const				{ auto v = AreaLine(*this); v >>= by; return v; }
 			inline AreaLine operator<<(int by) const				{ auto v = AreaLine(*this); v <<= by; return v; }
@@ -201,25 +201,25 @@ namespace Steele
 		
 		
 	private:
-		void Clear();
-		void CleanUp();
+		void clear();
+		void clean_up();
 		
 		
 	private:
-		static void OffsetAll(vector<AreaLine>& lines, int by);
-		static void FlipLines(vector<AreaLine>& lines, int offset);
+		static void offset_all(vector<AreaLine>& lines, int by);
+		static void flip_lines(vector<AreaLine>& lines, int offset);
 		
-		static int MergeVectors_Begin(int oa, vector<Area::AreaLine>& a, int ob, const vector<Area::AreaLine>& b);
-		static void MergeVectors_Overlapping(int oa, int offset, vector<Area::AreaLine>& a, int ob, const vector<Area::AreaLine>& b);
-		static void MergeVectors_End(int oa, vector<Area::AreaLine>& a, int ob, const vector<Area::AreaLine>& b);
+		static int merge_vectors_begin(int oa, vector<Area::AreaLine>& a, int ob, const vector<Area::AreaLine>& b);
+		static void merge_vectors_overlapping(int oa, int offset, vector<Area::AreaLine>& a, int ob, const vector<Area::AreaLine>& b);
+		static void merge_vectors_end(int oa, vector<Area::AreaLine>& a, int ob, const vector<Area::AreaLine>& b);
 		
-		static int SubtractVectors(int oa, vector<Area::AreaLine>& a, int ob, const vector<Area::AreaLine>& b);
-		static int IntersectVectors(int oa, vector<Area::AreaLine>& a, int ob, const vector<Area::AreaLine>& b);
-		static int MergeVectors(int oa, vector<Area::AreaLine>& a, int ob, const vector<Area::AreaLine>& b);
+		static int subtract_vectors(int oa, vector<Area::AreaLine>& a, int ob, const vector<Area::AreaLine>& b);
+		static int intersect_vectors(int oa, vector<Area::AreaLine>& a, int ob, const vector<Area::AreaLine>& b);
+		static int merge_vectors(int oa, vector<Area::AreaLine>& a, int ob, const vector<Area::AreaLine>& b);
 		
-		static v2i GetCommonRange(int oa, const vector<Area::AreaLine>& a, int ob, const vector<Area::AreaLine>& b);
+		static v2i get_common_range(int oa, const vector<Area::AreaLine>& a, int ob, const vector<Area::AreaLine>& b);
 		
-		static int CleanUp(vector<Area::AreaLine>& a);
+		static int clean_up(vector<Area::AreaLine> &a);
 		
 		
 	public:
@@ -266,44 +266,45 @@ namespace Steele
 		
 		bool operator[](v2i at);
 		
-		inline bool operator< (const Area& a) const { return (*this <= a && this->GetArea() != a.GetArea()); }
-		inline bool operator> (const Area& a) const { return (*this >= a && this->GetArea() != a.GetArea()); }
+		inline bool operator< (const Area& a) const { return (*this <= a && this->get_area() != a.get_area()); }
+		inline bool operator> (const Area& a) const { return (*this >= a && this->get_area() != a.get_area()); }
 		inline bool operator<=(const Area& a) const { return a >= *this; }
 		bool operator>=(const Area& a) const;
 		
 		
 	public:
-		uint64_t GetArea() const;
+		uint64_t get_area() const;
 		
 		
 	public:
-		inline int Height() const	{ return (int)m_horizontal.size(); }
-		inline int Width() const	{ return (int)m_vertical.size(); }
-		inline int Top() const		{ return m_offset.y + (int)m_horizontal.size() - 1; }
-		inline int Bottom() const	{ return m_offset.y; }
-		inline int Right() const	{ return m_offset.x + (int)m_vertical.size() - 1; }
-		inline int Left() const		{ return m_offset.x; }
+		inline int height() const	{ return (int)m_horizontal.size(); }
+		inline int width() const	{ return (int)m_vertical.size(); }
+		inline int top() const		{ return m_offset.y + (int)m_horizontal.size() - 1; }
+		inline int bottom() const	{ return m_offset.y; }
+		inline int right() const	{ return m_offset.x + (int)m_vertical.size() - 1; }
+		inline int left() const		{ return m_offset.x; }
 		
-		inline int X() const { return m_offset.x; }
-		inline int Y() const { return m_offset.y; }
-		inline v2i Offset() const	{ return m_offset; }
-		inline bool IsEmpty() const { return m_vertical.empty(); }
+		inline int x() const { return m_offset.x; }
+		inline int y() const { return m_offset.y; }
+		inline v2i offset() const	{ return m_offset; }
+		inline bool is_empty() const { return m_vertical.empty(); }
 		
-		inline void SetOffset(const v2i& v) { *this += (v - m_offset); }
-		inline void ResetOffset() { *this -= m_offset; }
+		inline void set_offset(int x, int y) { set_offset({x, y}); }
+		inline void set_offset(v2i v) { *this += (v - m_offset); }
+		inline void reset_offset() { *this -= m_offset; }
 		
 		inline Rect2i GetRect() const
 		{
 			return 
 			{ 
-				{ Left(), Bottom() }, 
-				{ (int)m_vertical.size(), (int)m_horizontal.size()} 
+				{left(),                 bottom() }, 
+				{(int)m_vertical.size(), (int)m_horizontal.size()} 
 			}; 
 		}
 		
 		
 	public:
-		string DebugInfo(char fill = '*', char empty = '.', bool withBoarder = true) const;
+		string debug_info(char fill = '*', char empty = '.', bool withBoarder = true) const;
 		
 		
 	public:
@@ -319,6 +320,45 @@ namespace Steele
 		inline outline_iterator_provider iterate_r_bottom() const	{ return { m_vertical, m_offset.x, outline_iterator::IterationStyle::BOTTOM, true }; }
 		inline outline_iterator_provider iterate_r_left() const	{ return { m_horizontal, m_offset.y, outline_iterator::IterationStyle::LEFT, true }; }
 		inline outline_iterator_provider iterate_r_right() const	{ return { m_horizontal, m_offset.y, outline_iterator::IterationStyle::RIGHT, true }; }
+	};
+}
+
+namespace std
+{
+	template<>
+	struct hash<v2i>
+	{
+		std::size_t operator()(const v2i& v) const
+		{
+			return hash<int>()(v.x) ^ hash<int>()(v.y << 1);
+		}
+	};
+	
+	template<>
+	struct hash<Rect2i>
+	{
+		std::size_t operator()(const Rect2i& r) const
+		{
+			return hash<v2i>()(r.position) ^ hash<v2i>()(r.size);
+		}
+	};
+	
+	template<>
+	struct hash<Steele::Area>
+	{
+		std::size_t operator()(const Steele::Area& area) const
+		{
+			size_t val = std::hash<Rect2i>()(area.GetRect());
+			
+			val ^= hash<uint64_t>()(area.get_area());
+			
+			for (const auto& a : area)
+			{
+				val ^= hash<v2i>()(a);
+			}
+			
+			return val;
+		}
 	};
 }
 

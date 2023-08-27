@@ -105,7 +105,7 @@ bool Aligner::AdjacentLeftTop(Alignment &result)
 			
 			.Positioning		= Align::AlignSettings::Touch,
 			.AlignmentDirection = Direction::West,
-			.AlignmentVector	= { 0, m_source.Top() - m_target.Top() },
+			.AlignmentVector	= { 0, m_source.top() - m_target.top() },
 			
 			.AllowGap			= m_allowGap
 		},
@@ -125,7 +125,7 @@ bool Aligner::AdjacentLeftBottom(Alignment &result)
 			
 			.Positioning		= Align::AlignSettings::Touch,
 			.AlignmentDirection = Direction::West,
-			.AlignmentVector	= { 0, m_source.Bottom() - m_target.Bottom() },
+			.AlignmentVector	= { 0, m_source.bottom() - m_target.bottom() },
 			
 			.AllowGap			= m_allowGap
 		},
@@ -145,7 +145,7 @@ bool Aligner::AdjacentRightTop(Alignment &result)
 			
 			.Positioning		= Align::AlignSettings::Touch,
 			.AlignmentDirection = Direction::East,
-			.AlignmentVector	= { 0, m_source.Top() - m_target.Top() },
+			.AlignmentVector	= { 0, m_source.top() - m_target.top() },
 			
 			.AllowGap			= m_allowGap
 		},
@@ -165,7 +165,7 @@ bool Aligner::AdjacentRightBottom(Alignment &result)
 			
 			.Positioning		= Align::AlignSettings::Touch,
 			.AlignmentDirection = Direction::East,
-			.AlignmentVector	= { 0, m_source.Bottom() - m_target.Bottom() },
+			.AlignmentVector	= { 0, m_source.bottom() - m_target.bottom() },
 			
 			.AllowGap			= m_allowGap
 		},
@@ -185,7 +185,7 @@ bool Aligner::AdjacentTopLeft(Alignment &result)
 			
 			.Positioning		= Align::AlignSettings::Touch,
 			.AlignmentDirection = Direction::North,
-			.AlignmentVector	= { m_source.Left() - m_target.Left(), 0 },
+			.AlignmentVector	= {m_source.left() - m_target.left(), 0 },
 			
 			.AllowGap			= m_allowGap
 		},
@@ -205,7 +205,7 @@ bool Aligner::AdjacentTopRight(Alignment &result)
 			
 			.Positioning		= Align::AlignSettings::Touch,
 			.AlignmentDirection = Direction::North,
-			.AlignmentVector	= { m_source.Right() - m_target.Right(), 0 },
+			.AlignmentVector	= {m_source.right() - m_target.right(), 0 },
 			
 			.AllowGap			= m_allowGap
 		},
@@ -225,7 +225,7 @@ bool Aligner::AdjacentBottomLeft(Alignment &result)
 			
 			.Positioning		= Align::AlignSettings::Touch,
 			.AlignmentDirection = Direction::South,
-			.AlignmentVector	= { m_source.Left() - m_target.Left(), 0 },
+			.AlignmentVector	= {m_source.left() - m_target.left(), 0 },
 			
 			.AllowGap			= m_allowGap
 		},
@@ -246,7 +246,7 @@ bool Aligner::AdjacentBottomRight(Alignment &result)
 			
 			.Positioning		= Align::AlignSettings::Touch,
 			.AlignmentDirection = Direction::South,
-			.AlignmentVector	= { m_source.Right() - m_target.Right(), 0 },
+			.AlignmentVector	= {m_source.right() - m_target.right(), 0 },
 			
 			.AllowGap			= m_allowGap
 		},
@@ -266,7 +266,7 @@ bool Aligner::InsideLeftTop(Alignment &result)
 			
 			.Positioning		= Align::AlignSettings::Overlap,
 			.AlignmentDirection = Direction::East,
-			.AlignmentVector	= { 0, m_source.Top() - m_target.Top() },
+			.AlignmentVector	= { 0, m_source.top() - m_target.top() },
 			
 			.AllowGap			= m_allowGap
 		},
@@ -286,7 +286,7 @@ bool Aligner::InsideLeftBottom(Alignment &result)
 			
 			.Positioning		= Align::AlignSettings::Overlap,
 			.AlignmentDirection = Direction::East,
-			.AlignmentVector	= { 0, m_source.Bottom() - m_target.Bottom() },
+			.AlignmentVector	= { 0, m_source.bottom() - m_target.bottom() },
 			
 			.AllowGap			= m_allowGap
 		},
@@ -306,7 +306,7 @@ bool Aligner::InsideRightTop(Alignment &result)
 			
 			.Positioning		= Align::AlignSettings::Overlap,
 			.AlignmentDirection = Direction::West,
-			.AlignmentVector	= { 0, m_source.Top() - m_target.Top() },
+			.AlignmentVector	= { 0, m_source.top() - m_target.top() },
 			
 			.AllowGap			= m_allowGap
 		},
@@ -326,7 +326,7 @@ bool Aligner::InsideRightBottom(Alignment &result)
 			
 			.Positioning		= Align::AlignSettings::Overlap,
 			.AlignmentDirection = Direction::West,
-			.AlignmentVector	= { 0, m_source.Bottom() - m_target.Bottom() },
+			.AlignmentVector	= { 0, m_source.bottom() - m_target.bottom() },
 			
 			.AllowGap			= m_allowGap
 		},
@@ -346,7 +346,7 @@ bool Aligner::InsideTopLeft(Alignment &result)
 			
 			.Positioning		= Align::AlignSettings::Overlap,
 			.AlignmentDirection = Direction::South,
-			.AlignmentVector	= { m_source.Left() - m_target.Left(), 0 },
+			.AlignmentVector	= {m_source.left() - m_target.left(), 0 },
 			
 			.AllowGap			= m_allowGap
 		},
@@ -366,7 +366,7 @@ bool Aligner::InsideTopRight(Alignment &result)
 			
 			.Positioning		= Align::AlignSettings::Overlap,
 			.AlignmentDirection = Direction::South,
-			.AlignmentVector	= { m_source.Right() - m_target.Right(), 0 },
+			.AlignmentVector	= {m_source.right() - m_target.right(), 0 },
 			
 			.AllowGap			= m_allowGap
 		},
@@ -386,7 +386,7 @@ bool Aligner::InsideBottomLeft(Alignment &result)
 			
 			.Positioning		= Align::AlignSettings::Overlap,
 			.AlignmentDirection = Direction::North,
-			.AlignmentVector	= { m_source.Left() - m_target.Left(), 0 },
+			.AlignmentVector	= {m_source.left() - m_target.left(), 0 },
 			
 			.AllowGap			= m_allowGap
 		},
@@ -406,7 +406,7 @@ bool Aligner::InsideBottomRight(Alignment &result)
 			
 			.Positioning		= Align::AlignSettings::Overlap,
 			.AlignmentDirection = Direction::North,
-			.AlignmentVector	= { m_source.Right() - m_target.Right(), 0 },
+			.AlignmentVector	= {m_source.right() - m_target.right(), 0 },
 			
 			.AllowGap			= m_allowGap
 		},

@@ -2,8 +2,10 @@
 #define STEELE_TRANSFORMATION_H
 
 
-#include "../DataTypes/Direction.h"
+
 #include "godot_cpp/variant/vector3i.hpp"
+#include "DataTypes/Direction.h"
+
 
 namespace Steele
 {
@@ -15,8 +17,8 @@ namespace Steele
 	
 		
 	public:
-		inline void Add(Direction dir, godot::Vector3i offset) { Dir += dir; Offset += offset; }
-		inline void Sub(Direction dir, godot::Vector3i offset) { Dir -= dir; Offset -= offset; }
+		inline void add(Direction dir, godot::Vector3i offset) { Dir += dir; Offset += offset; }
+		inline void sub(Direction dir, godot::Vector3i offset) { Dir -= dir; Offset -= offset; }
 		
 		inline void operator+=(const Transformation& t) { Dir += t.Dir; Offset += t.Offset; }
 		inline void operator-=(const Transformation& t) { Dir -= t.Dir; Offset -= t.Offset; }
@@ -39,7 +41,7 @@ namespace Steele
 		
 		
 	public:
-		godot::Vector3i Apply(godot::Vector3i target);
+		godot::Vector3i apply(godot::Vector3i target) const;
 	};
 	
 	
