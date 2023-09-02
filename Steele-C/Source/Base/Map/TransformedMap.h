@@ -28,20 +28,29 @@ namespace Steele
 		
 		CELL* _get(v3i at) override
 		{
-			return this->next()._get(m_transformation.apply(at));
+			return this->next().get(m_transformation.apply(at));
 		}
 		
 		bool _is_empty(v3i at) const override
 		{
-			return this->next()._is_empty(m_transformation.apply(at));
+			return this->next().is_empty(m_transformation.apply(at));
 		}
 		
 		bool _remove(v3i at) override
 		{
-			return this->next()._is_empty(m_transformation.apply(at));
+			return this->next().remove(m_transformation.apply(at));
+		}
+		
+		void _set(const CELL& c, v3i at) override
+		{
+			this->next().set(c, m_transformation.apply(at));
+		}
+		
+		void _set(CELL&& c, v3i at) override
+		{
+			this->next().set(std::move(c), m_transformation.apply(at));
 		}
 	
-		
 	public:
 		void clear() override
 		{

@@ -9,6 +9,8 @@
 #include "Base/Map/TransformedMap.h"
 #include "Base/Map/SimpleMap.h"
 #include "Base/Map/StackedMap.h"
+#include "DataTypes/Map/Cell.h"
+#include "Generation/Map/TransformationStack.h"
 
 #include <chrono>
 #include <set>
@@ -19,13 +21,31 @@ using namespace std;
 using namespace Steele;
 
 
+class GenMap
+{
+private:
+	SimpleMap<Cell> m_map = {};
+	TransformedMap<Cell> m_transformed;
+	StackedMap<Cell> m_stacked;
+	TransformationStack m_transformations;
+	
+public:
+	GenMap() :
+		m_transformed(m_map),
+		m_stacked(m_transformed)
+	{
+		
+	}
+};
 
 
 int main()
 {
-	SimpleMap<int> map1;
-	StackedMap<int> map(map1);
+	map<int, int> m;
 	
+	m.emplace(1 , 1);
+	
+	m.try_emplace(1, 2);
 	
 	return 0;
 }

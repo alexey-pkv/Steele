@@ -20,12 +20,12 @@ namespace Steele
 	protected:
 		void _set(const CELL &c, v3i at) override
 		{
-			m_map.emplace(at, c);
+			m_map[at] = c;
 		}
 		
 		void _set(CELL &&c, v3i at) override
 		{
-			m_map.emplace(at, std::move(c));
+			m_map[at] = std::move(c);
 		}
 		
 		

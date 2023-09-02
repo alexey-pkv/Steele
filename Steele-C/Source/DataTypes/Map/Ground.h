@@ -60,6 +60,10 @@ namespace Steele
 		inline std::vector<GroundTile>::const_reverse_iterator rend() const { return m_ground.crend(); }
 		inline std::vector<GroundTile>::reverse_iterator rbegin() { return m_ground.rbegin(); }
 		inline std::vector<GroundTile>::reverse_iterator rend() { return m_ground.rend(); }
+		
+		
+	public:
+		inline GroundTile& operator[](int index) { return m_ground[index]; }
 	};
 }
 

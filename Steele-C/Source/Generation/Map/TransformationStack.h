@@ -30,6 +30,7 @@ namespace Steele
 		inline size_t size() const { return m_stack.size(); }
 		inline Transformation top() const { return m_stack.empty() ? Transformation() : m_stack.top(); }
 		inline const Transformation& current() const { return m_current; }
+		inline bool is_transformed() const { return !m_stack.empty(); }
 	};
 	
 	
