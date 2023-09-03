@@ -71,7 +71,7 @@ namespace Steele
 		
 		bool _is_empty(v3i at) const override
 		{
-			return contains(m_map, at);
+			return !contains(m_map, at);
 		}
 		
 		bool _remove(v3i at) override

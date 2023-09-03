@@ -26,6 +26,9 @@ namespace Steele
 		Cell& operator=(const Cell& cell) = default;
 		Cell& operator=(Cell&&) = default;
 		
+		explicit Cell(const GroundTile &gt);
+		explicit Cell(t_id id, Direction d, uint8_t index);
+		
 	
 	public:
 		inline void add_ground_tile(const GroundTile& tile) { Ground.add(tile); }

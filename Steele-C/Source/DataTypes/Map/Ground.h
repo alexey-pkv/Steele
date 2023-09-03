@@ -63,7 +63,7 @@ namespace Steele
 		
 		
 	public:
-		inline GroundTile& operator[](int index) { return m_ground[index]; }
+		inline GroundTile* operator[](int index) { return index < 0 || index >= m_ground.size() ? nullptr : &m_ground[index]; }
 	};
 }
 

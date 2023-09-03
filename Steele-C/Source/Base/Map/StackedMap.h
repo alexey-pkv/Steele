@@ -155,7 +155,14 @@ namespace Steele
 					auto at = kvp.first;
 					CELL* cell = kvp.second;
 					
-					map.set(std::move(*cell), at);
+					if (cell == nullptr)
+					{
+						map.remove(at);
+					}
+					else
+					{
+						map.set(std::move(*cell), at);
+					}
 				}
 				
 				m_stack.clear();
@@ -168,8 +175,11 @@ namespace Steele
 				for (auto kvp = m_top->begin(); kvp != m_top->end(); kvp++)
 				{
 					auto at = kvp->first;
+					bool isEmpty = kvp->second.IsEmpty;
 					
 					prev.set(std::move(kvp->second), at);
+					
+					m_total.set(isEmpty ? nullptr : &(prev.get(at)->Cell), at);
 				}
 				
 				pop_stack();
@@ -268,6 +278,10 @@ namespace Steele
 				
 				set_top_cell(primary, at);
 			}
+			else if (*previous == nullptr)
+			{
+				return nullptr;
+			}
 			else
 			{
 				set_top_cell(*previous, at);
@@ -316,7 +330,20 @@ namespace Steele
 				
 				if (cell == nullptr)
 				{
-					set_top_cell(get_map().get(at), at);
+					auto primary = get_map().try_get(at);
+					
+					if (primary)
+					{
+						set_top_cell(primary, at);
+					}
+					else
+					{
+						set_top_cell(StackedCell(CELL {}), at);
+					}
+				}
+				else if (*cell == nullptr)
+				{
+					set_top_cell(StackedCell(CELL {}), at);
 				}
 				else
 				{
