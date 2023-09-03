@@ -10,15 +10,13 @@
 #include "Base/Map/TransformedMap.h"
 
 #include "DataTypes/Map/Cell.h"
+#include "Base/Generation/IGenerationMap.h"
 
 
 namespace Steele
 {
 	template<typename CELL>
-	class AbstractGenerationMap :
-		public IMap<CELL>,
-		public IStackableMap,
-		public ITransformable
+	class AbstractGenerationMap : public IGenerationMap<CELL>
 	{
 	private:
 		SimpleMap<CELL>			m_map = {};

@@ -11,6 +11,7 @@
 #include "Base/Map/StackedMap.h"
 #include "DataTypes/Map/Cell.h"
 #include "Generation/Map/TransformationStack.h"
+#include "RNG/XoroshiroRNG.h"
 
 #include <chrono>
 #include <set>
@@ -41,11 +42,13 @@ public:
 
 int main()
 {
-	map<int, int> m;
 	
-	m.emplace(1 , 1);
+	cout << typeid(NotImplementedException).name() <<endl;
+	Steele::RNG::XoroshiroRNG rng("hello");
 	
-	m.try_emplace(1, 2);
+	rng.SetState({1, 2});
+	
+	cout << rng.Next<char>(1, 2) << endl;
 	
 	return 0;
 }

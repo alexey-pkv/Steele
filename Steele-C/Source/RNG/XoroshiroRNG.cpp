@@ -37,18 +37,6 @@ std::string Steele::RNG::XoroshiroRNG::Seed() const
 	return m_seed;
 }
 
-
-sptr<void *> Steele::RNG::XoroshiroRNG::GetState() const
-{
-	return sptr<void *>();
-}
-
-void Steele::RNG::XoroshiroRNG::SetState(sptr<void *> state)
-{
-	
-}
-
-
 bool Steele::RNG::XoroshiroRNG::NextBool()
 {
 	return NextUInt64() & 1;
@@ -122,6 +110,14 @@ double Steele::RNG::XoroshiroRNG::NextDouble(double min, double max)
 uint64_t* Steele::RNG::XoroshiroRNG::CurrentState()
 {
 	return m_state;
+}
+
+void Steele::RNG::XoroshiroRNG::SetState(const std::initializer_list<uint64_t>& state)
+{
+	m_state[0] = *state.begin();
+	m_state[1] = *(state.begin() + 1);
+	
+	Init(m_config, m_state);
 }
 
 void Steele::RNG::XoroshiroRNG::SetState(const uint64_t* state)

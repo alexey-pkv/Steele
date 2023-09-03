@@ -5,17 +5,20 @@
 #include "Generation/Map/ITransformable.h"
 #include "Base/Map/IStackableMap.h"
 #include "DataTypes/Map/Cell.h"
-
+#include "Base/Map/IMap.h"
 
 namespace Steele
 {
+	template<typename CELL>
 	class IGenerationMap :
+		public IMap<CELL>,
 		public ITransformable,
 		public IStackableMap
 	{
-	public:
-		virtual IMap<Cell>& map() = 0;
 	};
+	
+	
+	typedef IGenerationMap<Cell> IGenerationWorldMap;
 }
 
 

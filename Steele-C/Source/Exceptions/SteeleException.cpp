@@ -23,3 +23,9 @@ const char* Steele::SteeleException::what() const noexcept
 {
 	return m_msg.c_str();
 }
+
+
+Steele::NotImplementedException::NotImplementedException(const char* f) : SteeleException("Function", f, "is not implemented!")
+{
+	
+}

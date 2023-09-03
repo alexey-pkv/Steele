@@ -4,6 +4,7 @@
 
 #include <godot_cpp/variant/string.hpp>
 #include "DataTypes/Direction.h"
+#include "RNG/IRNG.h"
 
 
 namespace Steele
@@ -13,10 +14,14 @@ namespace Steele
 	public:
 		enum class Type : char 
 		{
+			// Select randomly one direction out of the main 4.
 			Homogeneous,
-			Weighted,
-			Constant,
-			Variable
+			
+			// Select direction based on weight
+			Variable,
+			
+			// Use a constant direction
+			Constant
 		};
 		
 		
@@ -24,6 +29,10 @@ namespace Steele
 		Type		SettingType				= Type::Homogeneous;
 		Direction	ConstantDirection		= Direction::North;
 		float 		VariableDirection[4]	= {1, 1, 1, 1};
+		
+		
+	public:
+		Direction get(RNG::IRNG& rng) const;
 	};
 }
 

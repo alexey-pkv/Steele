@@ -16,12 +16,12 @@ namespace Steele
 		
 		
 	public:
-		template<class ... T>
+		template<class ... T >
 		explicit SteeleException(T&& ... args)
 		{
 			std::stringstream ss{};
 			
-			((ss << std::forward<T>(args) << " "), ...);
+			((ss << std::forward<T>(args)), ...);
 			
 			m_msg = ss.str();
 		}
@@ -44,6 +44,24 @@ namespace Steele
 		
 	public:
 		const char* what() const noexcept override;
+	};
+	
+	
+	class NotImplementedException : public SteeleException
+	{
+	public:
+		explicit NotImplementedException(const char* f);
+	};
+	
+	template<class T>
+	class NotImplementedForTemplateException : public SteeleException
+	{
+	public:
+		explicit NotImplementedForTemplateException(const char* f) : 
+			SteeleException("Function ", f, "<", typeid(T).name(), "> is not implemented!")
+		{
+			
+		}
 	};
 }
 

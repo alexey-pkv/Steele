@@ -24,9 +24,12 @@ namespace Steele::RNG
 		
 	
 	public:
-		XoroshiroRNG(std::string  seed);
-		XoroshiroRNG(const xoroshiro128plus_config& config);
+		explicit XoroshiroRNG(std::string  seed);
+		explicit XoroshiroRNG(const xoroshiro128plus_config& config);
 		XoroshiroRNG(const xoroshiro128plus_config& config, std::string  seed);
+		
+		XoroshiroRNG& operator=(const XoroshiroRNG&) = default;
+		XoroshiroRNG& operator=(XoroshiroRNG&&) = default;
 		
 		~XoroshiroRNG() = default;
 		
@@ -37,12 +40,11 @@ namespace Steele::RNG
 		
 	
 	public:
+		void SetState(const std::initializer_list<uint64_t>& state);
 		void SetState(const uint64_t state[2]);
 	
 	
 	public:
-		sptr<void*> GetState() const override;
-		void SetState(sptr<void*> state) override;
 		std::string Seed() const override;
 		
 		bool		NextBool() override;

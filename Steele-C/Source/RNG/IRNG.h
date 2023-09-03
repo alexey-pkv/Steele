@@ -6,6 +6,7 @@
 #include <vector>
 
 #include "../Utils.h"
+#include "Exceptions/SteeleException.h"
 
 
 namespace Steele::RNG
@@ -13,9 +14,6 @@ namespace Steele::RNG
 	class IRNG
 	{
 	public:
-		virtual sptr<void*> GetState() const = 0;
-		virtual void SetState(sptr<void*> state) = 0;
-		
 		virtual std::string Seed() const = 0;
 		
 		virtual bool		NextBool() = 0;
@@ -36,6 +34,10 @@ namespace Steele::RNG
 		virtual double	NextDouble(double min, double max) = 0;
 		
 		
+		template<typename T> T Next() { throw NotImplementedForTemplateException<T>(__func__); }
+		template<typename T> T Next(T min, T max) { throw NotImplementedForTemplateException<T>(__func__); }
+		
+		
 		template<typename T>
 		inline T NextElement(std::vector<T> v, const T& def) 
 		{
@@ -44,12 +46,45 @@ namespace Steele::RNG
 			
 			return v[NextInt(0, v.size() - 1)];
 		}
+		
 		template<typename K, typename V>
 		inline V& NextElement(const std::map<K, V>& map) 
 		{
+			throw NotImplementedForTemplateException<std::map<K, V>>(__func__); 
+			
 			int next = NextInt(0, map.size() - 1);
 			return (map.begin())->second;
 		}
+		
+		template<typename T>
+		inline int NextIndex(const T* v, int size) 
+		{
+			if (size <= 0)
+				return 0;
+			
+			T total = 0;
+			
+			for (auto i = 0; i < size; i++)
+			{
+				total += v[i];
+			}
+			
+			if (total == 0)
+				return 0;
+			
+			auto rnd = Next<T>((float)0, total);
+			
+			for (auto i = 0; i < size; i++)
+			{
+				if (rnd <= v[i])
+					return i;
+				
+				rnd -= v[i];
+			}
+			
+			return size - 1;
+		}
+		
 	};
 }
 
