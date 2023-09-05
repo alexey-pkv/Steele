@@ -13,3 +13,18 @@ Steele::GenerationScope::GenerationScope() : m_rng("hello_world")
 	
 	m_rng.SetState(state);
 }
+
+Steele::Palette* Steele::GenerationScope::get_pallet(t_id id)
+{
+	return get_value_ptr(m_pallets, id);
+}
+
+const Steele::Palette* Steele::GenerationScope::get_pallet(t_id id) const
+{
+	return get_value_ptr(m_pallets, id);
+}
+
+bool Steele::GenerationScope::has_pallet(t_id id) const
+{
+	return contains(m_pallets, id);
+}

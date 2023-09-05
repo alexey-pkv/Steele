@@ -2,7 +2,7 @@
 #define STEELE_DIRECTIONSETTINGS_H
 
 
-#include <godot_cpp/variant/string.hpp>
+#include "godot_cpp/variant/string.hpp"
 #include "DataTypes/Direction.h"
 #include "RNG/IRNG.h"
 

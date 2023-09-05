@@ -27,6 +27,20 @@ inline bool contains(const std::map<K, V>& map, const K& k)
 	return map.find(k) != map.end();
 }
 
+template <typename K, typename V>
+inline V* get_value_ptr(std::map<K, V>& map, const K& k)
+{
+	auto kvp = map.find(k);
+	return kvp != map.end() ? &(kvp->second) : nullptr;
+}
+
+template <typename K, typename V>
+inline const V* get_value_ptr(const std::map<K, V>& map, const K& k)
+{
+	auto kvp = map.find(k);
+	return kvp != map.end() ? &(kvp->second) : nullptr;
+}
+
 template <typename T>
 inline bool remove_first_value(std::vector<T>& v, T& t)
 {

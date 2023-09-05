@@ -6,6 +6,11 @@
 #include "RNG/XoroshiroRNG.h"
 #include "Generation/Map/GenerationMap.h"
 
+#include <map>
+
+
+using namespace std;
+
 
 namespace Steele
 {
@@ -17,8 +22,9 @@ namespace Steele
 		
 		
 	private:
-		RNG::XoroshiroRNG	m_rng;
-		GenerationMap		m_map;
+		RNG::XoroshiroRNG		m_rng;
+		GenerationMap			m_map;
+		::map<t_id, Palette>	m_pallets = {};	
 		
 		
 	public:
@@ -31,6 +37,14 @@ namespace Steele
 		IGenerationWorldMap& map() override;
 		const IGenerationWorldMap& map() const override;
 		
+		Palette* get_pallet(t_id id) override;
+		const Palette* get_pallet(t_id id) const override;
+		bool has_pallet(t_id id) const override;
+	
+	
+	public:
+		inline void add_pallet(Palette& p) { m_pallets[p.get_id()] = p; }
+		inline void add_pallet(Palette* p) { m_pallets[p->get_id()] = *p; }
 	};
 }
 

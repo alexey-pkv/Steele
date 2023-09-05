@@ -39,6 +39,9 @@ namespace Steele
 		void add(const GroundTile &gt);
 		inline void add(t_id id, Direction d, uint8_t index) { add({id, d, index}); }
 		
+		inline void set(const GroundTile &gt) { clear(); add(gt); }
+		inline void set(t_id id, Direction d, uint8_t index) { set({id, d, index}); }
+		
 		bool has(t_id id) const;
 		inline bool has(const GroundTile& gt) const { return has(gt.ID); }
 		

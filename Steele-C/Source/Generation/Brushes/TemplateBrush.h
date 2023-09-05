@@ -2,7 +2,7 @@
 #define STEELE_TEMPLATEBRUSH_H
 
 
-#include "CanvasTemplate.h"
+// #include "CanvasTemplate.h"
 #include "DataTypes/Area.h"
 
 #include <string>
@@ -24,7 +24,7 @@ namespace Steele
 	public:
 		std::string 			Name;
 		Steele::Area			Area;
-		CanvasTemplate			Canvas;
+		// CanvasTemplate			Canvas;
 		std::vector<Placement>	Components;
 		
 		

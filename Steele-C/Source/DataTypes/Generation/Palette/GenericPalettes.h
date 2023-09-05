@@ -21,16 +21,21 @@ namespace Steele
 		float			m_totalWeight = 0;
 		
 	public:
+		~GenericPalette() = default;
+		
 		GenericPalette() = default;
 		GenericPalette(const GenericPalette& s) : m_palette(s.m_palette), m_totalWeight(s.m_totalWeight) {}
 		GenericPalette(GenericPalette&& s) noexcept : m_palette(move(s.m_palette)), m_totalWeight(s.m_totalWeight) {}
-		~GenericPalette() = default;
 		
+		GenericPalette& operator=(const GenericPalette&) = default;
+		GenericPalette& operator=(GenericPalette&&) = default;
 		
 	public:
-		bool Has(const T& t) const { return m_palette.find(t) != m_palette.end(); }
+		size_t size() const { return m_palette.size(); }
+		bool is_empty() const { return m_palette.empty(); }
+		bool has(const T& t) const { return m_palette.find(t) != m_palette.end(); }
 		
-		float Weight(const T& t) const
+		float weight(const T& t) const
 		{
 			auto res = m_palette.find(t);
 			
@@ -40,15 +45,15 @@ namespace Steele
 			return res->second;
 		}
 		
-		void Add(const T& t, float weight = 1)
+		void add(const T& t, float weight = 1)
 		{
-			Remove(t);
+			remove(t);
 			
 			weight += weight;
 			m_palette[t] = { .t = t, .weight =  weight };
 		} 
 		
-		bool Remove(const T& t)
+		bool remove(const T& t)
 		{
 			auto res = m_palette.find(t);
 			
@@ -61,7 +66,7 @@ namespace Steele
 			return true;
 		}
 		
-		T SelectRandom(RNG::IRNG& rng) const
+		T select_random(RNG::IRNG& rng) const
 		{
 			if (m_totalWeight <= 0)
 				return NULL_ID;

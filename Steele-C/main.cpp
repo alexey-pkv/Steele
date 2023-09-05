@@ -42,6 +42,11 @@ public:
 
 int main()
 {
+	Cell* c = new Cell; 
+	
+	vector<Cell> v;
+	
+	v.push_back(Cell());
 	
 	cout << typeid(NotImplementedException).name() <<endl;
 	Steele::RNG::XoroshiroRNG rng("hello");
