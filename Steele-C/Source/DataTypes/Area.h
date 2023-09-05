@@ -55,21 +55,22 @@ namespace Steele
 			~AreaLine() = default;
 			
 		public:
-			bool Contains(int y) const;
-			bool Contains(const v2i& v) const;
-			bool Contains(const AreaLine& yva) const;
+			bool contains(int y) const;
+			bool contains(const v2i& v) const;
+			bool contains(const AreaLine& yva) const;
 			
-			bool Overlaps(const v2i& v) const;
-			bool Overlaps(const AreaLine& yva) const;
-			void Flip(int offset);
+			bool overlaps(const v2i& v) const;
+			bool overlaps(const AreaLine& yva) const;
 			
-			uint64_t Area() const;
-			bool IsEmpty() const;
+			void flip(int offset);
 			
-			int Min() const;
-			int Max() const;
+			uint64_t area() const;
+			bool is_empty() const;
 			
-			void Clear();
+			int min() const;
+			int max() const;
+			
+			void clear();
 		
 		public:
 			inline AreaLine operator|(int with) const				{ auto v = AreaLine(*this); v |= with; return v; }
@@ -274,6 +275,8 @@ namespace Steele
 		
 	public:
 		uint64_t get_area() const;
+		
+		bool contains(const v2i& v) const;
 		
 		
 	public:

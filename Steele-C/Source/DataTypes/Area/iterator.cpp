@@ -69,13 +69,13 @@ v2i Area::outline_iterator::operator*() const
 	switch ((int)Style)
 	{
 		case IterationStyle::TOP:
-			return {Offset, item.Max() };
+			return {Offset, item.max() };
 		case IterationStyle::BOTTOM:
-			return { Offset, item.Min() };
+			return { Offset, item.min() };
 		case IterationStyle::LEFT:
-			return { item.Min(), Offset };
+			return {item.min(), Offset };
 		case IterationStyle::RIGHT:
-			return { item.Max(), Offset };
+			return {item.max(), Offset };
 		default:
 			return {};
 	}

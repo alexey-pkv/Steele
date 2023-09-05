@@ -111,7 +111,7 @@ void Area::flip_lines(vector<AreaLine>& lines, int offset)
 {
 	for (auto& n : lines)
 	{
-		n.Flip(offset);
+		n.flip(offset);
 	}
 }
 
@@ -242,7 +242,7 @@ int Area::clean_up(vector<AreaLine> &a)
 	
 	for (const auto& l : a)
 	{
-		if (l.IsEmpty())
+		if (l.is_empty())
 		{
 			index++;
 		}
@@ -264,7 +264,7 @@ int Area::clean_up(vector<AreaLine> &a)
 	
 	for (auto i = (int)(a.size() - 1); i >= 0; i--)
 	{
-		if (!a[i].IsEmpty())
+		if (!a[i].is_empty())
 		{
 			index = i;
 			break;
@@ -312,7 +312,7 @@ int Area::intersect_vectors(int oa, vector<Area::AreaLine>& a, int ob, const vec
 		
 		line_a &= line_b;
 		
-		if (!line_a.IsEmpty())
+		if (!line_a.is_empty())
 		{
 			isEmptyMerge = false;
 			removeAfter = a_index;
@@ -349,7 +349,7 @@ uint64_t Area::get_area() const
 	
 	for (auto& v : m_vertical)
 	{
-		sum += v.Area();
+		sum += v.area();
 	}
 	
 	return sum;
@@ -467,7 +467,7 @@ bool Area::operator[](v2i at)
 		return false;
 	}
 	
-	return m_vertical[at.x].Contains(at);
+	return m_vertical[at.x].contains(at);
 }
 
 bool Area::operator&&(const Area &a) const
@@ -513,11 +513,23 @@ bool Area::operator>=(const Area &a) const
 	
 	for (int i = 0; i < size; i++)
 	{
-		if (!m_vertical[i + offset].Contains(a.m_vertical[i]))
+		if (!m_vertical[i + offset].contains(a.m_vertical[i]))
 		{
 			return false;
 		}
 	}
 	
 	return true;
+}
+
+bool Area::contains(const v2i& v) const
+{
+	int x = v.x - m_offset.x;
+	
+	if (x < 0 || x >= m_vertical.size())
+	{
+		return false;
+	}
+	
+	return m_vertical[x].contains(v.y);
 }

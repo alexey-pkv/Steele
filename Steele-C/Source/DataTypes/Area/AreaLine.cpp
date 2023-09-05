@@ -12,7 +12,7 @@ Area::AreaLine::AreaLine(v2i v)
 }
 
 
-bool Area::AreaLine::Contains(int y) const
+bool Area::AreaLine::contains(int y) const
 {
 	for (auto v : m_line)
 	{
@@ -25,7 +25,7 @@ bool Area::AreaLine::Contains(int y) const
 	return false;
 }
 
-bool Area::AreaLine::Contains(const v2i &v) const
+bool Area::AreaLine::contains(const v2i &v) const
 {
 	for (auto n : m_line)
 	{
@@ -38,11 +38,11 @@ bool Area::AreaLine::Contains(const v2i &v) const
 	return false;
 }
 
-bool Area::AreaLine::Contains(const AreaLine &yva) const
+bool Area::AreaLine::contains(const AreaLine &yva) const
 {
 	for (auto n : yva.m_line)
 	{
-		if (!Contains(n))
+		if (!contains(n))
 		{
 			return false;
 		}
@@ -51,7 +51,7 @@ bool Area::AreaLine::Contains(const AreaLine &yva) const
 	return true;
 }
 
-bool Area::AreaLine::Overlaps(const v2i& v) const
+bool Area::AreaLine::overlaps(const v2i& v) const
 {
 	for (auto& n : m_line)
 	{
@@ -64,11 +64,11 @@ bool Area::AreaLine::Overlaps(const v2i& v) const
 	return false;
 }
 
-bool Area::AreaLine::Overlaps(const AreaLine &yva) const
+bool Area::AreaLine::overlaps(const AreaLine &yva) const
 {
 	for (auto& n : yva.m_line)
 	{
-		if (Overlaps(n))
+		if (overlaps(n))
 		{
 			return true;
 		}
@@ -77,9 +77,9 @@ bool Area::AreaLine::Overlaps(const AreaLine &yva) const
 	return false;
 }
 
-void Area::AreaLine::Flip(int offset)
+void Area::AreaLine::flip(int offset)
 {
-	if (IsEmpty())
+	if (is_empty())
 		return;
 	
 	for (auto& v : m_line)
@@ -92,7 +92,7 @@ void Area::AreaLine::Flip(int offset)
 	reverse(m_line);
 }
 
-uint64_t Area::AreaLine::Area() const
+uint64_t Area::AreaLine::area() const
 {
 	uint64_t area = 0;
 	
@@ -104,22 +104,22 @@ uint64_t Area::AreaLine::Area() const
 	return area;
 }
 
-bool Area::AreaLine::IsEmpty() const
+bool Area::AreaLine::is_empty() const
 {
 	return m_line.empty();
 }
 
-int Area::AreaLine::Min() const
+int Area::AreaLine::min() const
 {
-	return IsEmpty() ? 0 : m_line.front().x;
+	return is_empty() ? 0 : m_line.front().x;
 }
 
-int Area::AreaLine::Max() const
+int Area::AreaLine::max() const
 {
-	return IsEmpty() ? 0 : m_line.back().y;
+	return is_empty() ? 0 : m_line.back().y;
 }
 
-void Area::AreaLine::Clear()
+void Area::AreaLine::clear()
 {
 	m_line.clear();
 }
@@ -127,11 +127,11 @@ void Area::AreaLine::Clear()
 
 void Area::AreaLine::operator|=(const AreaLine &yva)
 {
-	if (yva.IsEmpty())
+	if (yva.is_empty())
 	{
 		return;
 	}
-	else if (IsEmpty()) 
+	else if (is_empty()) 
 	{
 		m_line = yva.m_line;
 		return;
@@ -175,7 +175,7 @@ void Area::AreaLine::operator|=(const AreaLine &yva)
 		}
 		else
 		{
-			curr.y = max(curr_compare.y, curr.y);
+			curr.y = ::max(curr_compare.y, curr.y);
 		}
 	}
 	
@@ -186,7 +186,7 @@ void Area::AreaLine::operator|=(const AreaLine &yva)
 
 void Area::AreaLine::operator-=(const AreaLine &yva)
 {
-	if (IsEmpty() || yva.IsEmpty()) return;
+	if (is_empty() || yva.is_empty()) return;
 	
 	vector<v2i> result;
 	
@@ -209,7 +209,7 @@ void Area::AreaLine::operator-=(const AreaLine &yva)
 		// b:           [...
 		if (b_curr->x > a_curr->x)
 		{
-			result.push_back({ a_curr->x, min(b_curr->x - 1, a_curr->y) });
+			result.push_back({ a_curr->x, ::min(b_curr->x - 1, a_curr->y) });
 		}
 		
 		// curr:    ...]          
@@ -239,7 +239,7 @@ void Area::AreaLine::operator&=(int with)
 {
 	bool found = false;
 	
-	if (IsEmpty())
+	if (is_empty())
 		return;
 	
 	for (auto v : m_line)
@@ -277,8 +277,8 @@ void Area::AreaLine::operator&=(const AreaLine &yva)
 		if (b_curr->x <= a_curr->y && a_curr->x <= b_curr->y)
 		{
 			result.emplace_back( 
-				max(a_curr->x, b_curr->x),
-				min(a_curr->y, b_curr->y)
+				::max(a_curr->x, b_curr->x),
+				::min(a_curr->y, b_curr->y)
 			);
 		}
 		

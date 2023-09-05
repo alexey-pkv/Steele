@@ -11,3 +11,9 @@ Steele::NoGroundInPaletteException::NoGroundInPaletteException()
 
 Steele::NoPaletteException::NoPaletteException()
 	: PaintException("Referenced palette not found") {}
+
+Steele::CanvasAreaOutsideOfBoundException::CanvasAreaOutsideOfBoundException(v2i position)
+	: PaintException("The cell at (", position.x, ": ", position.y, ") is outside of the area bounds")
+{
+	
+}

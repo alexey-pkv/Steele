@@ -3,6 +3,7 @@
 
 
 #include "SteeleException.h"
+#include "DataTypes/Types.h"
 
 
 namespace Steele
@@ -48,6 +49,13 @@ namespace Steele
 	public:
 		template<class ... T >
 		explicit MisconfiguredBrushException(T&& ... args) : PaintException(std::forward<T>(args)...) {}
+	};
+	
+	class CanvasAreaOutsideOfBoundException : public PaintException
+	{
+	public:
+		~CanvasAreaOutsideOfBoundException() override = default;
+		CanvasAreaOutsideOfBoundException(v2i position);
 	};
 }
 
