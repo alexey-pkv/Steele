@@ -90,7 +90,7 @@ namespace Steele
 	};
 	
 	
-	class GroundPalette	: public GenericPalette<t_id> {};
+	class GenericIDPalette : public GenericPalette<t_id> {};
 }
 
 

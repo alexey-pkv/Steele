@@ -250,9 +250,6 @@ namespace Steele
 		inline Area operator*(Direction dir) const { return (Area(*this) *= dir); }
 		
 		
-		bool operator&&(const Area& a) const;
-		
-		
 		inline Area operator+(const v2i& v) const { return (Area(*this) += v); }
 		inline Area operator-(const v2i& v) const { return (Area(*this) += v); }
 		
@@ -277,6 +274,7 @@ namespace Steele
 		uint64_t get_area() const;
 		
 		bool contains(const v2i& v) const;
+		inline bool contains(const Area& a) const { return a <= *this; }
 		
 		
 	public:
@@ -295,6 +293,7 @@ namespace Steele
 		inline void set_offset(int x, int y) { set_offset({x, y}); }
 		inline void set_offset(v2i v) { *this += (v - m_offset); }
 		inline void reset_offset() { *this -= m_offset; }
+		inline Area get_reset_offset_area() const { Area a = *this; a.reset_offset(); return a; }
 		
 		inline Rect2i GetRect() const
 		{
@@ -304,6 +303,9 @@ namespace Steele
 				{(int)m_vertical.size(), (int)m_horizontal.size()} 
 			}; 
 		}
+		
+		
+		bool overlaps(const Area& a) const;
 		
 		
 	public:

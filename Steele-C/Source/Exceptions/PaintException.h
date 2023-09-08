@@ -32,6 +32,13 @@ namespace Steele
 		NoGroundInPaletteException();
 	};
 	
+	class DrawingAreaDoesNotOverlapException : public PaintException
+	{
+	public:
+		~DrawingAreaDoesNotOverlapException() override = default;
+		DrawingAreaDoesNotOverlapException();
+	};
+	
 	class NoPaletteException : public PaintException
 	{
 	public:

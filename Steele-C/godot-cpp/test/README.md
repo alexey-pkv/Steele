@@ -1,7 +1,7 @@
 # godot-cpp integration test
 
 This project is used to perform integration testing of the godot-cpp
-extension, to validate PRs and implemented APIs.
+extension, to is_valid PRs and implemented APIs.
 
 ## License
 

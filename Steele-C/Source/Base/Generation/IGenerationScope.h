@@ -5,6 +5,8 @@
 #include "RNG/IRNG.h"
 #include "IGenerationMap.h"
 #include "DataTypes/Generation/Palette.h"
+#include "Base/Generation/DB/IPatetteDB.h"
+#include "Base/Generation/DB/IBrushDB.h"
 
 
 namespace Steele
@@ -16,9 +18,8 @@ namespace Steele
 		virtual IGenerationWorldMap& map() = 0;
 		virtual const IGenerationWorldMap& map() const = 0;
 		
-		virtual Palette* get_pallet(t_id id) = 0;
-		virtual const Palette* get_pallet(t_id id) const = 0;
-		virtual bool has_pallet(t_id id) const = 0;
+		virtual IPaletteDB& palette_db() = 0;
+		virtual IBrushDB& brush_db() = 0;
 	};
 }
 

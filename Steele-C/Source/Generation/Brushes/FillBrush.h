@@ -15,6 +15,10 @@ namespace Steele
 		t_id				m_groundID	= NULL_ID;
 		t_id				m_paletteID	= NULL_ID;
 		
+	
+	public:
+		~FillBrush() override = default;
+		
 		
 	public: // AbstractBrush
 		void paint(IGenerationScope& scope, const Area& area) const override;

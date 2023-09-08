@@ -470,7 +470,7 @@ bool Area::operator[](v2i at)
 	return m_vertical[at.x].contains(at);
 }
 
-bool Area::operator&&(const Area &a) const
+bool Area::overlaps(const Area &a) const
 {
 	auto myOffset = m_offset.x;
 	auto aOffset = a.m_offset.x; 
@@ -503,7 +503,7 @@ bool Area::operator>=(const Area &a) const
 	else if (is_empty()) return false;
 	
 	if (a.left() < left() || a.right() > right() ||
-			a.bottom() < bottom() || a.top() > top())
+		a.bottom() < bottom() || a.top() > top())
 	{
 		return false;
 	}

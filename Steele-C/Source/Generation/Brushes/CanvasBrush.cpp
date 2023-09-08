@@ -1,6 +1,9 @@
 #include "CanvasBrush.h"
 
 
+#include "Base/Generation/IGenerationScope.h"
+
+
 void Steele::CanvasBrush::paint(Steele::IGenerationScope& scope, const Steele::Area& area) const
 {
 	auto& map = scope.map();

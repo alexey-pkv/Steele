@@ -4,6 +4,8 @@
 
 #include "Base/Generation/IBrush.h"
 #include "Base/Map/SimpleMap.h"
+#include "DataTypes/Map/Cell.h"
+
 
 namespace Steele
 {
@@ -11,6 +13,10 @@ namespace Steele
 	{
 	private:
 		SimpleMap<Cell>	m_canvas = {};
+		
+		
+	public:
+		~CanvasBrush() override = default;
 		
 		
 	public: // AbstractBrush

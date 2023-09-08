@@ -96,6 +96,49 @@ inline int remove_until_index(std::vector<T>& v, size_t index)
 }
 
 template <typename T>
+bool remove_at(std::vector<T>& v, int index)
+{
+	if (index < 0 || index >= v.size())
+		return false;
+	
+	v.erase(v.begin() + index);
+	
+	return true;
+}
+
+template <typename T>
+bool remove_at(std::vector<T>& v, int from, int to)
+{
+	if (from > to || from < 0 || from >= v.size() || to < 0 || to >= v.size())
+		return false;
+	
+	v.erase(v.begin() + from, v.begin() + to);
+	
+	return true;
+}
+
+template <typename T>
+bool rotate(std::vector<T>& v, int from, int to)
+{
+	if (from == to)
+		return true;
+	
+	if (from < 0 || from >= v.size() || to < 0 || to >= v.size())
+		return false;
+	
+	if (from > to)
+	{
+		std::rotate(v.rend() - from - 1, v.rend() - from, v.rend() - to);
+	}
+	else
+	{
+		std::rotate(v.begin() + from, v.begin() + from + 1, v.begin() + to + 1);
+	}
+	
+	return true;
+}
+
+template <typename T>
 int remove_after_index(std::vector<T>& v, int index)
 {
 	int removed;
@@ -129,6 +172,12 @@ void clear(std::vector<T>& a)
 {
 	std::vector<T> b;
 	a.swap(b);
+}
+
+template <typename T>
+T& last(std::vector<T>& target)
+{
+	return target[target.size() - 1];
 }
 
 template <template<class> class A, class T>

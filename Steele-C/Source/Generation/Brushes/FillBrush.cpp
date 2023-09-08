@@ -1,5 +1,7 @@
 #include "FillBrush.h"
 
+#include "Base/Generation/IGenerationScope.h"
+
 
 void Steele::FillBrush::paint(Steele::IGenerationScope& scope, const Steele::Area& area) const
 {
@@ -18,7 +20,7 @@ void Steele::FillBrush::paint(Steele::IGenerationScope& scope, const Steele::Are
 	
 	if (groundID == NULL_ID)
 	{
-		palette = scope.get_pallet(m_paletteID);
+		palette = scope.palette_db().get(m_paletteID);
 		
 		if (palette == nullptr)
 		{

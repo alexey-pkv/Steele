@@ -8,7 +8,7 @@ namespace Steele
 	{
 		Picture		= 0,
 		Fill		= 1,
-		Template	= 2
+		Area	= 2
 	};
 }
 

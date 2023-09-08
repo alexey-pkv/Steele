@@ -17,10 +17,10 @@ typedef godot::Vector2 	v2;
 typedef godot::Vector3 	v3;
 
 
-#define v2_zero		{ 0, 0 }
-#define v2i_zero	{ 0, 0 }
-#define v3_zero		{ 0, 0, 0 }
-#define v3i_zero	{ 0, 0, 0 }
+#define v2_zero		v2 { 0, 0 }
+#define v2i_zero	v2i { 0, 0 }
+#define v3_zero		v3 { 0, 0, 0 }
+#define v3i_zero	v3i { 0, 0, 0 }
 
 
 typedef std::int32_t	t_id;
@@ -29,11 +29,13 @@ typedef std::int32_t	t_id;
 
 namespace Steele
 {
-	enum class BrushType
+	enum class BrushType : char
 	{
-		Fill		= 0,
-		Canvas		= 1,
-		Template	= 2
+		Fill	= 0,
+		Canvas	= 1,
+		Area	= 2,
+		
+		AreaComponent	= 100
 	};
 }
 

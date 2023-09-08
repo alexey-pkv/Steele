@@ -17,3 +17,9 @@ Steele::CanvasAreaOutsideOfBoundException::CanvasAreaOutsideOfBoundException(v2i
 {
 	
 }
+
+Steele::DrawingAreaDoesNotOverlapException::DrawingAreaDoesNotOverlapException()
+	: PaintException("The drawing area of the brush and target area, do not overlap")
+{
+	
+}

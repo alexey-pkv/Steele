@@ -3,7 +3,7 @@
 
 
 #include "DataTypes/Generation/Palette/GenericPalettes.h"
-// #include "Generation/Palette/TemplatesPalette.h"
+#include "DataTypes/Generation/Palette/BrushPalette.h"
 
 
 namespace Steele
@@ -11,10 +11,10 @@ namespace Steele
 	class Palette
 	{
 	private:
-		t_id 			m_id;
+		t_id m_id = NULL_ID;
 		
-		GroundPalette		m_ground;
-		// TemplatesPalette	m_templates;
+		GenericIDPalette m_ground;
+		GenericIDPalette m_brushes;
 		
 		
 	public:
@@ -34,8 +34,11 @@ namespace Steele
 		
 		
 	public:
-		inline const GroundPalette& ground() const { return m_ground; }
-		// inline const TemplatesPalette& Templates() const { return m_templates; }
+		inline const GenericIDPalette& ground() const { return m_ground; }
+		inline const GenericIDPalette& brushes() const { return m_brushes; }
+		
+		inline GenericIDPalette& ground() { return m_ground; }
+		inline GenericIDPalette& brushes() { return m_brushes; }
 	};
 }
 
