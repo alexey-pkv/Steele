@@ -20,6 +20,7 @@ namespace Steele
 		
 		
 	public: // AbstractBrush
+		bool can_fill(const Area& a) const override;
 		void paint(IGenerationScope& scope, const Area& area) const override;
 		
 		

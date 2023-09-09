@@ -21,6 +21,7 @@ namespace Steele
 		
 		
 	public: // AbstractBrush
+		bool can_fill(const Area& a) const override;
 		void paint(IGenerationScope& scope, const Area& area) const override;
 		
 		
@@ -30,10 +31,10 @@ namespace Steele
 		inline void set_direction_settings(const DirectionSettings& s) { m_dir = s; }
 		
 		inline t_id get_ground_id() const { return m_groundID; }
-		inline void set_ground_id(t_id id) { m_groundID = id; }
+		inline void set_ground_id(t_id id) { m_groundID = id; m_paletteID = NULL_ID; }
 
 		inline t_id get_palette_id() const { return m_paletteID; }
-		inline void set_palette_id(t_id id) { m_paletteID = id; }
+		inline void set_palette_id(t_id id) { m_paletteID = id; m_groundID = NULL_ID; }
 		
 	};
 }

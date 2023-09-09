@@ -325,6 +325,10 @@ namespace Steele
 		inline outline_iterator_provider iterate_r_bottom() const	{ return { m_vertical, m_offset.x, outline_iterator::IterationStyle::BOTTOM, true }; }
 		inline outline_iterator_provider iterate_r_left() const	{ return { m_horizontal, m_offset.y, outline_iterator::IterationStyle::LEFT, true }; }
 		inline outline_iterator_provider iterate_r_right() const	{ return { m_horizontal, m_offset.y, outline_iterator::IterationStyle::RIGHT, true }; }
+		
+		
+	public:
+		static const Area ZERO;
 	};
 }
 

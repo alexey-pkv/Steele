@@ -7,7 +7,6 @@
 #include "Area.h"
 #include "Types.h"
 #include "Utils.h"
-#include "Area/Alignment.h"
 
 
 using namespace std;
@@ -533,3 +532,6 @@ bool Area::contains(const v2i& v) const
 	
 	return m_vertical[x].contains(v.y);
 }
+
+
+const Area Area::ZERO = {};

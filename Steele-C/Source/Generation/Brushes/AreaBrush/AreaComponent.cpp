@@ -36,27 +36,26 @@ void Steele::AreaComponent::paint_in_area(Steele::IGenerationScope& scope) const
 
 void Steele::AreaComponent::paint(Steele::IGenerationScope& scope, const Steele::Area& area) const
 {
-	t_id brushID;
+	const IBrush* brush;
 	
 	if (m_brushID != NULL_ID)
 	{
-		brushID = m_brushID;
+		brush = scope.brush_db().require(m_brushID);
 	}
 	else if (m_paletteID != NULL_ID)
 	{
 		auto palette = scope.palette_db().require(m_paletteID);
-		brushID = palette->brushes().select_random(scope.rng());
-		
-		if (brushID == NULL_ID)
-		{
-			throw PaintException("No brush found in palette");
-		}
+		brush = palette->brushes().select_random(scope, area);
 	}
 	else
 	{
 		throw PaintException("Brush or Palette ID must be set");
 	}
 	
-	auto brush = scope.brush_db().require(brushID);
 	brush->paint(scope, area);
+}
+
+bool Steele::AreaComponent::can_fill(const Steele::Area& a) const
+{
+	return m_area == a;
 }

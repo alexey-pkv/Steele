@@ -8,7 +8,6 @@ using namespace std;
 using namespace Steele;
 
 
-
 int main()
 {
 	BrushDB a;

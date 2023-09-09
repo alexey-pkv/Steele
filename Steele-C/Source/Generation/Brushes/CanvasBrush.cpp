@@ -18,3 +18,19 @@ void Steele::CanvasBrush::paint(Steele::IGenerationScope& scope, const Steele::A
 		map.set(kvp.second, pos);
 	}
 }
+
+bool Steele::CanvasBrush::can_fill(const Steele::Area& a) const
+{
+	if (a.get_area() != m_canvas.size())
+		return false;
+	
+	for (const auto &[pos, _] : m_canvas)
+	{
+		if (!a.contains(v2i {pos.x, pos.y}))
+		{
+			return false;
+		}
+	}
+	
+	return true;
+}

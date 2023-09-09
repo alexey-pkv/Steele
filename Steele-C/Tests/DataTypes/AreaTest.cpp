@@ -98,8 +98,8 @@ void assert_and(const string& a, const string& b, const string& expected)
 
 void assert_overlap(const Area& a, const Area&b, bool expected)
 {
-	ASSERT_IS(expected, a && b);
-	ASSERT_IS(expected, b && a);
+	ASSERT_IS(expected, a.overlaps(b));
+	ASSERT_IS(expected, b.overlaps(a));
 }
 
 

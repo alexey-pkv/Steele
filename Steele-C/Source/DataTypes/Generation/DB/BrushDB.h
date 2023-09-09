@@ -20,7 +20,6 @@ namespace Steele
 		bool remove(t_id id) override;
 		
 		IBrush* require(t_id id) override;
-		
 		const IBrush* require(t_id id) const override;
 	
 	

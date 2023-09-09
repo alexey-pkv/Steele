@@ -17,6 +17,7 @@ namespace Steele
 		virtual ~IBrush() = default;
 		
 	public:
+		virtual bool can_fill(const Area& a) const = 0;
 		virtual string name() const = 0;
 		virtual BrushType get_brush_type() const noexcept = 0;
 		virtual void paint(IGenerationScope& scope, const Area& area) const = 0;

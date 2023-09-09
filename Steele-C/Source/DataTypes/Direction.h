@@ -67,15 +67,19 @@ namespace Steele
 		inline explicit operator uint32_t () const { return (uint32_t)m_direction; }
 		inline explicit operator uint64_t () const { return (uint64_t)m_direction; }
 		
-		inline Direction operator++() { return Direction((int)(m_direction) + 1); }
-		inline Direction operator--() { return m_direction == DirectionValue::North ? Direction::NorthWest : Direction((int)(m_direction) - 1); }
+		inline Direction operator++(int) { *this = Direction((int)(m_direction) + 1); return *this; }
+		inline Direction operator--(int) { *this = Direction((int)(m_direction) - 1); return *this; }
 		
 		inline Direction operator+(Direction d) const { return Direction((int)(m_direction) + (int)d.m_direction); }
 		inline Direction operator-(Direction d) const { return Direction(DIRECTIONS_COUNT + (int)(m_direction) - (int)d.m_direction);}
+		inline Direction operator+(int d) const { return Direction((int)(m_direction) + d); }
+		inline Direction operator-(int d) const { return Direction(DIRECTIONS_COUNT + (int)(m_direction) - d);}
 		inline Direction operator*(int by) { return Direction(((int)m_direction) * by);}
 		
 		inline void operator+=(Direction d) { m_direction = to_dir((int)(m_direction) + (int)d.m_direction); }
 		inline void operator-=(Direction d) { m_direction = to_dir(DIRECTIONS_COUNT + (int)(m_direction) - (int)d.m_direction);}
+		inline void operator+=(int d) { m_direction = to_dir((int)(m_direction) + d); }
+		inline void operator-=(int d) { m_direction = to_dir(DIRECTIONS_COUNT + (int)(m_direction) - d);}
 		inline void operator*=(int by) { m_direction = to_dir(((int)m_direction) * by);}
 		
 		

@@ -62,11 +62,26 @@ void Steele::AreaBrush::move(int from, int to)
 
 void Steele::AreaBrush::paint(Steele::IGenerationScope& scope, const Steele::Area& area) const
 {
-	for (auto component : m_components)
+	for (auto& component : m_components)
 	{
 		if (!area.contains(component.area()))
 			throw DrawingAreaDoesNotOverlapException();
 		
 		component.paint_in_area(scope);
 	}
+}
+
+bool Steele::AreaBrush::can_fill(const Steele::Area& a) const
+{
+	Area calc = a;
+	
+	for (auto& component : m_components)
+	{
+		if (!calc.contains(component.area()))
+			return false;
+		
+		calc -= a;
+	}
+	
+	return calc.is_empty();
 }

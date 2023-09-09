@@ -45,3 +45,8 @@ void Steele::FillBrush::paint(Steele::IGenerationScope& scope, const Steele::Are
 		cell->Ground.set(groundID, dir, 0);
 	}
 }
+
+bool Steele::FillBrush::can_fill(const Steele::Area& a) const
+{
+	return true;
+}

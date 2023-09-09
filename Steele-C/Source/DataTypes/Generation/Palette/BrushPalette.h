@@ -2,33 +2,27 @@
 #define STEELE_BRUSHPALETTE_H
 
 
-#include <map>
-
-#include "Utils.h"
-#include "DataTypes/Types.h"
+#include "DataTypes/Area.h"
+#include "Base/Generation/IBrush.h"
+#include "Palettes.h"
 
 
 namespace Steele
 {
-	class IBrush;
-	
-	
-	class BrushPalette
+	class BrushPalette : public ScalarPalette<t_id>
 	{
-	private:
-		std::map<t_id, sptr<IBrush>>	m_brushes;
+	public:
+		~BrushPalette() override = default;
+		
+		BrushPalette() = default;
+		BrushPalette(const BrushPalette& s) = default;
+		BrushPalette(BrushPalette&& s) noexcept = default;
+		BrushPalette& operator=(const BrushPalette&) = default;
+		BrushPalette& operator=(BrushPalette&&) = default;
 		
 		
 	public:
-		sptr<IBrush> get(t_id id);
-		sptr<const IBrush> get(t_id id) const;
-		
-		void add(t_id id, sptr<IBrush> brush);
-		
-		
-	public:
-		inline size_t size() { return m_brushes.size(); }
-		inline bool has(t_id id) { return contains(m_brushes, id); }
+		const IBrush* select_random(IGenerationScope& scope , const Area& a) const;
 	};
 }
 

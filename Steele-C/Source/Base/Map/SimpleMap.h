@@ -92,6 +92,8 @@ namespace Steele
 		
 		
 	public:
+		inline size_t size() const { return m_map.size(); }
+		
 		typename std::map<v3i, CELL>::iterator begin() { return m_map.begin(); }
 		typename std::map<v3i, CELL>::iterator end() { return m_map.end(); }
 		typename std::map<v3i, CELL>::const_iterator begin() const { return m_map.begin(); }

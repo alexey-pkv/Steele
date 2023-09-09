@@ -31,8 +31,8 @@ namespace Steele
 		
 		
 	public:
+		virtual ~GenerationScope() = default;
 		GenerationScope();
-		~GenerationScope() = default;
 		
 		
 	public:
