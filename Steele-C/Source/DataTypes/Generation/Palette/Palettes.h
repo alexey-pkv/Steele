@@ -118,7 +118,7 @@ namespace Steele
 			if (weight <= 0)
 				return NULL_ID;
 			
-			auto rnd = rng.NextDouble(0, weight);
+			auto rnd = rng.next_double(0, weight);
 			
 			for (const auto& kvp : this->palette())
 			{

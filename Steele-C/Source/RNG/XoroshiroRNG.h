@@ -45,19 +45,19 @@ namespace Steele::RNG
 	
 	
 	public:
-		std::string Seed() const override;
+		std::string seed() const override;
 		
-		bool		NextBool() override;
-		char		NextChar() override;
-		char		NextChar(char min, char max) override;
-		int			NextInt() override;
-		int			NextInt(int min, int max) override;
-		int64_t 	NextInt64() override;
-		int64_t		NextInt64(int64_t min, int64_t max) override;
-		uint64_t 	NextUInt64() override;
-		uint64_t	NextUInt64(uint64_t min, uint64_t max) override;
-		double		NextDouble() override;
-		double		NextDouble(double min, double max) override;
+		bool		next_bool() override;
+		char		next_char() override;
+		char		next_char(char min, char max) override;
+		int			next_int_32() override;
+		int			next_int_32(int min, int max) override;
+		int64_t 	next_int_64() override;
+		int64_t		next_int_64(int64_t min, int64_t max) override;
+		uint64_t 	next_uint_64() override;
+		uint64_t	next_uint_64(uint64_t min, uint64_t max) override;
+		double		next_double() override;
+		double		next_double(double min, double max) override;
 	};
 }
 

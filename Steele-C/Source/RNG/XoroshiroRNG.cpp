@@ -32,78 +32,78 @@ Steele::RNG::XoroshiroRNG::XoroshiroRNG(const Steele::RNG::xoroshiro128plus_conf
 }
 
 
-std::string Steele::RNG::XoroshiroRNG::Seed() const
+std::string Steele::RNG::XoroshiroRNG::seed() const
 {
 	return m_seed;
 }
 
-bool Steele::RNG::XoroshiroRNG::NextBool()
+bool Steele::RNG::XoroshiroRNG::next_bool()
 {
-	return NextUInt64() & 1;
+	return next_uint_64() & 1;
 }
 
-char Steele::RNG::XoroshiroRNG::NextChar()
+char Steele::RNG::XoroshiroRNG::next_char()
 {
-	return (char)NextUInt64();
+	return (char) next_uint_64();
 }
 
-char Steele::RNG::XoroshiroRNG::NextChar(char min, char max)
+char Steele::RNG::XoroshiroRNG::next_char(char min, char max)
 {
-	return (char)NextInt64(min, max);
+	return (char) next_int_64(min, max);
 }
 
-int Steele::RNG::XoroshiroRNG::NextInt()
+int Steele::RNG::XoroshiroRNG::next_int_32()
 {
-	return (int)NextUInt64();
+	return (int) next_uint_64();
 }
 
-int Steele::RNG::XoroshiroRNG::NextInt(int min, int max)
+int Steele::RNG::XoroshiroRNG::next_int_32(int min, int max)
 {
-	return (int)NextInt64(min, max);
+	return (int) next_int_64(min, max);
 }
 
-int64_t Steele::RNG::XoroshiroRNG::NextInt64()
+int64_t Steele::RNG::XoroshiroRNG::next_int_64()
 {
-	return (int64_t)NextUInt64();
+	return (int64_t) next_uint_64();
 }
 
-int64_t Steele::RNG::XoroshiroRNG::NextInt64(int64_t min, int64_t max)
+int64_t Steele::RNG::XoroshiroRNG::next_int_64(int64_t min, int64_t max)
 {
 	return 0;
 }
 
-uint64_t Steele::RNG::XoroshiroRNG::NextUInt64()
+uint64_t Steele::RNG::XoroshiroRNG::next_uint_64()
 {
 	return xoroshiro128plus_next(m_config, CurrentState());
 }
 
-uint64_t Steele::RNG::XoroshiroRNG::NextUInt64(uint64_t min, uint64_t max)
+uint64_t Steele::RNG::XoroshiroRNG::next_uint_64(uint64_t min, uint64_t max)
 {
 	if (max <= min) return min;
 	
 	auto diff = max - min + 1;
 	auto maxGeneration = (UINT64_MAX / diff) * diff;
 	
-	auto num = NextUInt64();
+	auto num = next_uint_64();
 	
 	while (num > maxGeneration)
 	{
-		num = NextUInt64();
+		num = next_uint_64();
 	}
 	
 	return min + (num % diff);
 }
 
-double Steele::RNG::XoroshiroRNG::NextDouble()
+double Steele::RNG::XoroshiroRNG::next_double()
 {
-	return (double)((uint)NextInt()) / (double)UINT32_MAX;
+	return (double)((uint) next_int_32()) / (double)UINT32_MAX;
 }
 
-double Steele::RNG::XoroshiroRNG::NextDouble(double min, double max)
+double Steele::RNG::XoroshiroRNG::next_double(double min, double max)
 {
 	if (max <= min) return min;
 	
-	return min + (max - min) * NextDouble();
+	return min + (max - min) * next_double();
 }
 
 
