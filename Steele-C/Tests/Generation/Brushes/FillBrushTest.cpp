@@ -6,6 +6,7 @@
 
 
 #include "Generation/Brushes/FillBrush.h"
+#include "Generation/GenerationScope.h"
 
 
 using namespace Steele;
@@ -16,6 +17,15 @@ TEST(FillBrush__can_fill__return_true)
 	FillBrush f;
 	
 	ASSERT_TRUE(f.can_fill(Area::ZERO));
+}
+
+
+TEST(FillBrush__defaults)
+{
+	FillBrush f;
+	
+	ASSERT_IS(NULL_ID, f.get_palette_id());
+	ASSERT_IS(NULL_ID, f.get_ground_id());
 }
 
 
@@ -125,7 +135,66 @@ TEST(FillBrush__get_direction_settings)
 }
 
 
+TEST(FillBrush__paint__MissingGroundAndPaletteID__ExceptionThrown)
+{
+	FillBrush f;
+	GenerationScope gs;
+	
+	f.set_palette_id(NULL_ID);
+	f.set_ground_id(NULL_ID);
+	
+	try
+	{
+		f.paint(gs, Area::ONE);
+		ASSERT_FAIL();
+	}
+	catch (const MisconfiguredBrushException& e)
+	{
+		
+	}
+}
 
+
+TEST(FillBrush__paint__EmptyArea__MapNotModified)
+{
+	FillBrush f;
+	GenerationScope gs;
+	
+	
+	f.set_ground_id(1);
+	
+	
+	f.paint(gs, Area::ZERO);
+	
+	
+	auto& m = ((GenerationMap&)gs.map()).map();
+	
+	
+	ASSERT_IS(0, m.size());
+}
+
+
+TEST(FillBrush__paint__SimpleFill)
+{
+	FillBrush f;
+	GenerationScope gs;
+	
+	
+	f.set_ground_id(1);
+	
+	
+	f.paint(gs, Area::ONE);
+	
+	
+	auto& m = ((GenerationMap&)gs.map()).map();
+	
+	
+	ASSERT_IS(1, m.size());
+	ASSERT_FALSE(m.is_empty(0, 0));
+	ASSERT_IS_NOT(nullptr, m.try_get(0, 0));
+	ASSERT_TRUE(m.get(0, 0)->Ground.has(1));
+	ASSERT_IS(1, m.get(0, 0)->Ground.size());
+}
 
 
 #pragma clang diagnostic pop

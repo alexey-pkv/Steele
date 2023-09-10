@@ -534,4 +534,5 @@ bool Area::contains(const v2i& v) const
 }
 
 
-const Area Area::ZERO = {};
+const Area Area::ZERO	= {};
+const Area Area::ONE	= Area("*\n");

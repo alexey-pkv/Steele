@@ -8,6 +8,7 @@
 #define ASSERT_NOT(exp) ASSERT(!(exp))
 #define ASSERT_IS(exp, val) ASSERT((exp) == (val))
 #define ASSERT_FALSE(exp) ASSERT((exp) == false)
+#define ASSERT_FAIL() ASSERT(false)
 #define ASSERT_TRUE(exp) ASSERT((exp) == true)
 #define ASSERT_NOT_NULL(exp) ASSERT((exp) != nullptr)
 #define ASSERT_NULL(exp) ASSERT((exp) == nullptr)

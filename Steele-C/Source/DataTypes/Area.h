@@ -329,6 +329,7 @@ namespace Steele
 		
 	public:
 		static const Area ZERO;
+		static const Area ONE;
 	};
 }
 

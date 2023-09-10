@@ -97,6 +97,11 @@ namespace Steele
 		}
 		
 		
+	public:
+		inline SimpleMap<CELL>& map() { return m_map; }
+		inline const SimpleMap<CELL>& map() const { return m_map; }
+		
+		
 	protected: // ITransformable
 		void _push_transformation(const Steele::Transformation& t) override
 		{
