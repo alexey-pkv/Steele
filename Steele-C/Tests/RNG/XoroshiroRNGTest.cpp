@@ -403,6 +403,53 @@ TEST(XoroshiroRNG__referenced_state__different_refereces__different_vectors)
 }
 
 
+TEST(XoroshiroRNG__referenced_state__differnt_than_no_ref)
+{
+	XoroshiroRNG rng;
+	
+	rng.reset_state(__FUNCTION__ );
+	
+	XoroshiroRNG a(rng.create_referenced_state(1));
+	XoroshiroRNG b(rng.create_referenced_state(1.0f));
+	XoroshiroRNG c(rng.create_referenced_state({1, 1}));
+	XoroshiroRNG d(rng.create_referenced_state({1, 1, 1}));
+	
+	assert_different(rng, a);
+	assert_different(rng, b);
+	assert_different(rng, c);
+	assert_different(rng, d);
+}
+
+
+TEST(XoroshiroRNG__referenced_state__from_another_referenced_state__resets)
+{
+	XoroshiroRNG rng;
+	
+	rng.reset_state(__FUNCTION__ );
+	
+	XoroshiroRNG cpy(rng.create_referenced_state(1));
+	
+	
+	XoroshiroRNG from_copy_1(cpy.create_referenced_state(1.0f));
+	XoroshiroRNG from_orig_1(rng.create_referenced_state(1.0f));
+	assert_same(from_copy_1, from_orig_1);
+	
+	
+	XoroshiroRNG from_copy_2(cpy.create_referenced_state(2));
+	XoroshiroRNG from_orig_2(rng.create_referenced_state(2));
+	assert_same(from_copy_2, from_orig_2);
+	
+	
+	XoroshiroRNG from_copy_3(cpy.create_referenced_state({1, 1}));
+	XoroshiroRNG from_orig_3(rng.create_referenced_state({1, 1}));
+	assert_same(from_copy_3, from_orig_3);
+	
+	
+	XoroshiroRNG from_copy_4(cpy.create_referenced_state({1, 1, 2}));
+	XoroshiroRNG from_orig_4(rng.create_referenced_state({1, 1, 2}));
+	assert_same(from_copy_4, from_orig_4);
+}
+
 
 
 #pragma clang diagnostic pop
