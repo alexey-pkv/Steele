@@ -4,7 +4,7 @@
 
 #include "godot_cpp/variant/string.hpp"
 #include "DataTypes/Direction.h"
-#include "RNG/IRNG.h"
+#include "Base/RNG/IRNG.h"
 
 
 namespace Steele
@@ -32,7 +32,7 @@ namespace Steele
 		
 		
 	public:
-		Direction get(RNG::IRNG& rng) const;
+		Direction get(IRNG& rng) const;
 	};
 }
 

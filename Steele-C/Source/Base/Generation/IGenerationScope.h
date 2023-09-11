@@ -2,7 +2,7 @@
 #define STEELE_IGENERATIONSCOPE_H
 
 
-#include "RNG/IRNG.h"
+#include "Base/RNG/IRNG.h"
 #include "IGenerationMap.h"
 #include "DataTypes/Generation/Palette.h"
 #include "Base/Generation/DB/IPatetteDB.h"
@@ -14,7 +14,7 @@ namespace Steele
 	class IGenerationScope
 	{
 	public:
-		virtual RNG::IRNG& rng() = 0;
+		virtual IRNG& rng() = 0;
 		virtual IGenerationWorldMap& map() = 0;
 		virtual const IGenerationWorldMap& map() const = 0;
 		

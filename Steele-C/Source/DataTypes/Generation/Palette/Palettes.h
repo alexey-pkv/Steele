@@ -2,7 +2,7 @@
 #define STEELE_PALETTES_H
 
 
-#include "RNG/IRNG.h"
+#include "Base/RNG/IRNG.h"
 #include "DataTypes/Types.h"
 
 
@@ -26,7 +26,7 @@ namespace Steele
 	class IScalarSelect
 	{
 	public:
-		virtual T select_random(RNG::IRNG& rng) const = 0;
+		virtual T select_random(IRNG& rng) const = 0;
 	};
 	
 	
@@ -111,7 +111,7 @@ namespace Steele
 		
 		
 	public:
-		T select_random(RNG::IRNG& rng) const override
+		T select_random(IRNG& rng) const override
 		{
 			auto weight = this->total_weight() ;
 			

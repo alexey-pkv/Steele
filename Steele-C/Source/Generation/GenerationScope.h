@@ -24,19 +24,19 @@ namespace Steele
 		
 		
 	private:
-		RNG::XoroshiroRNG	m_rng;
-		GenerationMap		m_map;
-		PaletteDB			m_pallets;
-		BrushDB				m_brushes;
+		XoroshiroRNG	m_rng;
+		GenerationMap	m_map;
+		PaletteDB		m_pallets;
+		BrushDB			m_brushes;
 		
 		
 	public:
 		virtual ~GenerationScope() = default;
-		GenerationScope();
+		GenerationScope() = default;
 		
 		
 	public:
-		RNG::IRNG& rng() override;
+		IRNG& rng() override;
 		IGenerationWorldMap& map() override;
 		const IGenerationWorldMap& map() const override;
 		

@@ -5,7 +5,7 @@
 #include <cstdint>
 
 
-namespace Steele::RNG
+namespace Steele
 {
 	/**
 	 * @see https://prng.di.unimi.it/xoroshiro128plus.c

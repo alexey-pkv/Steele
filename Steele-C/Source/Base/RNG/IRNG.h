@@ -5,17 +5,16 @@
 #include <string>
 #include <vector>
 
-#include "../Utils.h"
+#include "Utils.h"
 #include "Exceptions/SteeleException.h"
+#include "DataTypes/RNG/RandomState.h"
 
 
-namespace Steele::RNG
+namespace Steele
 {
 	class IRNG
 	{
 	public:
-		virtual std::string seed() const = 0;
-		
 		virtual bool		next_bool() = 0;
 		
 		virtual char		next_char() = 0;

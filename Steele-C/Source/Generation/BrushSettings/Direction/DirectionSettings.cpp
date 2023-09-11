@@ -1,7 +1,7 @@
 #include "DirectionSettings.h"
 
 
-Steele::Direction Steele::DirectionSettings::get(Steele::RNG::IRNG& rng) const
+Steele::Direction Steele::DirectionSettings::get(Steele::IRNG& rng) const
 {
 	switch (SettingType)
 	{

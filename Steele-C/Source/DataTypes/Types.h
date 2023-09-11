@@ -27,6 +27,9 @@ typedef std::int32_t	t_id;
 #define NULL_ID 0
 
 
+typedef unsigned char byte;
+
+
 namespace Steele
 {
 	enum class BrushType : char

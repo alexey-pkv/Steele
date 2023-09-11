@@ -11,11 +11,14 @@ using namespace Steele;
 
 int main()
 {
-	Steele::RNG::XoroshiroRNG x("Asd");
+	vector<int> v;
+	vector<int> w;
 	
-	BrushDB a;
+	v.reserve(120);
 	
-	cout << x.next<int>() << endl;
+	std::swap(v, w);
+	
+	cout << v.capacity() << " " << w.capacity() << endl;
 	
 	return 0;
 }

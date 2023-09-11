@@ -175,6 +175,15 @@ void clear(std::vector<T>& a)
 }
 
 template <typename T>
+void clear(std::vector<T>& a, size_t reserve)
+{
+	std::vector<T> b;
+	b.reserve(reserve);
+	a.swap(b);
+}
+
+
+template <typename T>
 T& last(std::vector<T>& target)
 {
 	return target[target.size() - 1];
