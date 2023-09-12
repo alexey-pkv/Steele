@@ -5,8 +5,8 @@ import os
 opts = Variables([], ARGUMENTS)
 
 # Define the relative path to the Godot headers.
-godot_headers_path = "../godot-cpp/godot-headers"
-godot_bindings_path = "../godot-cpp"
+godot_headers_path = "godot-cpp/godot-headers"
+godot_bindings_path = "godot-cpp"
 build_target= "bin/gdnative/"
 
 
