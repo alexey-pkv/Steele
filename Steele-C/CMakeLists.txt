@@ -58,7 +58,7 @@ foreach(ConfigFile IN LISTS GD_EXTENSION_CONFIG)
 	)
 endforeach ()
 
-file(GLOB OUTPUT_FILES bin/*.gdextension bin/libsteele.so)
+file(GLOB OUTPUT_FILES GDExtensions/*.gdextension bin/libsteele.so)
 foreach(File IN LISTS OUTPUT_FILES)
 	add_custom_command(TARGET Steele POST_BUILD
 		COMMAND ${CMAKE_COMMAND} -E copy ${File} ${CMAKE_SOURCE_DIR}/../Steele-Godot/Extensions/

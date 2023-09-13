@@ -77,9 +77,9 @@ void Steele::XoroshiroRNG::init()
 }
 
 std::vector<uint64_t> Steele::XoroshiroRNG::generate_state(
-	const std::string& seed, 
-	const std::vector<int32_t>& ref,
-	StateReference::RefType	type)
+		const std::string& seed,
+		const std::vector<int32_t>& ref,
+		ReferenceValue::RefType	type)
 {
 	std::vector<uint64_t> result;
 	StateCast primaryCast	= {};
@@ -164,7 +164,7 @@ Steele::XoroshiroRNG::XoroshiroRNG(const Steele::RandomState& state)
 	XoroshiroRNG::reset_state(state);
 }
 
-Steele::XoroshiroRNG::XoroshiroRNG(std::string str, StateReference ref) : 
+Steele::XoroshiroRNG::XoroshiroRNG(std::string str, ReferenceValue ref) : 
 	m_ref(ref),
 	m_seed(std::move(str))
 {
@@ -345,11 +345,11 @@ void Steele::XoroshiroRNG::set_state(const Steele::RandomState& state)
 }
 
 
-Steele::RandomState Steele::XoroshiroRNG::create_referenced_state(StateReference ref) const
+Steele::RandomState Steele::XoroshiroRNG::create_referenced_state(ReferenceValue ref) const
 {
 	XoroshiroRNG state;
 	
-	state.m_ref = StateReference(ref);
+	state.m_ref = ReferenceValue(ref);
 	state.reset_state(m_seed);
 	
 	return state.get_state();
@@ -357,22 +357,22 @@ Steele::RandomState Steele::XoroshiroRNG::create_referenced_state(StateReference
 
 Steele::RandomState Steele::XoroshiroRNG::create_referenced_state(v2i ref) const
 {
-	return create_referenced_state(StateReference(ref));
+	return create_referenced_state(ReferenceValue(ref));
 }
 
 Steele::RandomState Steele::XoroshiroRNG::create_referenced_state(v3i ref) const
 {
-	return create_referenced_state(StateReference(ref));
+	return create_referenced_state(ReferenceValue(ref));
 }
 
 Steele::RandomState Steele::XoroshiroRNG::create_referenced_state(float ref) const
 {
-	return create_referenced_state(StateReference(ref));
+	return create_referenced_state(ReferenceValue(ref));
 }
 
 Steele::RandomState Steele::XoroshiroRNG::create_referenced_state(int32_t ref) const
 {
-	return create_referenced_state(StateReference(ref));
+	return create_referenced_state(ReferenceValue(ref));
 }
 
 
@@ -384,7 +384,7 @@ void Steele::XoroshiroRNG::jump(int count)
 	}
 }
 
-Steele::StateReference Steele::XoroshiroRNG::get_reference() const
+Steele::ReferenceValue Steele::XoroshiroRNG::get_reference() const
 {
 	return m_ref;
 }

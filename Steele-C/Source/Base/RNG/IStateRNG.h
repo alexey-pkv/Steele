@@ -16,7 +16,7 @@ namespace Steele
 		virtual void reset_state(const RandomState& state) = 0;
 		virtual void reset_state() = 0;
 		
-		virtual StateReference get_reference() const = 0;
+		virtual ReferenceValue get_reference() const = 0;
 		virtual RandomState get_state() const = 0;
 		virtual void get_state(RandomState& target) const = 0;
 		virtual void set_state(const RandomState& state) = 0;

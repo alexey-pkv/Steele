@@ -6,7 +6,7 @@
 #include <vector>
 
 #include "DataTypes/Types.h"
-#include "StateReference.h"
+#include "ReferenceValue.h"
 
 
 namespace Steele
@@ -23,11 +23,10 @@ namespace Steele
 		RandomState& operator=(const RandomState&) = default;
 		RandomState& operator=(RandomState&&) = default;
 		
-		
 	public:
 		std::string			Seed;
 		std::vector<::byte>	State		= {};
-		StateReference		Reference;
+		ReferenceValue		Reference;
 		
 		
 	public:

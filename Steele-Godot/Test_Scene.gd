@@ -18,10 +18,38 @@ func _ready():
 	
 	get_viewport().size = Vector2i(1200, 1200)
 	
+	var d = XoroshiroRNG.new()
+	
+	d.reset_seed("adsadas")
+	
+	print(d.next_int())
+	print(d.next_int())
+	
+	var a: RandomState = d.get_state()
+	
+	print(a.get_seed())
+	print(d.next_int())
+	print(RandomState.REF_NONE)
+	
+	
+	d.set_state(a)
+	
+	print(d.next_int())
+	print(d.next_int())
+	
+	
+	print(d.next_int())
+	print(d.next_int())
+	
+	print(d.next_int())
+	print(d.next_int())
+	
+	
 	return
 	
 	var n = {}
 	var v = Vector2i(1, 2)
+	
 	
 	n[v] = 4
 	

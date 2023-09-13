@@ -1,9 +1,9 @@
-#ifndef STEELE_GD_EXTENSION_H
-#define STEELE_GD_EXTENSION_H
+#ifndef GODOT_GD_EXTENSION_H
+#define GODOT_GD_EXTENSION_H
 
 
-void initialize_test_module();
-void uninitialize_test_module();
+void initialize_steele_module();
+void uninitialize_steele_module();
 
 
 #endif

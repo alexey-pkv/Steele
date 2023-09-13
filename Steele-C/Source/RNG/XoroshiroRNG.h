@@ -61,7 +61,7 @@ namespace Steele
 		xoroshiro128plus_config m_config	= default_config;
 		
 		std::string 			m_seed;
-		StateReference			m_ref			= {};
+		ReferenceValue			m_ref			= {};
 		std::vector<uint64_t>	m_state			= { 1, 1 };
 		int 					m_stateIndex	= 0;
 		
@@ -73,16 +73,16 @@ namespace Steele
 	private:
 		void init();
 		static std::vector<uint64_t> generate_state(
-			const std::string& seed, 
-			const std::vector<int32_t>& ref,
-			StateReference::RefType	type);
+				const std::string& seed,
+				const std::vector<int32_t>& ref,
+				ReferenceValue::RefType	type);
 		
 	
 	public:
 		explicit XoroshiroRNG() = default;
 		explicit XoroshiroRNG(std::string str);
 		explicit XoroshiroRNG(const RandomState& state);
-		explicit XoroshiroRNG(std::string str, StateReference ref);
+		explicit XoroshiroRNG(std::string str, ReferenceValue ref);
 		explicit XoroshiroRNG(const xoroshiro128plus_config& config);
 		
 		XoroshiroRNG(const std::string& str, int jump);
@@ -119,7 +119,7 @@ namespace Steele
 		void reset_state(const RandomState& state) override;
 		void reset_state() override;
 		
-		StateReference get_reference() const override;
+		ReferenceValue get_reference() const override;
 		
 		RandomState get_state() const override;
 		void get_state(RandomState& target) const override;
@@ -134,7 +134,7 @@ namespace Steele
 		
 	public:
 		void jump(int count);
-		RandomState create_referenced_state(StateReference ref) const;
+		RandomState create_referenced_state(ReferenceValue ref) const;
 	};
 }
 
