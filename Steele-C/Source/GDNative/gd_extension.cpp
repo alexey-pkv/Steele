@@ -4,6 +4,9 @@
 #include "Test/GodotTestPlugin.h"
 #include "GDNative/RNG/XoroshiroRNG.h"
 #include "GDNative/RNG/RandomState.h"
+#include "GDNative/DataTypes/Dir.h"
+#include "GDNative/DataTypes/Map/Ground.h"
+#include "GDNative/DataTypes/Map/GroundTile.h"
 
 
 using namespace godot;
@@ -15,9 +18,17 @@ void initialize_steele_module(ModuleInitializationLevel p_level)
 	{
 		return;
 	}
-
+	
 	// Test Stuff
 	ClassDB::register_class<GodotTestPlugin>();
+	
+	
+	// Data Types
+	ClassDB::register_class<Dir>();
+	
+	// Data Types :: Map
+	ClassDB::register_class<GroundTile>();
+	ClassDB::register_class<Ground>();
 	
 	
 	// RNG

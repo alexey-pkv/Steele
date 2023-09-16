@@ -41,10 +41,11 @@ static func create_from_textures(
 	
 	var ground_texture = GroundTexture.new(name)
 	
-	ground_texture.set_texture(Direction.NORTH,	north)
-	ground_texture.set_texture(Direction.EAST,	east)
-	ground_texture.set_texture(Direction.SOUTH,	south)
-	ground_texture.set_texture(Direction.WEST,	west)
+	
+	# ground_texture.set_texture(Direction.NORTH,	north)
+	# ground_texture.set_texture(Direction.EAST,	east)
+	# ground_texture.set_texture(Direction.SOUTH,	south)
+	# ground_texture.set_texture(Direction.WEST,	west)
 	
 	return ground_texture
 	

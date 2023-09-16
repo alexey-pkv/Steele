@@ -18,50 +18,22 @@ func _ready():
 	
 	get_viewport().size = Vector2i(1200, 1200)
 	
-	var d = XoroshiroRNG.new()
-	
-	d.reset_seed("adsadas")
-	
-	print(d.next_int())
-	print(d.next_int())
-	
-	var a: RandomState = d.get_state()
-	
-	print(a.get_seed())
-	print(d.next_int())
-	print(RandomState.REF_NONE)
+	var d = GroundTile.new()
+	var g = Ground.new()
 	
 	
-	d.set_state(a)
+	d.tile = 234
+	d.index = 78
+	g.add_tile(d)
 	
-	print(d.next_int())
-	print(d.next_int())
+	d.tile = 11
+	d.index = 412
+	g.add_tile(d)
 	
+	var n = g.tiles()
 	
-	print(d.next_int())
-	print(d.next_int())
-	
-	print(d.next_int())
-	print(d.next_int())
-	
-	
-	return
-	
-	var n = {}
-	var v = Vector2i(1, 2)
-	
-	
-	n[v] = 4
-	
-	print(n[Vector2i(1, 2)])
-	
-	# Stop
-	
-	var data = WorldData.new()
-	
-	_world_data = data
-	
-	explorer.add_ground_textures(t, 3.0)
+	for tile in n:
+		print(tile.index)
 	
 	
 

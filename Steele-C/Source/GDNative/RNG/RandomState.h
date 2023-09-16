@@ -47,8 +47,22 @@ namespace godot
 		v3i get_reference_v3i() const;
 		
 		bool has_reference() const;
+		
+		
+	public:
+		enum RefType : int
+		{
+			REF_NONE	= (int)Steele::ReferenceValue::RefType::NONE,
+			REF_INT32	= (int)Steele::ReferenceValue::RefType::INT32,
+			REF_FLOAT	= (int)Steele::ReferenceValue::RefType::FLOAT,
+			REF_V2I		= (int)Steele::ReferenceValue::RefType::V2I,
+			REF_V3I		= (int)Steele::ReferenceValue::RefType::V3I,
+		};
 	};
 }
+	
+
+VARIANT_ENUM_CAST(RandomState::RefType);
 
 
 #endif

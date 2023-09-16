@@ -6,8 +6,8 @@ namespace Steele
 {
 	enum class BrushType : char 
 	{
-		Picture		= 0,
-		Fill		= 1,
+		Picture	= 0,
+		Fill	= 1,
 		Area	= 2
 	};
 }

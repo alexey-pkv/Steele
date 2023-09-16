@@ -49,8 +49,8 @@ namespace Steele
 		inline bool remove(const GroundTile& gt) { return remove(gt.ID); }
 		
 		inline void clear() { ::clear(m_ground); }
-		inline size_t size() { return m_ground.size(); }
-		inline bool is_empty() { return m_ground.empty(); }
+		inline size_t size() const { return m_ground.size(); }
+		inline bool is_empty() const { return m_ground.empty(); }
 		
 		
 	public:

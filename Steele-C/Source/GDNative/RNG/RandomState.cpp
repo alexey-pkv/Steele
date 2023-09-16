@@ -15,14 +15,12 @@ void godot::RandomState::_bind_methods()
 	ClassDB::bind_method(D_METHOD("get_reference_f"), &RandomState::get_reference_f);
 	ClassDB::bind_method(D_METHOD("get_reference_v2i"), &RandomState::get_reference_i);
 	ClassDB::bind_method(D_METHOD("get_reference_v3i"), &RandomState::get_reference_i);
-	ClassDB::bind_method(D_METHOD("get_reference_i"), &RandomState::get_reference_i);
 	
-	// Consts
-	ClassDB::bind_integer_constant("RandomState", "REF_NONE", "REF_NONE", (int)Steele::ReferenceValue::RefType::NONE);
-	ClassDB::bind_integer_constant("RandomState", "REF_INT32", "REF_INT32", (int)Steele::ReferenceValue::RefType::INT32);
-	ClassDB::bind_integer_constant("RandomState", "REF_FLOAT", "REF_FLOAT", (int)Steele::ReferenceValue::RefType::FLOAT);
-	ClassDB::bind_integer_constant("RandomState", "REF_V2I", "REF_V2I", (int)Steele::ReferenceValue::RefType::V2I);
-	ClassDB::bind_integer_constant("RandomState", "REF_V3I", "REF_V3I", (int)Steele::ReferenceValue::RefType::V3I);
+	BIND_CONSTANT(REF_NONE)
+	BIND_CONSTANT(REF_INT32)
+	BIND_CONSTANT(REF_FLOAT)
+	BIND_CONSTANT(REF_V2I)
+	BIND_CONSTANT(REF_V3I)
 }
 
 
