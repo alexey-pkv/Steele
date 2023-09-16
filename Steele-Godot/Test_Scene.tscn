@@ -16,11 +16,3 @@ metadata/_edit_vertical_guides_ = []
 layout_mode = 0
 offset_right = 498.0
 offset_bottom = 962.0
-
-[node name="GraphEdit" type="GraphEdit" parent="."]
-layout_mode = 0
-offset_left = 962.0
-offset_top = 367.0
-offset_right = 1760.0
-offset_bottom = 917.0
-scroll_offset = Vector2(-40, -97)

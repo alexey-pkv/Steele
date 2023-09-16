@@ -20,6 +20,16 @@ func _ready():
 	
 	var d = GroundTile.new()
 	var g = Ground.new()
+	var a = Area.ONE()
+	
+	var a2 = Area.ONE()
+	
+	a.add_offset(1, 1)
+	a2.set_offset(4,4)
+	a.combine_a(a2)
+	
+	
+	print(a.debug_info())
 	
 	
 	d.tile = 234

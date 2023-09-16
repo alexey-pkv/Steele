@@ -28,6 +28,19 @@ Area::Area(Rect2i r) :
 	m_horizontal.assign(size.y, AreaLine({ m_offset.x, m_offset.x + size.x - 1 }));
 }
 
+Area::Area(v2i v):
+	m_offset(v)
+{
+	if (v.x <= 0 || v.y <= 0)
+	{
+		m_offset = v2i_zero;
+		return;
+	}
+
+	m_vertical.assign(v.x, AreaLine({ m_offset.y, m_offset.y + v.y - 1 }));
+	m_horizontal.assign(v.y, AreaLine({ m_offset.x, m_offset.x + v.x - 1 }));
+}
+
 Area::Area(int x, int y, int to_x, int to_y) : 
 	m_offset(x, y)
 {

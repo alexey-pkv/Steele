@@ -233,6 +233,7 @@ namespace Steele
 		Area& operator=(Area&&) = default;
 		
 		explicit Area(Rect2i r);
+		explicit Area(v2i v);
 		explicit Area(const std::string& area_template);
 		Area(int x, int y, int to_x, int to_y);
 		Area(int x_at, int y_at);
