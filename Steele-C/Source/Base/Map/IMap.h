@@ -32,12 +32,6 @@ namespace Steele
 		inline CELL* get(v2i at, int z)			{ return _get({at.x, at.y, z}); }
 		inline CELL* get(v3i at)				{ return _get(at); }
 		
-		inline const CELL* get(int x, int y) const 			{ return _get({x, y, 0}); };
-		inline const CELL* get(int x, int y, int z) const 	{ return _get({x, y, z}); };
-		inline const CELL* get(v2i at) const 				{ return _get({at.x, at.y, 0}); };
-		inline const CELL* get(v2i at, int z) const			{ return _get({at.x, at.y, z}); };
-		inline const CELL* get(v3i at) const				{ return _get(at); };
-		
 		inline CELL* try_get(int x, int y) 			{ return _try_get({x, y, 0}); };
 		inline CELL* try_get(int x, int y, int z) 	{ return _try_get({x, y, z}); };
 		inline CELL* try_get(v2i at) 				{ return _try_get({at.x, at.y, 0}); };

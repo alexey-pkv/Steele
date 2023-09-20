@@ -9,18 +9,26 @@
 #include <godot_cpp/variant/vector2.hpp>
 #include <godot_cpp/variant/vector3i.hpp>
 #include <godot_cpp/variant/vector3.hpp>
+#include <godot_cpp/variant/rect2i.hpp>
 
 
 typedef godot::Vector2i v2i;
 typedef godot::Vector3i v3i;
 typedef godot::Vector2 	v2;
 typedef godot::Vector3 	v3;
+typedef godot::Rect2i	r2i;
 
 
 #define v2_zero		v2 { 0, 0 }
 #define v2i_zero	v2i { 0, 0 }
 #define v3_zero		v3 { 0, 0, 0 }
 #define v3i_zero	v3i { 0, 0, 0 }
+
+#define v2_one		v2 { 1, 1 }
+#define v2i_one		v2i { 1, 1 }
+#define v3_one		v3 { 1, 1, 1 }
+#define v3i_one		v3i { 1, 1, 1 }
+
 
 
 typedef std::int32_t	t_id;

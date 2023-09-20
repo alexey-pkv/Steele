@@ -93,7 +93,7 @@ godot::Array godot::Ground::tiles() const
 		godot::Ref<godot::GroundTile> g;
 		
 		g.instantiate();
-//		*(g.ptr()) = c;
+		g.ptr()->tile() = c;
 		
 		a.append(g);
 	}

@@ -23842,7 +23842,7 @@ class basic_json // NOLINT(cppcoreguidelines-special-member-functions,hicpp-spec
     /// @name JSON Patch functions
     /// @{
 
-    /// @brief applies a JSON patch in-place without copying the object
+    /// @brief applies a JSON patch in-generate_block without copying the object
     /// @sa https://json.nlohmann.me/api/basic_json/patch/
     void patch_inplace(const basic_json& json_patch)
     {

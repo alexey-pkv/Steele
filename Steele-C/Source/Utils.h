@@ -2,6 +2,7 @@
 #define STEELE_UTILS_H
 
 
+#include <set>
 #include <map>
 #include <memory>
 #include <vector>
@@ -27,11 +28,24 @@ inline bool contains(const std::map<K, V>& map, const K& k)
 	return map.find(k) != map.end();
 }
 
+template <typename K>
+inline bool contains(const std::set<K>& set, const K& k)
+{
+	return set.find(k) != set.end();
+}
+
+
 template <typename K, typename V>
 inline V* get_value_ptr(std::map<K, V>& map, const K& k)
 {
 	auto kvp = map.find(k);
 	return kvp != map.end() ? &(kvp->second) : nullptr;
+}
+
+template <typename V, typename F>
+void remove_where(std::vector<V>& vec, F where)
+{
+	vec.erase(std::remove_if(vec.begin(), vec.end(), where), vec.end());
 }
 
 template <typename K, typename V>
