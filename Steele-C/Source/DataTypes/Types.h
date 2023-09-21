@@ -76,4 +76,7 @@ enum class Axis
 		})
 
 
+inline v2i abs(const v2i& v) { return { abs(v.x), abs(v.y) }; }
+
+
 #endif

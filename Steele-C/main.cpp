@@ -3,6 +3,7 @@
 #include "DataTypes/Generation/DB/PaletteDB.h"
 #include "RNG/XoroshiroRNG.h"
 #include "Generation/Brushes/GridBlock/GridBlockGenerator.h"
+#include "Generation/Brushes/VoronoiSquare/VoronoiSquareGenerator.h"
 
 
 using namespace godot;
@@ -12,66 +13,38 @@ using namespace Steele;
 
 int main()
 {
-	GridBlockGenerator g;
-	XoroshiroRNG rng;
-	BlockGeneratorConfig cfg
+	for (int i = 0; i < 100; i++)
 	{
-		.GridWidth			= 20,
-		.GridHeight			= 20,
-		.SingleBlockSize	= 20,
-		.RoadWidth			= 5,
-		.Blocks =
+		std::string s { (char)i };
+		
+		XoroshiroRNG rng(s);
+		VoronoiSquareGenerator gen;
+		
+		int border	= 10;
+		int size	= 50;
+		int count	= 100;
+		
+		gen.generate(rng, { size, size }, count);
+		
+		for (auto& n : gen.areas())
 		{
-			BlockTypeConfig {
-				.Size	= v2i_one,
-				.Min	= 0,
-				.Max	= -1,
-				.Weight	= 1
-			},
-			BlockTypeConfig {
-				.Size	= { 1, 2 },
-				.Min	= 1,
-				.Max	= -1,
-				.Weight	= 50
-			},
-			BlockTypeConfig {
-				.Size	= { 2, 1 },
-				.Min	= 1,
-				.Max	= -1,
-				.Weight	= 50
-			},
-			BlockTypeConfig {
-				.Size	= { 2, 2 },
-				.Min	= 1,
-				.Max	= -1,
-				.Weight	= 50
-			},
-			BlockTypeConfig {
-				.Size	= { 3, 2 },
-				.Min	= 0,
-				.Max	= -1,
-				.Weight	= 25
-			},
-			BlockTypeConfig {
-				.Size	= { 2, 3 },
-				.Min	= 0,
-				.Max	= -1,
-				.Weight	= 25
-			},
-			BlockTypeConfig {
-				.Size	= { 3, 3 },
-				.Min	= 1,
-				.Max	= 2,
-				.Weight	= 15
+			if (n.Sign != '\0') continue;
+			
+			auto& a = n.TotalArea;
+			
+			if (a.left() < border || a.right() >= size - border || 
+				a.bottom() < border || a.top() >= size - border)
+			{
+				n.Sign = 'O';
+			}
+			else
+			{
+				n.Sign = ' ';
 			}
 		}
-	};
-	
-	rng.reset_state("My state");
-	
-	cout << g.generate(rng, cfg) << endl;
-	
-	cout << g.debug_map() << endl;
+		
+		cout << gen.debug_info() << endl;
+	}
 	
 	return 0;
 }
