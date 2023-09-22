@@ -35,19 +35,13 @@ Area::Area(v2i v):
 }
 
 Area::Area(int x, int y, int to_x, int to_y) : 
-	m_offset(x, y)
+	Area(r2i(x, y, to_x - x + 1, to_y - y + 1))
 {
-	if (to_x < x || to_y < y)
-	{
-		m_offset = v2i_zero;
-		return;
-	}
 	
-	m_vertical.assign(		to_x - x + 1, AreaLine({ y, to_y }));
-	m_horizontal.assign(	to_y - y + 1, AreaLine({ x, to_x }));
 }
 
-Area::Area(int at_x, int at_y) : Area(at_x, at_y, at_x, at_y)
+Area::Area(int at_x, int at_y) : 
+	Area(r2i(at_x, at_y, 1, 1))
 {
 	
 }
@@ -118,25 +112,6 @@ void Area::flip_lines(vector<AreaLine>& lines, int offset)
 	{
 		n.flip(offset);
 	}
-}
-
-Area &Area::operator+=(const Vector2i &v)
-{
-	if (is_empty()) return *this;
-	
-	m_offset += v;
-	
-	if (v.x != 0)
-	{
-		offset_all(m_horizontal, v.x);
-	}
-	
-	if (v.y != 0)
-	{
-		offset_all(m_vertical, v.y);
-	}
-	
-	return *this;
 }
 
 Area& Area::operator*=(Direction dir)
@@ -537,6 +512,27 @@ bool Area::contains(const v2i& v) const
 	}
 	
 	return m_vertical[x].contains(v.y);
+}
+
+
+void Area::set_offset(v2i v)
+{
+	if (is_empty() || m_offset == v) 
+		return;
+	
+	auto diff = v - m_offset;
+	
+	m_offset = v;
+	
+	if (diff.x != 0)
+	{
+		offset_all(m_horizontal, diff.x);
+	}
+	
+	if (diff.y != 0)
+	{
+		offset_all(m_vertical, diff.y);
+	}
 }
 
 

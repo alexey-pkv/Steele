@@ -23,7 +23,7 @@ void assert_alignment(Area& source, const Area& target, align_func f, const stri
 	ASSERT_TRUE(a.IsSuccessful);
 	
 	
-	at += a.Offset;
+	at.add_offset(a.Offset);
 	at ^= source;
 	
 	
@@ -58,7 +58,6 @@ TEST(Aligner__Inside__SimpleCase)
 		"....\n"
 		"....\n"
 	);
-	
 	
 	assert_alignment(a, b, Aligner::InsideTopRight,
 		

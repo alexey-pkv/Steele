@@ -5,12 +5,13 @@
 #include "DataTypes/Types.h"
 #include "DataTypes/Area.h"
 
+
 namespace Steele
 {
 	struct Alignment 
 	{
 	public:
-		bool	IsSuccessful;
+		bool	IsSuccessful = false;
 		v2i		Offset;
 		
 		
@@ -22,8 +23,7 @@ namespace Steele
 		
 		
 	public:
-		inline Area& Modify(Area& a) const { return a += Offset; }
-		[[nodiscard]] inline Area Modify(const Area& a) const { return a + Offset; }
+		inline Area& Modify(Area& a) const { a.add_offset(Offset); return a; }
 	};
 }
 

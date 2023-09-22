@@ -17,7 +17,7 @@ void Area::_bind_methods()
 	ClassDB::bind_method(D_METHOD("add_offset_v2i", "v"), &Area::add_offset_v2i);
 	ClassDB::bind_method(D_METHOD("reset_offset"), &Area::reset_offset);
 	ClassDB::bind_method(D_METHOD("get_reset_offset_area"), &Area::get_reset_offset_area);
-	ClassDB::bind_method(D_METHOD("GetRect"), &Area::GetRect);
+	ClassDB::bind_method(D_METHOD("get_rect"), &Area::GetRect);
 	ClassDB::bind_method(D_METHOD("overlaps"), &Area::overlaps);
 	ClassDB::bind_method(D_METHOD("debug_info"), &Area::debug_info);
 	ClassDB::bind_method(D_METHOD("debug_info_extended", "fill", "empty", "withBorders"), &Area::debug_info_extended);
@@ -54,8 +54,8 @@ v2i Area::get_offset() const { return m_area.offset(); }
 bool Area::is_empty() const { return m_area.is_empty();}
 void Area::set_offset(int x, int y) { m_area.set_offset(x, y); }
 void Area::set_offset_v2i(v2i v) { m_area.set_offset(v); }
-void Area::add_offset(int x, int y) { m_area += v2i {x, y}; }
-void Area::add_offset_v2i(const v2i &v) { m_area += v; }
+void Area::add_offset(int x, int y) { m_area.add_offset(x, y); }
+void Area::add_offset_v2i(const v2i &v) { m_area.add_offset(v); }
 void Area::reset_offset() { m_area.reset_offset(); }
 
 Ref<Area> Area::get_reset_offset_area() const
@@ -68,7 +68,7 @@ Ref<Area> Area::get_reset_offset_area() const
 	return a;
 }
 
-Rect2i Area::GetRect() const { return m_area.GetRect(); }
+Rect2i Area::GetRect() const { return m_area.get_rect(); }
 bool Area::overlaps(const Ref<Area>& a) const { return m_area.overlaps(a->m_area); }
 godot::String Area::debug_info() const { return { m_area.debug_info().c_str() }; }
 godot::String Area::debug_info_extended(int fill, int empty, bool withBoarder) const { return { m_area.debug_info((char)fill, (char)empty, withBoarder).c_str() }; }

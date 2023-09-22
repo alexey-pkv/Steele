@@ -235,26 +235,23 @@ namespace Steele
 		explicit Area(Rect2i r);
 		explicit Area(v2i v);
 		explicit Area(const std::string& area_template);
-		Area(int x, int y, int to_x, int to_y);
+		Area(int x, int y, int width, int height);
 		Area(int x_at, int y_at);
 		
 		
 	public:
 		inline bool operator==(const Area& b) const { return m_offset == b.m_offset && m_vertical == b.m_vertical; };
 		inline bool operator!=(const Area& b) const { return m_offset != b.m_offset || m_vertical != b.m_vertical; };
-		inline Area& operator-=(const Vector2i& v) { return *this += -v; };
+		inline Area& operator+=(const Area& a) { return *this |= a; }
+		inline Area& operator+=(const Vector2i& v) { return *this |= Area(v); }
 		
+		inline Area operator+(const Area& a) const { return (Area(*this) |= a); }
 		inline Area operator|(const Area& a) const { return (Area(*this) |= a); }
 		inline Area operator&(const Area& a) const { return (Area(*this) &= a); }
 		inline Area operator-(const Area& a) const { return (Area(*this) -= a); }
 		inline Area operator^(const Area& a) const { return (*this | a) - (*this & a); }
 		inline Area operator*(Direction dir) const { return (Area(*this) *= dir); }
 		
-		
-		inline Area operator+(const v2i& v) const { return (Area(*this) += v); }
-		inline Area operator-(const v2i& v) const { return (Area(*this) += v); }
-		
-		Area& operator+=(const Vector2i& v);
 		Area& operator*=(Direction dir);
 		
 		Area& operator|=(const Area& a);
@@ -277,6 +274,8 @@ namespace Steele
 		bool contains(const v2i& v) const;
 		inline bool contains(const Area& a) const { return a <= *this; }
 		
+		void set_offset(v2i v);
+		
 		
 	public:
 		inline int height() const	{ return (int)m_horizontal.size(); }
@@ -288,15 +287,16 @@ namespace Steele
 		
 		inline int x() const { return m_offset.x; }
 		inline int y() const { return m_offset.y; }
-		inline v2i offset() const	{ return m_offset; }
+		inline v2i offset() const { return m_offset; }
 		inline bool is_empty() const { return m_vertical.empty(); }
 		
 		inline void set_offset(int x, int y) { set_offset({x, y}); }
-		inline void set_offset(v2i v) { *this += (v - m_offset); }
-		inline void reset_offset() { *this -= m_offset; }
+		inline void add_offset(int x, int y) { set_offset(m_offset + v2i { x, y }); }
+		inline void add_offset(v2i v) { set_offset(m_offset + v); }
+		inline void reset_offset() { set_offset(v2i_zero); }
 		inline Area get_reset_offset_area() const { Area a = *this; a.reset_offset(); return a; }
 		
-		inline Rect2i GetRect() const
+		inline Rect2i get_rect() const
 		{
 			return 
 			{ 
@@ -359,7 +359,7 @@ namespace std
 	{
 		std::size_t operator()(const Steele::Area& area) const
 		{
-			size_t val = std::hash<Rect2i>()(area.GetRect());
+			size_t val = std::hash<Rect2i>()(area.get_rect());
 			
 			val ^= hash<uint64_t>()(area.get_area());
 			

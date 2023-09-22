@@ -103,6 +103,37 @@ void assert_overlap(const Area& a, const Area&b, bool expected)
 }
 
 
+TEST(Area__Constructors)
+{
+	Area a(
+		"..****\n"
+		"..****\n"
+		"..****\n"
+		"..****\n"
+		"..****\n"
+		"......\n"
+		"......\n"
+		"......\n"
+	);
+	
+	Area b(
+		"..*\n"
+		"...\n"
+		"...\n"
+		"...\n"
+	);
+	
+	ASSERT_IS(a, Area(Rect2i(2, 3, 4, 5)));
+	ASSERT_IS(a, Area(2, 3, 5, 7));
+	
+	ASSERT_IS(b, Area(2, 3));
+	ASSERT_IS(b, Area(v2i {2, 3}));
+	
+	ASSERT_IS(a, Area(a));
+	ASSERT_IS(b, Area(b));
+}
+
+
 TEST(Area__GetArea__EmptyArea__AreaIsZero)
 {
 	ASSERT_IS(Area().get_area(), 0);
@@ -151,7 +182,7 @@ TEST(Area__EQUAL__SIGN)
 	ASSERT		(a != d);
 	ASSERT_NOT	(a == d);
 	
-	a += v2i(1, 1);
+	a.add_offset(v2i_one);
 	
 	ASSERT		(a != b);
 	ASSERT_NOT	(a == b);
@@ -160,10 +191,10 @@ TEST(Area__EQUAL__SIGN)
 	ASSERT		(a != d);
 	ASSERT_NOT	(a == d);
 	
-	a.set_offset({0, 0});
+	a.set_offset(v2i_zero);
 	
-	a += v2i (3, 2);
-	b += v2i (3, 2);
+	a.add_offset(3, 2);
+	b.add_offset(3, 2);
 	
 	ASSERT		(a == b);
 	ASSERT_NOT	(a != b);
@@ -1250,7 +1281,7 @@ TEST(Area__Contains__Vector)
 	
 	ASSERT_FALSE(a[v2i(2, 1) - v2i(5, 5)]);
 	
-	a -= v2i(5, 5);
+	a.add_offset(v2i(-5, -5));
 	
 	ASSERT_FALSE(a[v2i(2, 1)]);
 	ASSERT_TRUE(a[v2i(2, 1) - v2i(5, 5)]);
@@ -1630,31 +1661,31 @@ TEST(Area__GetRect)
 {
 	ASSERT_IS(
 		Rect2i({0, 0}, {0, 0}),
-		(Area()).GetRect()
+		(Area()).get_rect()
 	);
 	
 	ASSERT_IS(
 		Rect2i({0, 0}, {1, 1}),
-		(Area("*\n")).GetRect()
+		(Area("*\n")).get_rect()
 	);
 	
 	ASSERT_IS(
 		Rect2i({1, 1}, {1, 1}),
-		(Area(".*\n..\n")).GetRect()
+		(Area(".*\n..\n")).get_rect()
 	);
 	
 	ASSERT_IS(
 		Rect2i({4, 1}, {5, 6}),
 		(Area(
-			"...........\n"
-			"........*..\n"
-			"...........\n"
-			"....*......\n"
-			"......*....\n"
-			"...........\n"
-			"....*......\n"
-			"...........\n"
-		)).GetRect()
+				"...........\n"
+				"........*..\n"
+				"...........\n"
+				"....*......\n"
+				"......*....\n"
+				"...........\n"
+				"....*......\n"
+				"...........\n"
+		)).get_rect()
 	);
 }
 
