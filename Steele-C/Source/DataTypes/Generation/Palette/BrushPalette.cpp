@@ -4,12 +4,15 @@
 #include "Base/Generation/IGenerationScope.h"
 
 
-const Steele::IBrush* Steele::BrushPalette::select_random(Steele::IGenerationScope& scope, const Steele::Area& a) const
+using namespace Steele;
+
+
+const IBrush* BrushPalette::select_random(const map<t_id, float>& from, IGenerationScope& scope, const Area& a) 
 {
 	GenericIDPalette curr;
 	auto& db = scope.brush_db();
 	
-	for (auto [id, w] : this->palette())
+	for (auto [id, w] : from)
 	{
 		auto brush = db.get(id);
 		
@@ -25,4 +28,50 @@ const Steele::IBrush* Steele::BrushPalette::select_random(Steele::IGenerationSco
 	auto id = curr.select_random(scope.rng());
 	
 	return db.get(id);
+}
+
+
+const IBrush* BrushPalette::select_random(IGenerationScope& scope, const Area& a) const
+{
+	return select_random(palette(), scope, a);
+}
+
+const IBrush* BrushPalette::select_random_where(IGenerationScope& scope, const Area& a, function<bool(IBrush*)>& lambda) const
+{
+	std::map<t_id, float> map;
+	
+	auto& db = scope.brush_db();
+	
+	for (auto t : palette())
+	{
+		auto brush = db.get(t.first);
+		
+		if (!brush)
+			continue;
+		
+		if (lambda(brush))
+		{
+			map[t.first] = t.second;
+		}
+	}
+	
+	return select_random(palette(), scope, a);
+}
+
+void BrushPalette::reduce_palette(BrushPalette& p, IGenerationScope& scope, function<bool(IBrush*)>& where) const
+{
+	auto& db = scope.brush_db();
+	
+	for (auto t : palette())
+	{
+		auto brush = db.get(t.first);
+		
+		if (!brush)
+			continue;
+		
+		if (where(brush))
+		{
+			p.add(t.first, t.second);
+		}
+	}
 }

@@ -21,8 +21,14 @@ namespace Steele
 		BrushPalette& operator=(BrushPalette&&) = default;
 		
 		
+	private:
+		static const IBrush* select_random(const std::map<t_id, float>& from, IGenerationScope& scope, const Area& a) ;
+		
+		
 	public:
-		const IBrush* select_random(IGenerationScope& scope , const Area& a) const;
+		const IBrush* select_random(IGenerationScope& scope, const Area& a) const;
+		const IBrush* select_random_where(IGenerationScope& scope, const Area& a, std::function<bool(IBrush*)>& lambda) const;
+		void reduce_palette(BrushPalette& p, IGenerationScope& scope, std::function<bool(IBrush*)>& where) const;
 	};
 }
 

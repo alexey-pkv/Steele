@@ -5,6 +5,8 @@
 #include <godot_cpp/variant/vector2i.hpp>
 #include <godot_cpp/variant/vector3i.hpp>
 
+#include <string>
+
 #include "DataTypes/Types.h"
 
 
@@ -83,6 +85,13 @@ namespace Steele
 		
 	public:
 		virtual void clear() = 0;
+		
+		
+	public:
+		virtual std::string debug_info() const
+		{
+			return "";
+		}
 	};
 }
 
