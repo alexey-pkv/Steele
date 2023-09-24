@@ -34,3 +34,13 @@ bool Steele::CanvasBrush::can_fill(const Steele::Area& a) const
 	
 	return true;
 }
+
+bool Steele::CanvasBrush::is_constant_area_brush() const
+{
+	return true;
+}
+
+Steele::Area Steele::CanvasBrush::get_constant_area() const
+{
+	return m_canvas.get_area();
+}

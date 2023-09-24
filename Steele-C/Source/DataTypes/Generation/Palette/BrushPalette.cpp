@@ -58,7 +58,8 @@ const IBrush* BrushPalette::select_random_where(IGenerationScope& scope, const A
 	return select_random(palette(), scope, a);
 }
 
-void BrushPalette::reduce_palette(BrushPalette& p, IGenerationScope& scope, function<bool(IBrush*)>& where) const
+void BrushPalette::get_reduced_palette(BrushPalette& p, IGenerationScope& scope, std::function<bool(
+		const IBrush*)>& where) const
 {
 	auto& db = scope.brush_db();
 	
@@ -72,6 +73,29 @@ void BrushPalette::reduce_palette(BrushPalette& p, IGenerationScope& scope, func
 		if (where(brush))
 		{
 			p.add(t.first, t.second);
+		}
+	}
+}
+
+void BrushPalette::reduce_palette(IGenerationScope& scope, function<bool(const IBrush*)>& where)
+{
+	auto& db = scope.brush_db();
+	auto& p = palette();
+	
+	for (auto it = p.cbegin(); it != p.cend();)
+	{ 
+		auto brush = db.get(it->first);
+		
+		if (!brush)
+			continue;
+		
+		if (!where(brush))
+		{
+			it = p.erase(it);
+		}
+		else
+		{
+			it++;
 		}
 	}
 }

@@ -8,3 +8,6 @@ godot::Vector3i Steele::Transformation::apply(godot::Vector3i target) const
 	
 	return target;
 }
+
+
+const Steele::Transformation Steele::Transformation::ZERO	= {};

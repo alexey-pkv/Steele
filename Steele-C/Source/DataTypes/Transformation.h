@@ -42,6 +42,10 @@ namespace Steele
 		
 	public:
 		godot::Vector3i apply(godot::Vector3i target) const;
+		
+		
+	public:
+		static const Transformation ZERO;
 	};
 	
 	

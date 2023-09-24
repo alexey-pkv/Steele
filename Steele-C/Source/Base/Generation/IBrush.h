@@ -22,6 +22,8 @@ namespace Steele
 		virtual BrushType get_brush_type() const noexcept = 0;
 		virtual void paint(IGenerationScope& scope, const Area& area) const = 0;
 		virtual bool try_paint(IGenerationScope& scope, const Area& area) const noexcept = 0;
+		virtual bool is_constant_area_brush() const = 0;
+		virtual Area get_constant_area() const = 0;
 	};
 	
 	template <BrushType B>
@@ -58,6 +60,16 @@ namespace Steele
 			}
 			
 			return true;
+		}
+		
+		bool is_constant_area_brush() const override
+		{
+			return false;
+		}
+		
+		Area get_constant_area() const override
+		{
+			return Area::ZERO;
 		}
 		
 		BrushType get_brush_type() const noexcept override

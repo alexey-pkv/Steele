@@ -73,14 +73,6 @@ Area::Area(const std::string& area_template)
 	}
 }
 
-
-void Area::clear()
-{
-	m_vertical.clear();
-	m_horizontal.clear();
-	m_offset = v2i_zero;
-}
-
 void Area::clean_up()
 {
 	m_offset.x += clean_up(m_vertical);
@@ -535,6 +527,30 @@ void Area::set_offset(v2i v)
 	}
 }
 
+bool Area::is_square() const
+{
+	if (is_empty())
+		return true;
+	if (height() != width())
+		return false;
+	
+	return is_rectangle();
+}
+
+bool Area::is_rectangle() const
+{
+	if (is_empty())
+		return true;
+	
+	return height() * width() == get_area();
+}
+
+void Area::clear()
+{
+	::clear(m_vertical);
+	::clear(m_horizontal);
+	m_offset = v2i_zero;
+}
 
 const Area Area::ZERO	= {};
 const Area Area::ONE	= Area("*\n");

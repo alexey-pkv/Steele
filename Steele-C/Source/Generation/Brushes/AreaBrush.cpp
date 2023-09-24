@@ -73,15 +73,22 @@ void Steele::AreaBrush::paint(Steele::IGenerationScope& scope, const Steele::Are
 
 bool Steele::AreaBrush::can_fill(const Steele::Area& a) const
 {
-	Area calc = a;
+	return get_constant_area() == a;
+}
+
+bool Steele::AreaBrush::is_constant_area_brush() const
+{
+	return true;
+}
+
+Steele::Area Steele::AreaBrush::get_constant_area() const
+{
+	Area total;
 	
 	for (auto& component : m_components)
 	{
-		if (!calc.contains(component.area()))
-			return false;
-		
-		calc -= a;
+		total += component.area();
 	}
 	
-	return calc.is_empty();
+	return total;
 }

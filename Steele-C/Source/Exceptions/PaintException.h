@@ -22,6 +22,9 @@ namespace Steele
 	public:
 		template<class ... T >
 		explicit PaintException(T&& ... args) : SteeleException(std::forward<T>(args)...) {}
+		
+		template<class ... T >
+		explicit PaintException(const T& ... args) : SteeleException(std::forward<const T>(args)...) {}
 	};
 	
 	

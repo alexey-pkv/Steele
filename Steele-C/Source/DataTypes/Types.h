@@ -45,6 +45,7 @@ namespace Steele
 		Fill	= 0,
 		Canvas	= 1,
 		Area	= 2,
+		Row		= 3,
 		
 		AreaComponent	= 100
 	};

@@ -44,6 +44,9 @@ namespace Steele
 	public: // IBrush
 		bool can_fill(const Area& a) const override;
 		void paint(IGenerationScope& scope, const Area& area) const override;
+		
+		bool is_constant_area_brush() const override;
+		Area get_constant_area() const override;
 	};
 }
 

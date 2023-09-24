@@ -202,7 +202,6 @@ namespace Steele
 		
 		
 	private:
-		void clear();
 		void clean_up();
 		
 		
@@ -275,6 +274,9 @@ namespace Steele
 		inline bool contains(const Area& a) const { return a <= *this; }
 		
 		void set_offset(v2i v);
+		bool is_square() const;
+		bool is_rectangle() const;
+		void clear();
 		
 		
 	public:

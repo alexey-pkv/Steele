@@ -33,6 +33,32 @@ namespace Steele
 	};
 	
 	
+	class LocalTransformation : public ITransformable
+	{
+	private:
+		ITransformable* m_source;
+		bool			m_isApplied;
+		
+		
+	protected: // ITransformable
+		void _push_transformation(const Transformation& t) override;
+		
+		
+	public:
+		~LocalTransformation();
+		LocalTransformation(ITransformable* parent);
+		LocalTransformation(ITransformable& parent);
+	
+	
+	public: // ITransformable
+		void pop_transformation() override;
+		void reset_transformation() override;
+		bool is_transformed() const override;
+		Transformation peek_transformation() const override;
+		const Transformation& transformation() const override;
+	};
+	
+	
 	class AbstractTransformable : public ITransformable
 	{
 	private:
@@ -55,6 +81,17 @@ namespace Steele
 		const Transformation& transformation() const override;
 	};
 }
+
+
+#define PUSH_TRANSFORM(map, offset, dir) \
+	LocalTransformation __lt__(map); \
+	__lt__.push_transformation(offset, dir)
+	
+#define PUSH_TRANSFORM_V(map, offset) \
+	PUSH_TRANSFORM(map, offset, Steele::Direction::North)
+	
+#define PUSH_TRANSFORM_DIR(map, dir) \
+	PUSH_TRANSFORM(map, v2i_zero, dir)
 
 
 #endif

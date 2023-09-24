@@ -6,6 +6,8 @@
 
 #include "IMap.h"
 #include "Utils.h"
+#include "DataTypes/Area.h"
+#include "Exceptions/SteeleException.h"
 
 
 namespace Steele
@@ -13,18 +15,42 @@ namespace Steele
 	template <typename CELL>
 	class SimpleMap : public IMap<CELL>
 	{
+	public:
+		static const auto MAX_MAP_SIZE_TO_CALCULATE_AREA = 1000 * 1000;
+		
+		
 	private:
 		std::map<v3i, CELL> m_map;
+		
+		mutable Area m_area = Area::ZERO;
+		mutable bool m_areaCalculated = false;
+		
+		
+	private:
+		inline void clear_area()
+		{
+			if (m_areaCalculated)
+			{
+				m_areaCalculated = false;
+				m_area.clear();
+			}
+		}
 		
 	
 	protected:
 		void _set(const CELL &c, v3i at) override
 		{
+			if (m_areaCalculated && contains(m_map, at))
+				clear_area();
+			
 			m_map[at] = c;
 		}
 		
 		void _set(CELL &&c, v3i at) override
 		{
+			if (m_areaCalculated && contains(m_map, at))
+				clear_area();
+			
 			m_map[at] = std::move(c);
 		}
 		
@@ -59,6 +85,7 @@ namespace Steele
 			
 			if (kvp == m_map.end())
 			{
+				clear_area();
 				m_map.emplace(at, CELL());
 			}
 			else
@@ -76,13 +103,40 @@ namespace Steele
 		
 		bool _remove(v3i at) override
 		{
-			return remove(m_map, at);
+			if (remove(m_map, at))
+			{
+				clear_area();
+				return true;
+			}
+			
+			return false;
 		}
 	
 	public:
 		void clear() override
 		{
+			clear_area();
 			m_map.clear();	
+		}
+		
+		Area get_area() const
+		{
+			if (m_areaCalculated)
+				return m_area;
+			
+			if (m_map.size() > MAX_MAP_SIZE_TO_CALCULATE_AREA)
+				throw Steele::SteeleException("Map size to big to calculate area!");
+			
+			m_area.clear();
+			
+			for (const auto &[pos, _] : m_map)
+			{
+				m_area += v2i { pos.x, pos.y };
+			}
+			
+			m_areaCalculated = true;
+			
+			return m_area;
 		}
 	
 	
@@ -98,7 +152,6 @@ namespace Steele
 		typename std::map<v3i, CELL>::iterator end() { return m_map.end(); }
 		typename std::map<v3i, CELL>::const_iterator begin() const { return m_map.begin(); }
 		typename std::map<v3i, CELL>::const_iterator end() const { return m_map.end(); }
-		
 	};
 }
 
