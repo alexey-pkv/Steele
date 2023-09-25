@@ -9,7 +9,8 @@ namespace Steele
 {
 	class PaletteDB : public IPaletteDB
 	{
-		
+	public:
+		Palette* create(t_id id) override;
 	};
 }
 

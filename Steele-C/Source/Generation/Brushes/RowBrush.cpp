@@ -101,13 +101,17 @@ Area RowBrush::paint_one_side(IGenerationScope& scope, const Area& area) const
 		
 		b->paint(scope, target);
 		
+		cout << scope.map().debug_info() << endl;
+		
 		width -= brushWidth;
 		target -= brushArea;
+		
+		target.add_offset(-brushWidth, 0);
 		
 		lt.add_transformation(v2i { brushWidth, 0 });
 	}
 	
-	return target;
+	return target.get_reset_offset_area();
 }
 
 
@@ -128,7 +132,7 @@ void RowBrush::paint(IGenerationScope& scope, const Area& area) const
 	else
 	{
 		auto a = paint_one_side(scope, area);
-		
+	
 		lt.set_transformation(Direction::South);
 		a *= Direction::South;
 		

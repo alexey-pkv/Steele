@@ -37,11 +37,17 @@ namespace Steele
 		
 	public:
 		IRNG& rng() override;
+		IStateRNG& rng_state() override;
+		const IStateRNG& rng_state() const override;
 		IGenerationWorldMap& map() override;
 		const IGenerationWorldMap& map() const override;
 		
 		IPaletteDB& palette_db() override;
 		IBrushDB& brush_db() override;
+		
+		
+	public: // For Debug
+		inline void set_in_debug_mode() { m_map.set_in_debug_mode(); }
 	};
 }
 

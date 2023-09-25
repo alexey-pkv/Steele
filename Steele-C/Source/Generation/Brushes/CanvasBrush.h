@@ -38,7 +38,7 @@ namespace Steele
 		
 		
 	public:
-		static CanvasBrush debug_create(const Area& a, t_id id);
+		void debug_set(const Area& a, t_id id);
 	};
 }
 

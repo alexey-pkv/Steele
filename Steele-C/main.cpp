@@ -5,6 +5,8 @@
 #include "Generation/Brushes/GridBlock/GridBlockGenerator.h"
 #include "Generation/Brushes/VoronoiSquare/VoronoiSquareGenerator.h"
 #include "Debug/MapDebug.h"
+#include "Generation/GenerationScope.h"
+#include "Generation/Brushes/RowBrush.h"
 
 
 using namespace godot;
@@ -115,16 +117,38 @@ void foo_2(std::string s)
 
 int main()
 {
-	auto a = Area(
-		"***\n"
-		"***\n"
-	);
+	GenerationScope scope;
 	
-	auto brush = CanvasBrush::debug_create(a, 1);
-	auto& c = brush.canvas();
-	auto info = debug_info(c);
+	scope.set_in_debug_mode();
 	
-	cout << info << endl;
+	auto& brushDB = scope.brush_db();
+	auto p = scope.palette_db().create(100);
+	
+	brushDB.create_canvas(2)->debug_set(Area("**\n" "**\n"), 2);
+	brushDB.create_canvas(3)->debug_set(Area("***\n" "***\n" "***\n"), 3);
+	brushDB.create_canvas(4)->debug_set(Area("****\n" "****\n" "****\n" "****\n"), 4);
+	brushDB.create_canvas(32)->debug_set(Area("**\n" "**\n" "**\n"), 32);
+	brushDB.create_canvas(23)->debug_set(Area("***\n" "***\n"), 23);
+	
+	p->brushes().add(2, 1);
+	p->brushes().add(3, 1);
+	p->brushes().add(4, 1);
+	p->brushes().add(32, 1);
+	p->brushes().add(23, 1);
+	
+	scope.rng_state().reset_state("Hello World");
+	
+	RowBrush rb;
+	
+	rb.set_palette_id(p->get_id());
+	rb.set_min_height(1);
+	rb.set_max_height(3);
+	
+	Area target(0, 0, 23, 10);
+	
+	rb.paint(scope, target);
+	
+	cout << scope.map().debug_info() << endl;
 	
 	return 0;
 }

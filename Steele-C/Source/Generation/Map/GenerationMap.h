@@ -9,7 +9,8 @@ namespace Steele
 {
 	class GenerationMap : public AbstractGenerationMap<Cell>
 	{
-		
+	public:
+		std::string debug_info() const override;
 	};
 }
 

@@ -36,10 +36,17 @@ namespace Steele
 			}
 		}
 		
+		
+	public:
+		bool is_debug = false;
+		
 	
 	protected:
 		void _set(const CELL &c, v3i at) override
 		{
+			if (is_debug)
+				cout << "Set " << at.x << ":" << at.y << endl;
+			
 			if (m_areaCalculated && contains(m_map, at))
 				clear_area();
 			
@@ -48,6 +55,9 @@ namespace Steele
 		
 		void _set(CELL &&c, v3i at) override
 		{
+			if (is_debug)
+				cout << "Set " << at.x << ":" << at.y << endl;
+			
 			if (m_areaCalculated && contains(m_map, at))
 				clear_area();
 			

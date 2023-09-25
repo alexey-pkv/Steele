@@ -108,6 +108,9 @@ namespace Steele
 			m_transformations.push(t); 
 			m_transformed.set_transformation(m_transformations.current());
 		}
+		
+	public: // For Debug
+		inline void set_in_debug_mode() { m_map.is_debug = true; }
 	};
 }
 

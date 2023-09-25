@@ -1,20 +1,15 @@
 #include "GenerationScope.h"
 
 
-#include "Utils.h"
+using namespace Steele;
 
 
-Steele::IRNG& Steele::GenerationScope::rng() { return m_rng;}
-Steele::IGenerationWorldMap& Steele::GenerationScope::map() { return m_map; }
-const Steele::IGenerationWorldMap& Steele::GenerationScope::map() const { return m_map; }
+IRNG& 						GenerationScope::rng()				{ return m_rng;}
+IStateRNG& 					GenerationScope::rng_state()		{ return m_rng; }
+const IStateRNG&			GenerationScope::rng_state() const	{ return m_rng; }
+IGenerationWorldMap&		GenerationScope::map() 				{ return m_map; }
+const IGenerationWorldMap&	GenerationScope::map() const		{ return m_map; }
+IPaletteDB&					GenerationScope::palette_db()		{ return m_pallets; }
+IBrushDB&					GenerationScope::brush_db()			{ return m_brushes; }
 
 
-Steele::IPaletteDB& Steele::GenerationScope::palette_db()
-{
-	return m_pallets;
-}
-
-Steele::IBrushDB& Steele::GenerationScope::brush_db()
-{
-	return m_brushes;
-}

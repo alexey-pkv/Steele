@@ -11,9 +11,9 @@ namespace Steele
 	class RowBrush : public AbstractBrush<BrushType::Row>
 	{
 	private:
-		int m_maxHeight;
-		int m_minHeight;
-		int m_paletteID;
+		int m_maxHeight	= 0;
+		int m_minHeight = 0;
+		t_id m_paletteID = 0;
 		
 		
 	private:
@@ -25,6 +25,17 @@ namespace Steele
 	public: // AbstractBrush
 		bool can_fill(const Area& a) const override;
 		void paint(IGenerationScope& scope, const Area& area) const override;
+		
+		
+	public:
+		int get_min_height() const { return m_minHeight; }
+		void set_min_height(int min) { m_minHeight = min; }
+		
+		int get_max_height() const { return m_maxHeight; }
+		void set_max_height(int max) { m_maxHeight = max; }
+		
+		t_id get_palette_id() const { return m_paletteID; }
+		void set_palette_id(t_id id) { m_paletteID = id; }
 	};
 }
 

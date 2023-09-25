@@ -36,7 +36,7 @@ namespace Steele
 		T* _create_(t_id id)
 		{
 			remove(id);
-			db().emplace(id, std::move(std::make_unique<T>()));
+			db()[id] = std::move(std::make_unique<T>());
 			return get(id);
 		}
 		
@@ -44,7 +44,7 @@ namespace Steele
 		N* _create_(t_id id)
 		{
 			remove(id);
-			db().emplace(id, std::move(std::make_unique<N>()));
+			db()[id] = std::move(std::make_unique<N>());
 			return (N*)get(id);
 		}
 		

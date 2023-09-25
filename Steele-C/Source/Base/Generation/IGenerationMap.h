@@ -15,6 +15,8 @@ namespace Steele
 		public ITransformable,
 		public IStackableMap
 	{
+	public:
+		virtual std::string debug_info() const = 0;
 	};
 	
 	
