@@ -85,13 +85,6 @@ namespace Steele
 		
 	public:
 		virtual void clear() = 0;
-		
-		
-	public:
-		virtual std::string debug_info() const
-		{
-			return "";
-		}
 	};
 }
 

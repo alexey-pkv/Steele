@@ -22,14 +22,20 @@ namespace Steele
 		
 		
 	private:
-		static const IBrush* select_random(const std::map<t_id, float>& from, IGenerationScope& scope, const Area& a) ;
+		inline static const IBrush* select_random(const std::map<t_id, float>& from, IGenerationScope& scope, const Area& a) { return select_random(from, scope, &a); }
+		static const IBrush* select_random(const std::map<t_id, float>& from, IGenerationScope& scope, const Area* a) ;
 		
 		
 	public:
+		const IBrush* select_random(IGenerationScope& scope) const;
 		const IBrush* select_random(IGenerationScope& scope, const Area& a) const;
 		const IBrush* select_random_where(IGenerationScope& scope, const Area& a, std::function<bool(IBrush*)>& lambda) const;
 		void get_reduced_palette(BrushPalette& p, IGenerationScope& scope, std::function<bool(const IBrush*)>& where) const;
 		void reduce_palette(IGenerationScope& scope, std::function<bool(const IBrush*)>& where);
+		
+		
+	public:
+		inline const std::map<t_id, float>& brushes() const { return palette(); }
 	};
 }
 

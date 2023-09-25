@@ -4,6 +4,7 @@
 #include "RNG/XoroshiroRNG.h"
 #include "Generation/Brushes/GridBlock/GridBlockGenerator.h"
 #include "Generation/Brushes/VoronoiSquare/VoronoiSquareGenerator.h"
+#include "Debug/MapDebug.h"
 
 
 using namespace godot;
@@ -114,6 +115,16 @@ void foo_2(std::string s)
 
 int main()
 {
+	auto a = Area(
+		"***\n"
+		"***\n"
+	);
+	
+	auto brush = CanvasBrush::debug_create(a, 1);
+	auto& c = brush.canvas();
+	auto info = debug_info(c);
+	
+	cout << info << endl;
 	
 	return 0;
 }

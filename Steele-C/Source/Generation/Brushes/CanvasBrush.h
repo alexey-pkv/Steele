@@ -16,6 +16,10 @@ namespace Steele
 		
 		
 	public:
+		CanvasBrush() = default;
+		CanvasBrush(const CanvasBrush&) = default;
+		CanvasBrush(CanvasBrush&&) = default;
+		
 		~CanvasBrush() override = default;
 		
 		
@@ -31,6 +35,10 @@ namespace Steele
 	public:
 		inline SimpleMap<Cell>& canvas() { return m_canvas; }
 		inline const SimpleMap<Cell>& canvas() const { return m_canvas; }
+		
+		
+	public:
+		static CanvasBrush debug_create(const Area& a, t_id id);
 	};
 }
 

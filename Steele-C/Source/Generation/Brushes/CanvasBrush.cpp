@@ -44,3 +44,15 @@ Steele::Area Steele::CanvasBrush::get_constant_area() const
 {
 	return m_canvas.get_area();
 }
+
+Steele::CanvasBrush Steele::CanvasBrush::debug_create(const Steele::Area& a, t_id id)
+{
+	auto brush = CanvasBrush();
+	
+	for (auto v : a)
+	{
+		brush.canvas().set(Cell { id, Direction::North, 0 }, v);
+	}
+	
+	return brush;
+}

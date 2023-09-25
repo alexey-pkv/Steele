@@ -18,7 +18,7 @@ namespace Steele
 		
 	private:
 		bool filter_brushes(const IBrush* brush) const;
-		void get_brushes_palette(BrushPalette& bp, IGenerationScope& scope) const;
+		void get_filtered_brushes_palette(BrushPalette& bp, IGenerationScope& scope) const;
 		Area paint_one_side(IGenerationScope& scope, const Area& area) const;
 		
 		
