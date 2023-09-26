@@ -3,8 +3,8 @@
 
 godot::Vector3i Steele::Transformation::apply(godot::Vector3i target) const
 {
-	target = target + Offset;
 	target = Dir.Rotate(target);
+	target = target + Offset;
 	
 	return target;
 }

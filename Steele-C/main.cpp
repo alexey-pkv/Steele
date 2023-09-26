@@ -1,4 +1,5 @@
 #include <iostream>
+#include <chrono>
 #include "DataTypes/Generation/DB/BrushDB.h"
 #include "DataTypes/Generation/DB/PaletteDB.h"
 #include "RNG/XoroshiroRNG.h"
@@ -115,11 +116,37 @@ void foo_2(std::string s)
 }
 
 
+std::chrono::system_clock::time_point get_current_time()
+{
+	using std::chrono::high_resolution_clock;
+	
+	return high_resolution_clock::now();
+}
+
+double get_runtime_sec(std::chrono::system_clock::time_point tp)
+{
+	using std::chrono::duration;
+
+	duration<double> sec_double = get_current_time() - tp;
+	
+	return sec_double.count();
+}
+
+double get_runtime_ms(std::chrono::system_clock::time_point tp)
+{
+	using std::chrono::duration;
+	
+	duration<double, std::milli> ms_double = get_current_time() - tp;
+	
+	return ms_double.count();
+}
+
+
 int main()
 {
 	GenerationScope scope;
 	
-	scope.set_in_debug_mode();
+	// scope.set_in_debug_mode();
 	
 	auto& brushDB = scope.brush_db();
 	auto p = scope.palette_db().create(100);
@@ -136,7 +163,7 @@ int main()
 	p->brushes().add(32, 1);
 	p->brushes().add(23, 1);
 	
-	scope.rng_state().reset_state("Hello World");
+	scope.rng_state().reset_state("Hello World 2");
 	
 	RowBrush rb;
 	
@@ -146,7 +173,16 @@ int main()
 	
 	Area target(0, 0, 23, 10);
 	
-	rb.paint(scope, target);
+	auto start_at = get_current_time();
+	{
+		rb.paint(scope, target);
+	}
+	auto runtime = get_runtime_sec(start_at);
+	
+	cout 
+		<< endl << "-----------------------" << endl 
+		<< "Complete in " << fixed << runtime << " seconds" << endl;
+	
 	
 	cout << scope.map().debug_info() << endl;
 	

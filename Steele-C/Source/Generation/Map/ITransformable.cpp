@@ -52,7 +52,7 @@ Steele::LocalTransformation::LocalTransformation(Steele::ITransformable* parent,
 	m_isApplied(true),
 	m_t(t)
 {
-	
+	m_source->push_transformation(m_t);
 }
 
 Steele::LocalTransformation::LocalTransformation(Steele::ITransformable& parent, const Steele::Transformation& t) :

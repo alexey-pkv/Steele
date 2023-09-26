@@ -28,6 +28,9 @@ typedef godot::Rect2i	r2i;
 #define v2i_one		v2i { 1, 1 }
 #define v3_one		v3 { 1, 1, 1 }
 #define v3i_one		v3i { 1, 1, 1 }
+#define v3i_x_one	v3i { 1, 0, 0 }
+#define v3i_y_one	v3i { 0, 1, 0 }
+#define v3i_z_one	v3i { 0, 0, 1 }
 
 
 

@@ -132,8 +132,8 @@ void RowBrush::paint(IGenerationScope& scope, const Area& area) const
 	else
 	{
 		auto a = paint_one_side(scope, area);
-	
-		lt.set_transformation(Direction::South);
+		
+		lt.set_transformation({ 1, a.height() }, Direction::South);
 		a *= Direction::South;
 		
 		paint_one_side(scope, a);

@@ -280,12 +280,13 @@ namespace Steele
 		
 		
 	public:
-		inline int height() const	{ return (int)m_horizontal.size(); }
-		inline int width() const	{ return (int)m_vertical.size(); }
-		inline int top() const		{ return m_offset.y + (int)m_horizontal.size() - 1; }
-		inline int bottom() const	{ return m_offset.y; }
-		inline int right() const	{ return m_offset.x + (int)m_vertical.size() - 1; }
-		inline int left() const		{ return m_offset.x; }
+		inline int height() const		{ return (int)m_horizontal.size(); }
+		inline int width() const		{ return (int)m_vertical.size(); }
+		inline int top() const			{ return m_offset.y + (int)m_horizontal.size() - 1; }
+		inline int bottom() const		{ return m_offset.y; }
+		inline int right() const		{ return m_offset.x + (int)m_vertical.size() - 1; }
+		inline int left() const			{ return m_offset.x; }
+		inline v2i dimensions() const	{ return { width(), height() }; }
 		
 		inline int x() const { return m_offset.x; }
 		inline int y() const { return m_offset.y; }

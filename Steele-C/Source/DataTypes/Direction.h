@@ -83,8 +83,8 @@ namespace Steele
 		inline void operator*=(int by) { m_direction = to_dir(((int)m_direction) * by);}
 		
 		
-		inline bool operator==(Direction to) { return m_direction == to.m_direction; }
-		inline bool operator!=(Direction to) { return m_direction != to.m_direction; }
+		inline bool operator==(Direction to) const { return m_direction == to.m_direction; }
+		inline bool operator!=(Direction to) const { return m_direction != to.m_direction; }
 		
 		godot::Vector2 Rotate(const godot::Vector2& source) const;
 		godot::Vector2i Rotate(const godot::Vector2i& source) const;

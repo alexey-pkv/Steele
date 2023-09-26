@@ -5,6 +5,7 @@
 
 #include "godot_cpp/variant/vector3i.hpp"
 #include "DataTypes/Direction.h"
+#include "Types.h"
 
 
 namespace Steele
@@ -13,7 +14,7 @@ namespace Steele
 	{
 	public:
 		Direction		Dir		= Direction::North;
-		godot::Vector3i	Offset	= { 0, 0, 0 };
+		godot::Vector3i	Offset	= v3i_zero;
 	
 		
 	public:
@@ -30,14 +31,18 @@ namespace Steele
 		inline void operator-=(Direction dir) { Dir -= dir; }
 		
 		
-		inline Transformation operator+(const Transformation& t) const { return { .Dir = Dir + t.Dir, .Offset = Offset + t.Offset }; }
-		inline Transformation operator-(const Transformation& t) const { return { .Dir = Dir - t.Dir, .Offset = Offset - t.Offset }; }
+		inline Transformation operator+(const Transformation& t) const { return { .Dir = Dir + t.Dir, .Offset = Offset + t.Offset * Dir }; }
+		inline Transformation operator-(const Transformation& t) const { return { .Dir = Dir - t.Dir, .Offset = Offset - t.Offset * (Dir - t.Dir) }; }
 		
-		inline Transformation operator+(const godot::Vector3i& offset) const { return { .Dir = Dir, .Offset = Offset + offset }; }
-		inline Transformation operator-(const godot::Vector3i& offset) const { return { .Dir = Dir, .Offset = Offset - offset }; }
+		inline Transformation operator+(const godot::Vector3i& offset) const { return { .Dir = Dir, .Offset = Offset + offset * Dir }; }
+		inline Transformation operator-(const godot::Vector3i& offset) const { return { .Dir = Dir, .Offset = Offset - offset * Dir }; }
 		
 		inline Transformation operator+(Direction dir) const { return { .Dir = Dir + dir, .Offset = Offset }; }
 		inline Transformation operator-(Direction dir) const { return { .Dir = Dir - dir, .Offset = Offset }; }
+		
+		
+		inline bool operator==(const Transformation& t) const { return Offset == t.Offset && Dir == t.Dir; }
+		inline bool operator!=(const Transformation& t) const { return Offset != t.Offset || Dir != t.Dir; }
 		
 		
 	public:
