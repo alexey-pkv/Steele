@@ -176,6 +176,7 @@ int main()
 	auto start_at = get_current_time();
 	{
 		rb.paint(scope, target);
+		cout << scope.map().debug_info() << endl;
 	}
 	auto runtime = get_runtime_sec(start_at);
 	
@@ -184,7 +185,6 @@ int main()
 		<< "Complete in " << fixed << runtime << " seconds" << endl;
 	
 	
-	cout << scope.map().debug_info() << endl;
 	
 	return 0;
 }
