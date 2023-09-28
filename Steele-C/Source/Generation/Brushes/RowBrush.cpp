@@ -80,12 +80,12 @@ void RowBrush::get_filtered_brushes_palette(BrushPalette& bp, IGenerationScope& 
 		throw PaintException("No brushes found for Row Brush in palette ", m_paletteID);
 }
 
-Area RowBrush::paint_one_side(IGenerationScope& scope, const Area& area) const
+void RowBrush::paint_one_side_local(IGenerationScope& scope, Area& area) const
 {
-	auto lt = scope.map().local_transform(area.offset());
+	Area change;
+	v3i offset = v3i_zero;
+	auto width = area.width();
 	
-	Area target				= area.get_reset_offset_area();
-	auto width			= target.width();
 	std::set<int>	sizes;
 	
 	BrushPalette palette;
@@ -99,21 +99,56 @@ Area RowBrush::paint_one_side(IGenerationScope& scope, const Area& area) const
 		auto brushArea	= b->get_constant_area();
 		auto brushWidth		= brushArea.width();
 		
-		b->paint(scope, target);
+		{
+			auto lt = scope.map().local_transform(offset);
+			b->paint(scope, area);
+		}
 		
+		/*
 		cout << "--------------------------------------------------" << endl;
 		cout << scope.map().debug_info() << endl;
 		cout << "--------------------------------------------------" << endl;
+		*/
 		
+		offset.x += brushWidth;
 		width -= brushWidth;
-		target -= brushArea;
+		change += brushArea;
 		
-		target.add_offset(-brushWidth, 0);
-		
-		lt.add_transformation(v2i { brushWidth, 0 });
+		change.add_offset(-brushWidth, 0);
+		area.add_offset(-brushWidth, 0);
 	}
 	
-	return target.get_reset_offset_area();
+	area.reset_offset();
+	change.reset_offset();
+	
+	area -= change;
+}
+
+void RowBrush::paint_one_side_relative(IGenerationScope& scope, Area& area) const
+{
+	auto offset = area.offset();
+	
+	area.reset_offset();
+	
+	{
+		auto lt = scope.map().local_transform(offset);
+		paint_one_side_local(scope, area);
+	}
+	
+	area.add_offset(offset);
+}
+
+void RowBrush::fill(IGenerationScope& scope, Area& area) const
+{
+	auto fillBrush = scope.brush_db().require(m_fillID);
+	
+	{
+		auto lt = scope.map().local_transform(area.offset());
+		
+		area.reset_offset();
+		
+		fillBrush->paint(scope, area);
+	}
 }
 
 
@@ -124,21 +159,40 @@ bool RowBrush::can_fill(const Area& a) const
 
 void RowBrush::paint(IGenerationScope& scope, const Area& area) const
 {
-	auto lt = scope.map().local_transform();
+	if (m_fillID == NULL_ID || m_paletteID == NULL_ID)
+		throw PaintException("Fill ID and Palette ID must be set!");
 	
 	if (area.height() > area.width())
 	{
-		lt.set_transformation(Direction::East);
+		auto lt = scope.map().local_transform(Direction::East);
 		paint(scope, area * Direction::East);
 	}
 	else
 	{
-		auto a = paint_one_side(scope, area);
+		Area region = area;
 		
-		lt.set_transformation({ a.width() - 1, a.height() - 1 }, Direction::South);
-		a *= Direction::South;
+		paint_one_side_relative(scope, region);
+		auto offset = region.offset();
 		
-		paint_one_side(scope, a);
+		{
+			auto lt = scope.map().local_transform({ area.width() - 1, area.height() - 1 }, Direction::South);
+			
+			region *= Direction::South;
+			region.reset_offset();
+			
+			paint_one_side_relative(scope, region);
+		}
+		
+		region *= Direction::South;
+		region.set_offset(offset);
+		
+		/*
+		cout << "===================================" << endl;
+		cout << scope.map().debug_info() << endl;
+		cout << "===================================" << endl;
+		*/
+		
+		fill(scope, region);
 	}
 }
 

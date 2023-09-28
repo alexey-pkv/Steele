@@ -8,52 +8,11 @@
 #include "DataTypes/Types.h"
 #include "DataTypes/Transformation.h"
 
+#include "Generation/Map/Transformations/LocalTransformation.h"
+
 
 namespace Steele
 {
-	class ITransformable;
-	
-	
-	class LocalTransformation
-	{
-	private:
-		ITransformable* m_source;
-		Transformation	m_t = Transformation::ZERO;
-		bool			m_isApplied;
-		
-		
-	public:
-		inline void set_transformation(Direction dir) { set_transformation({ .Dir = dir, .Offset = v3i_zero }); };
-		inline void set_transformation(const v2i& t, Direction dir = Direction::North) { set_transformation({ .Dir = dir, .Offset = { t.x, t.y, 0 } }); };
-		inline void set_transformation(const v2i& t, int z, Direction dir = Direction::North) { set_transformation({ .Dir = dir, .Offset = { t.x, t.y, z } }); };
-		inline void set_transformation(const v3i& t, Direction dir = Direction::North) { set_transformation({ .Dir = dir, .Offset = t }); };
-		
-		inline void add_transformation(Direction dir) { add_transformation({ .Dir = dir, .Offset = v3i_zero }); };
-		inline void add_transformation(const v2i& t, Direction dir = Direction::North) { add_transformation({ .Dir = dir, .Offset = { t.x, t.y, 0 } }); };
-		inline void add_transformation(const v2i& t, int z, Direction dir = Direction::North) { add_transformation({ .Dir = dir, .Offset = { t.x, t.y, z } }); };
-		inline void add_transformation(const v3i& t, Direction dir = Direction::North) { add_transformation({ .Dir = dir, .Offset = t }); };
-		
-		inline void add_transformation(const Transformation& t) { set_transformation(transformation() + t); }
-		
-		void set_transformation(const Transformation& t);
-		
-		
-	public:
-		~LocalTransformation();
-		LocalTransformation(LocalTransformation&& source) noexcept;
-		LocalTransformation(ITransformable* parent);
-		LocalTransformation(ITransformable& parent);
-		LocalTransformation(ITransformable* parent, const Transformation& t);
-		LocalTransformation(ITransformable& parent, const Transformation& t);
-	
-	
-	public: // ITransformable
-		void reset_transformation();
-		bool is_transformed() const;
-		const Transformation& transformation() const;
-	};
-	
-	
 	class ITransformable
 	{
 	protected:
@@ -107,17 +66,6 @@ namespace Steele
 		const Transformation& transformation() const override;
 	};
 }
-
-
-#define SET_TRANSFORM(map, offset, dir) \
-	LocalTransformation __lt__(map); \
-	__lt__.set_transformation(offset, dir)
-	
-#define SET_TRANSFORM_V(map, offset) \
-	SET_TRANSFORM(map, offset, Steele::Direction::North)
-	
-#define SET_TRANSFORM_DIR(map, dir) \
-	SET_TRANSFORM(map, v2i_zero, dir)
 
 
 #endif

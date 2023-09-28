@@ -21,14 +21,14 @@ namespace Steele
 		inline void add(Direction dir, godot::Vector3i offset) { Dir += dir; Offset += offset; }
 		inline void sub(Direction dir, godot::Vector3i offset) { Dir -= dir; Offset -= offset; }
 		
-		inline void operator+=(const Transformation& t) { Dir += t.Dir; Offset += t.Offset; }
-		inline void operator-=(const Transformation& t) { Dir -= t.Dir; Offset -= t.Offset; }
+		inline void operator+=(const Transformation& t) { *this = *this + t; }
+		inline void operator-=(const Transformation& t) { *this = *this - t; }
 		
-		inline void operator+=(const godot::Vector3i& offset) { Offset += offset; }
-		inline void operator-=(const godot::Vector3i& offset) { Offset -= offset; }
+		inline void operator+=(const godot::Vector3i& offset) { *this = *this + offset; }
+		inline void operator-=(const godot::Vector3i& offset) { *this = *this - offset; }
 		
-		inline void operator+=(Direction dir) { Dir += dir; }
-		inline void operator-=(Direction dir) { Dir -= dir; }
+		inline void operator+=(Direction dir) { *this = *this + dir; }
+		inline void operator-=(Direction dir) { *this = *this - dir; }
 		
 		
 		inline Transformation operator+(const Transformation& t) const { return { .Dir = Dir + t.Dir, .Offset = Offset + t.Offset * Dir }; }
@@ -39,7 +39,6 @@ namespace Steele
 		
 		inline Transformation operator+(Direction dir) const { return { .Dir = Dir + dir, .Offset = Offset }; }
 		inline Transformation operator-(Direction dir) const { return { .Dir = Dir - dir, .Offset = Offset }; }
-		
 		
 		inline bool operator==(const Transformation& t) const { return Offset == t.Offset && Dir == t.Dir; }
 		inline bool operator!=(const Transformation& t) const { return Offset != t.Offset || Dir != t.Dir; }

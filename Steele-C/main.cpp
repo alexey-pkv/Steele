@@ -151,37 +151,45 @@ int main()
 	auto& brushDB = scope.brush_db();
 	auto p = scope.palette_db().create(100);
 	
+	auto f = brushDB.create_fill(1);
+	f->set_ground_id(1);
+	
 	brushDB.create_canvas(2)->debug_set(Area("**\n" "**\n"), 2);
 	brushDB.create_canvas(3)->debug_set(Area("***\n" "***\n" "***\n"), 3);
 	brushDB.create_canvas(4)->debug_set(Area("****\n" "****\n" "****\n" "****\n"), 4);
 	brushDB.create_canvas(32)->debug_set(Area("**\n" "**\n" "**\n"), 32);
 	brushDB.create_canvas(23)->debug_set(Area("***\n" "***\n"), 23);
+	brushDB.create_canvas(52)->debug_set(Area("**\n" "**\n" "**\n" "**\n" "**\n"), 32);
+	brushDB.create_canvas(25)->debug_set(Area("*****\n" "*****\n"), 23);
 	
 	p->brushes().add(2, 1);
 	p->brushes().add(3, 1);
 	p->brushes().add(4, 1);
 	p->brushes().add(32, 1);
 	p->brushes().add(23, 1);
+	p->brushes().add(52, 1);
+	p->brushes().add(25, 1);
 	
 	scope.rng_state().reset_state("Hello World 2");
 	
 	RowBrush rb;
 	
+	rb.set_fill_id(1);
 	rb.set_palette_id(p->get_id());
-	rb.set_min_height(1);
-	rb.set_max_height(3);
+	rb.set_min_height(3);
+	rb.set_max_height(4);
 	
-	Area target(0, 0, 23, 10);
+	Area target(0, 0, 27, 12);
 	
 	auto start_at = get_current_time();
 	{
 		rb.paint(scope, target);
-		cout << scope.map().debug_info() << endl;
 	}
 	auto runtime = get_runtime_sec(start_at);
 	
-	cout 
-		<< endl << "-----------------------" << endl 
+	cout << "-----------------------" << endl;
+	cout << scope.map().debug_info() << endl;
+	cout << "-----------------------" << endl 
 		<< "Complete in " << fixed << runtime << " seconds" << endl;
 	
 	

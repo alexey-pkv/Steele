@@ -11,15 +11,19 @@ namespace Steele
 	class RowBrush : public AbstractBrush<BrushType::Row>
 	{
 	private:
-		int m_maxHeight	= 0;
-		int m_minHeight = 0;
-		t_id m_paletteID = 0;
+		int m_maxHeight	= 100;
+		int m_minHeight	= 1;
+		
+		t_id m_paletteID	= NULL_ID;
+		t_id m_fillID		= NULL_ID;
 		
 		
 	private:
 		bool filter_brushes(const IBrush* brush) const;
 		void get_filtered_brushes_palette(BrushPalette& bp, IGenerationScope& scope) const;
-		Area paint_one_side(IGenerationScope& scope, const Area& area) const;
+		void paint_one_side_local(IGenerationScope& scope, Area& area) const;
+		void paint_one_side_relative(IGenerationScope& scope, Area& area) const;
+		void fill(IGenerationScope& scope, Area& area) const;
 		
 		
 	public: // AbstractBrush
@@ -36,6 +40,9 @@ namespace Steele
 		
 		t_id get_palette_id() const { return m_paletteID; }
 		void set_palette_id(t_id id) { m_paletteID = id; }
+		
+		t_id get_fill_id() const { return m_fillID; }
+		void set_fill_id(t_id id) { m_fillID = id; }
 	};
 }
 
