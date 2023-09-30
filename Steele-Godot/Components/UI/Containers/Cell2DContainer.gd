@@ -7,7 +7,7 @@ const self_resource = preload("res://Components/UI/Containers/Cell2DContainer.ts
 
 var cell: Cell2D:
 	get:
-		return $Cell2D
+		return $Cell2Dcreate_for_ground_texture
 
 var ground_direction: int = Direction.NORTH:
 	set(value):

@@ -8,6 +8,7 @@
 #include "GDNative/DataTypes/Map/Ground.h"
 #include "GDNative/DataTypes/Map/GroundTile.h"
 #include "GDNative/DataTypes/Area.h"
+#include "GDNative/DataTypes/Map/Cell.h"
 
 
 using namespace godot;
@@ -31,7 +32,8 @@ void initialize_steele_module(ModuleInitializationLevel p_level)
 	// Data Types :: Map
 	ClassDB::register_class<GroundTile>();
 	ClassDB::register_class<Ground>();
-	
+	ClassDB::register_class<Cell>();
+
 	
 	// RNG
 	ClassDB::register_class<XoroshiroRNG>();

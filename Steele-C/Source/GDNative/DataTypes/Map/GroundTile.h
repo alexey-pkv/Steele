@@ -37,6 +37,9 @@ namespace godot
 		void set_index(int index);
 		void set_tile(int tile);
 		void set_direction(int direction);
+
+	public:
+		inline const Steele::GroundTile& get_tile_c() const { return m_tile; };
 	};
 }
 

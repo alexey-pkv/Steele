@@ -61,8 +61,8 @@ static func load(path: String, into: GroundTextures = null) -> GroundTextures:
 	for y in range(0, textureSize.y / cellSize.y):
 		var textureSet = GroundTexture.create_from_textures(
 			name + "." + str(y),
-			__get_sub_texture(texture, Vector2(0 * cellSize.x, y * cellSize.y), cellSize),
 			__get_sub_texture(texture, Vector2(1 * cellSize.x, y * cellSize.y), cellSize),
+			__get_sub_texture(texture, Vector2(0 * cellSize.x, y * cellSize.y), cellSize),
 			__get_sub_texture(texture, Vector2(2 * cellSize.x, y * cellSize.y), cellSize),
 			__get_sub_texture(texture, Vector2(3 * cellSize.x, y * cellSize.y), cellSize)
 		)

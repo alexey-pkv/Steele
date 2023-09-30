@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://dp2wxslt4wq61"]
+
+[node name="LocalMap" type="Node2D"]

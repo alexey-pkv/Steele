@@ -48,6 +48,9 @@ namespace godot
 		bool has_tile(const Ref<GroundTile>& tile) const;
 		
 		Array tiles() const;
+
+	public:
+		inline void set_ground_c(Steele::Ground ground) { m_ground = ground; };
 	};
 }
 

@@ -1,6 +1,10 @@
 extends Control
 
 
+
+
+
+
 var _world_data: WorldData = null
 
 var explorer: TextureExplorer:
@@ -21,6 +25,9 @@ func _ready():
 	var d = GroundTile.new()
 	var g = Ground.new()
 	var a = Area.ONE()
+	var c = Cell.new()
+	
+	print(c.get_is_road())
 	
 	var a2 = Area.ONE()
 	
@@ -61,5 +68,5 @@ func _notification(what):
 	elif what == MainLoop.NOTIFICATION_APPLICATION_FOCUS_OUT:
 		print("focus out")
 
-func _show_main_menu():
+func _show_main_menu():	
 	get_tree().change_scene_to_file("res://Components/UI/MainMenu/MainMenu.tscn")
