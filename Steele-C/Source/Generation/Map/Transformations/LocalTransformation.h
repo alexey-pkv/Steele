@@ -19,15 +19,15 @@ namespace Steele
 		
 		
 	public:
-		inline void set_transformation(Direction dir) { set_transformation({ .Dir = dir, .Offset = v3i_zero }); };
-		inline void set_transformation(const v2i& t, Direction dir = Direction::North) { set_transformation({ .Dir = dir, .Offset = { t.x, t.y, 0 } }); };
-		inline void set_transformation(const v2i& t, int z, Direction dir = Direction::North) { set_transformation({ .Dir = dir, .Offset = { t.x, t.y, z } }); };
-		inline void set_transformation(const v3i& t, Direction dir = Direction::North) { set_transformation({ .Dir = dir, .Offset = t }); };
+		inline void set_transformation(Direction dir) { set_transformation(Transformation { dir }); };
+		inline void set_transformation(const v2i& t, Direction dir = Direction::North) { set_transformation(Transformation { { t.x, t.y, 0 }, dir }); };
+		inline void set_transformation(const v2i& t, int z, Direction dir = Direction::North) { set_transformation(Transformation { { t.x, t.y, z }, dir }); };
+		inline void set_transformation(const v3i& t, Direction dir = Direction::North) { set_transformation(Transformation(t, dir)); };
 		
-		inline void add_transformation(Direction dir) { add_transformation({ .Dir = dir, .Offset = v3i_zero }); };
-		inline void add_transformation(const v2i& t, Direction dir = Direction::North) { add_transformation({ .Dir = dir, .Offset = { t.x, t.y, 0 } }); };
-		inline void add_transformation(const v2i& t, int z, Direction dir = Direction::North) { add_transformation({ .Dir = dir, .Offset = { t.x, t.y, z } }); };
-		inline void add_transformation(const v3i& t, Direction dir = Direction::North) { add_transformation({ .Dir = dir, .Offset = t }); };
+		inline void add_transformation(Direction dir) { add_transformation(Transformation(dir)); };
+		inline void add_transformation(const v2i& t, Direction dir = Direction::North) { add_transformation(Transformation { { t.x, t.y, 0 }, dir }); };
+		inline void add_transformation(const v2i& t, int z, Direction dir = Direction::North) { add_transformation(Transformation { { t.x, t.y, z }, dir }); };
+		inline void add_transformation(const v3i& t, Direction dir = Direction::North) { add_transformation(Transformation { t, dir }); };
 		inline void add_transformation(const Transformation& t) { set_transformation(m_t + t); }
 		
 		inline bool is_transformed() const { return m_isApplied; }

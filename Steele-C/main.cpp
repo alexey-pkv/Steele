@@ -15,6 +15,32 @@ using namespace std;
 using namespace Steele;
 
 
+std::chrono::system_clock::time_point get_current_time()
+{
+	using std::chrono::high_resolution_clock;
+	
+	return high_resolution_clock::now();
+}
+
+double get_runtime_sec(std::chrono::system_clock::time_point tp)
+{
+	using std::chrono::duration;
+
+	duration<double> sec_double = get_current_time() - tp;
+	
+	return sec_double.count();
+}
+
+double get_runtime_ms(std::chrono::system_clock::time_point tp)
+{
+	using std::chrono::duration;
+	
+	duration<double, std::milli> ms_double = get_current_time() - tp;
+	
+	return ms_double.count();
+}
+
+
 void foo()
 {
 	vector<int> v;
@@ -115,34 +141,7 @@ void foo_2(std::string s)
 	cout << gen.debug_info() << endl;
 }
 
-
-std::chrono::system_clock::time_point get_current_time()
-{
-	using std::chrono::high_resolution_clock;
-	
-	return high_resolution_clock::now();
-}
-
-double get_runtime_sec(std::chrono::system_clock::time_point tp)
-{
-	using std::chrono::duration;
-
-	duration<double> sec_double = get_current_time() - tp;
-	
-	return sec_double.count();
-}
-
-double get_runtime_ms(std::chrono::system_clock::time_point tp)
-{
-	using std::chrono::duration;
-	
-	duration<double, std::milli> ms_double = get_current_time() - tp;
-	
-	return ms_double.count();
-}
-
-
-int main()
+void foo_3()
 {
 	GenerationScope scope;
 	
@@ -191,8 +190,28 @@ int main()
 	cout << scope.map().debug_info() << endl;
 	cout << "-----------------------" << endl 
 		<< "Complete in " << fixed << runtime << " seconds" << endl;
+}
+
+
+int main()
+{
+	Transformation a;
 	
+	Transformation of;
 	
+	of += v2i(2, 4);
+	
+	a += of;
+	a += v2i(1, 0);
+	a += Direction::North - Direction::East;
+	a -= of;
+	
+	cout << a.Offset.x << ":" << a.Offset.y << " " << a.Dir << endl;
+	
+	v3i v_source(3, 4, 0);
+	v3i v_original(3, 5, 0);
+	
+	v3i res = a.apply(v_source);
 	
 	return 0;
 }

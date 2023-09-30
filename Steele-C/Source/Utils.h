@@ -42,6 +42,13 @@ inline V* get_value_ptr(std::map<K, V>& map, const K& k)
 	return kvp != map.end() ? &(kvp->second) : nullptr;
 }
 
+template <typename K, typename V>
+inline V get_value(std::map<K, V>& map, const K& k, const V& def)
+{
+	auto kvp = map.find(k);
+	return kvp != map.end() ? kvp->second : def;
+}
+
 template <typename V, typename F>
 void remove_where(std::vector<V>& vec, F where)
 {

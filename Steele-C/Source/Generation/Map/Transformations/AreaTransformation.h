@@ -24,7 +24,9 @@ namespace Steele
 		
 	public:
 		inline void set_transformation(Direction dir) { set_transformation(v2i_zero, dir); };
+		inline void set_transformation(int x, int y, Direction dir) { set_transformation(v2i(x, y), dir); };
 		inline void add_transformation(Direction dir) { if (dir != Direction::North) set_transformation(m_offset, m_dir + dir); };
+		inline void add_transformation(int x, int y, Direction dir = Direction::North) { set_transformation(m_offset + v2i { x, y }, m_dir + dir); };
 		inline void add_transformation(const v2i& v, Direction dir = Direction::North) { set_transformation(m_offset + v, m_dir + dir); };
 		inline void align_to_area() { add_transformation(m_area->offset()); }
 		
@@ -32,18 +34,24 @@ namespace Steele
 		inline bool is_transformed() const { return m_isApplied; }
 		inline v2i offset() const { return m_offset; }
 		inline Direction direction() const { return m_dir; }
-		inline Transformation transformation() const { return { .Dir = m_dir, .Offset = { m_offset.x, m_offset.y, 0 } }; }
 		
 		
 	public:
 		void set_transformation(const v2i& v, Direction dir);
+		Transformation transformation() const;
 		
 	
 	public:
 		~AreaTransformation();
-		AreaTransformation(AreaTransformation&& source) noexcept;
 		AreaTransformation(ITransformable* parent, Area* area);
 		AreaTransformation(ITransformable* parent, Area* area, v2i v, Direction dir);
+		
+		AreaTransformation(AreaTransformation&& source) noexcept;
+		AreaTransformation& operator=(AreaTransformation&& source) noexcept;
+		
+		
+		AreaTransformation(const AreaTransformation& source) = delete;
+		AreaTransformation& operator=(const AreaTransformation& source) = delete;
 	
 	
 	public:

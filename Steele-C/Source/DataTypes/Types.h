@@ -81,6 +81,6 @@ enum class Axis
 
 
 inline v2i abs(const v2i& v) { return { abs(v.x), abs(v.y) }; }
-
+inline v3i to_v3i(v2i v) { return { v.x, v.y, 0 }; }
 
 #endif

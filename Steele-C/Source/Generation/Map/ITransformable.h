@@ -20,9 +20,9 @@ namespace Steele
 		
 		
 	public:
-		inline void push_transformation(const v2i& t, Direction dir = Direction::North) { _push_transformation({ .Dir = dir, .Offset = { t.x, t.y, 0 } }); };
-		inline void push_transformation(const v2i& t, int z, Direction dir = Direction::North) { _push_transformation({ .Dir = dir, .Offset = { t.x, t.y, z } }); };
-		inline void push_transformation(const v3i& t, Direction dir = Direction::North) { _push_transformation({ .Dir = dir, .Offset = t }); };
+		inline void push_transformation(const v2i& v, Direction dir = Direction::North) { _push_transformation(Transformation { {v.x, v.y, 0 }, dir }); };
+		inline void push_transformation(const v2i& v, int z, Direction dir = Direction::North) { _push_transformation(Transformation { {v.x, v.y, z }, dir }); };
+		inline void push_transformation(const v3i& v, Direction dir = Direction::North) { _push_transformation(Transformation { v, dir }); };
 		inline void push_transformation(const Transformation& t) { _push_transformation(t); };
 		
 		
@@ -37,10 +37,10 @@ namespace Steele
 	public:
 		LocalTransformation local_transform();
 		LocalTransformation local_transform(const Transformation& t);
-		inline LocalTransformation local_transform(Direction dir) { return local_transform({ .Dir = dir, .Offset = v3i_zero }); };
-		inline LocalTransformation local_transform(const v2i& t, Direction dir = Direction::North) { return local_transform({ .Dir = dir, .Offset = {t.x, t.y, 0 } }); };
-		inline LocalTransformation local_transform(const v2i& t, int z, Direction dir = Direction::North) { return local_transform({ .Dir = dir, .Offset = { t.x, t.y, z } }); };
-		inline LocalTransformation local_transform(const v3i& t, Direction dir = Direction::North) { return local_transform({ .Dir = dir, .Offset = t }); };
+		inline LocalTransformation local_transform(Direction dir) { return local_transform(Transformation(dir)); };
+		inline LocalTransformation local_transform(const v2i& v, Direction dir = Direction::North) { return local_transform(Transformation { {v.x, v.y, 0 }, dir }); };
+		inline LocalTransformation local_transform(const v2i& v, int z, Direction dir = Direction::North) { return local_transform(Transformation { {v.x, v.y, z }, dir }); };
+		inline LocalTransformation local_transform(const v3i& v, Direction dir = Direction::North) { return local_transform(Transformation { v, dir }); };
 	};
 	
 	
@@ -51,13 +51,13 @@ namespace Steele
 		
 		
 	protected:
-		inline const TransformationStack& transformation_stack() const { return m_stack; }
-		
-		
-	protected:
 		void _push_transformation(const Transformation& t) override;
-		
-		
+	
+	
+	public:
+		inline const TransformationStack& transformation_stack() const { return m_stack; }
+	
+	
 	public:
 		void pop_transformation() override;
 		void reset_transformation() override;
