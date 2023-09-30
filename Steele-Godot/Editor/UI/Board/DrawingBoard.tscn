@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://bg77q3rcd023p"]
+
+[ext_resource type="Script" path="res://Editor/UI/Board/BoardCamera.gd" id="1_pvl6f"]
+[ext_resource type="Script" path="res://Editor/UI/Board/DrawingBoard.gd" id="1_xwpgx"]
+
+[node name="DrawingBoard" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xwpgx")
+
+[node name="BoardCamera" type="Camera2D" parent="."]
+script = ExtResource("1_pvl6f")

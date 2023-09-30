@@ -5,3 +5,6 @@ Label/font_sizes/font_size = 36
 MarginContainer/constants/margin_left = 50
 MarginContainer/constants/margin_right = 50
 MarginContainer/constants/margin_top = 50
+TabBar/colors/drop_mark_color = Color(0.254902, 0.313726, 0.572549, 1)
+TabBar/colors/font_selected_color = Color(0, 0, 0.917647, 1)
+TabContainer/colors/font_selected_color = Color(0, 0.627451, 0.937255, 1)

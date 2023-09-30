@@ -74,5 +74,5 @@ text = "Back"
 [connection signal="tab_changed" from="MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/TabBar" to="MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/TabBar" method="_on_tab_changed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Fullscreen" to="." method="_on_fullscreen_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Fullscreen" to="MarginContainer/VBoxContainer/Fullscreen" method="_on_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/Back" to="." method="_on_back_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Back" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Back" to="." method="_on_back_pressed"]
