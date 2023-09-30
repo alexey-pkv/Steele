@@ -103,12 +103,12 @@ void RowBrush::paint_one_side_local(IGenerationScope& scope, Area& area) const
 			auto lt = scope.map().local_transform(offset);
 			b->paint(scope, area);
 		}
-		
-		/*
+
+#ifdef DEBUG_RowBrush
 		cout << "--------------------------------------------------" << endl;
 		cout << scope.map().debug_info() << endl;
 		cout << "--------------------------------------------------" << endl;
-		*/
+#endif
 		
 		offset.x += brushWidth;
 		width -= brushWidth;
@@ -186,11 +186,11 @@ void RowBrush::paint(IGenerationScope& scope, const Area& area) const
 		region *= Direction::South;
 		region.set_offset(offset);
 		
-		/*
+#ifdef DEBUG_RowBrush
 		cout << "===================================" << endl;
 		cout << scope.map().debug_info() << endl;
 		cout << "===================================" << endl;
-		*/
+#endif
 		
 		fill(scope, region);
 	}
