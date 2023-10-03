@@ -9,14 +9,6 @@
 
 namespace Steele
 {
-	class IJsonable
-	{
-	public:
-		virtual void json_read(const nlohmann::json& json) = 0;
-		virtual nlohmann::json json_write() const = 0;
-	};
-	
-	
 	nlohmann::json json_write(const v2i& t);
 	void json_read(const nlohmann::json& json, v2i& into, const v2i& def = v2i_zero);
 	
