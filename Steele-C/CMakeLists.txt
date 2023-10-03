@@ -42,17 +42,17 @@ file(GLOB_RECURSE TEST_SOURCE
 ########################
 ### Steele extension ###
 ########################
-add_library(Steele SHARED ${LIBRARIES_SRC} ${MAIN_SOURCE})
-set_target_properties(Steele PROPERTIES 
+add_library(Steele_Extension SHARED ${LIBRARIES_SRC} ${MAIN_SOURCE})
+set_target_properties(Steele_Extension PROPERTIES 
 	OUTPUT_NAME "steele"
 	LIBRARY_OUTPUT_DIRECTORY "../bin")
 
-target_link_libraries(Steele ${CMAKE_SOURCE_DIR}/../godot-cpp/bin/libgodot-cpp.linux.template_debug.x86_64.a)
+target_link_libraries(Steele_Extension ${CMAKE_SOURCE_DIR}/../godot-cpp/bin/libgodot-cpp.linux.template_debug.x86_64.a)
 
 # Copy files from 
 file(GLOB GD_EXTENSION_CONFIG GDExtensions/*.gdextension)
 foreach(ConfigFile IN LISTS GD_EXTENSION_CONFIG)
-	add_custom_command(TARGET Steele POST_BUILD
+	add_custom_command(TARGET Steele_Extension POST_BUILD
 		COMMAND ${CMAKE_COMMAND} -E copy ${ConfigFile} ${CMAKE_SOURCE_DIR}/bin
 		COMMENT "Copying header: ${ConfigFile} to bin/"
 	)
@@ -60,7 +60,7 @@ endforeach ()
 
 file(GLOB OUTPUT_FILES GDExtensions/*.gdextension bin/libsteele.so)
 foreach(File IN LISTS OUTPUT_FILES)
-	add_custom_command(TARGET Steele POST_BUILD
+	add_custom_command(TARGET Steele_Extension POST_BUILD
 		COMMAND ${CMAKE_COMMAND} -E copy ${File} ${CMAKE_SOURCE_DIR}/../Steele-Godot/Extensions/
 		COMMENT "Copying to godot project: ${File} to ../Steele-Godot/Extensions/"
 	)

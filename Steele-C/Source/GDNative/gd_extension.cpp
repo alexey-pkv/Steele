@@ -8,6 +8,7 @@
 #include "GDNative/DataTypes/Map/Ground.h"
 #include "GDNative/DataTypes/Map/GroundTile.h"
 #include "GDNative/DataTypes/Area.h"
+#include "GDNative/DataTypes/IDMap.h"
 #include "GDNative/DataTypes/Map/Cell.h"
 
 
@@ -28,6 +29,7 @@ void initialize_steele_module(ModuleInitializationLevel p_level)
 	// Data Types
 	ClassDB::register_class<Dir>();
 	ClassDB::register_class<Area>();
+	ClassDB::register_class<IDMap>();
 
 	// Data Types :: Map
 	ClassDB::register_class<GroundTile>();

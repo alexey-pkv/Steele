@@ -15,7 +15,7 @@ using namespace godot;
 
 namespace Steele
 {
-	class Area : public IJsonable
+	class Area
 	{
 	private:
 		class AreaLine
@@ -360,9 +360,9 @@ namespace Steele
 		static const Area ONE;
 		
 		
-	public: // IJsonable
-		void json_read(const nlohmann::json& json) override;
-		nlohmann::json json_write() const override;
+	public: // JSON
+		void json_read(const nlohmann::json& json);
+		nlohmann::json json_write() const;
 	};
 }
 
