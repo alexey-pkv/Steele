@@ -5,6 +5,7 @@
 #include "Utils.h"
 #include "DataTypes/Types.h"
 #include "DataTypes/Direction.h"
+#include "DataTypes/IDMap.h"
 
 
 namespace Steele
@@ -15,6 +16,11 @@ namespace Steele
 		t_id		ID;
 		Direction	Dir; 
 		uint8_t 	Index;
+		
+		
+	public: // JSON
+		void json_write(const IDMap& map, nlohmann::json& into) const;
+		void json_read(const IDMap& map, const nlohmann::json& from);
 	};
 	
 	

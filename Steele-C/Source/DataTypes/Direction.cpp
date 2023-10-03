@@ -140,3 +140,29 @@ void Direction::RotateInPlace(godot::Vector3i& source) const
 	else if (m_direction == DirectionValue::West) 
 		source = { -source.y, source.x, source.z };
 }
+
+Direction Direction::from_string(const std::string& s, Direction def)
+{
+	for (auto i = 0; i < sizeof m_directionStrings; i++)
+	{
+		if (s == m_directionStrings[i])
+		{
+			return Direction(i);
+		}
+	}
+	
+	return def;
+}
+
+Direction::operator const char*() const
+{
+	if (m_direction == DirectionValue::Invalid)
+	{
+		return "Invalid";
+	}
+	
+	int index = ((int)m_direction & DIRECTION_MASK);
+	
+	return m_directionStrings[index];
+}
+

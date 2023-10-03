@@ -43,7 +43,7 @@ inline V* get_value_ptr(std::map<K, V>& map, const K& k)
 }
 
 template <typename K, typename V>
-inline V get_value(std::map<K, V>& map, const K& k, const V& def)
+inline V get_value(const std::map<K, V>& map, const K& k, const V& def)
 {
 	auto kvp = map.find(k);
 	return kvp != map.end() ? kvp->second : def;

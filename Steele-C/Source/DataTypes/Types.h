@@ -11,6 +11,8 @@
 #include <godot_cpp/variant/vector3.hpp>
 #include <godot_cpp/variant/rect2i.hpp>
 
+#include "json.hpp"
+
 
 typedef godot::Vector2i v2i;
 typedef godot::Vector3i v3i;
@@ -43,15 +45,27 @@ typedef unsigned char byte;
 
 namespace Steele
 {
-	enum class BrushType : char
+	enum class BrushType
 	{
 		Fill	= 0,
 		Canvas	= 1,
 		Area	= 2,
-		Row		= 3,
+		Block	= 3,
 		
-		AreaComponent	= 100
+		AreaComponent	= 100,
+		
+		Invalid = -1
 	};
+	
+	NLOHMANN_JSON_SERIALIZE_ENUM(BrushType, {
+		{ BrushType::Fill,			"Fill" },
+		{ BrushType::Canvas,		"Canvas" },
+		{ BrushType::Area,			"Area" },
+		{ BrushType::Block,			"Block" },
+		{ BrushType::AreaComponent,	"AreaComponent" },
+		
+		{ BrushType::Invalid,	nullptr },
+	})
 }
 
 enum class Axis
@@ -81,6 +95,14 @@ enum class Axis
 
 
 inline v2i abs(const v2i& v) { return { abs(v.x), abs(v.y) }; }
-inline v3i to_v3i(v2i v) { return { v.x, v.y, 0 }; }
+
+
+inline v2i v3i_xy(const v3i& v) { return { v.x, v.y }; }
+inline v2i v3i_yz(const v3i& v) { return { v.y, v.z }; }
+inline v2i v3i_xz(const v3i& v) { return { v.x, v.z }; }
+
+inline v3i to_v3i(const v2i& v) { return { v.x, v.y, 0 }; }
+inline v3i to_v3i(const v2i& v, int z) { return { v.x, v.y, z }; }
+
 
 #endif

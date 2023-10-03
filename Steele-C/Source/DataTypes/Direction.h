@@ -10,6 +10,8 @@
 #include <godot_cpp/variant/vector3.hpp>
 #include <godot_cpp/variant/vector3i.hpp>
 
+#include "json.hpp"
+
 
 namespace Steele
 {
@@ -20,15 +22,31 @@ namespace Steele
 	
 	enum class DirectionValue : char
 	{
-		North		= 0b0000,
 		NorthEast	= 0b0001,
+		North		= 0b0000,
 		East		= 0b0010,
 		SouthEast	= 0b0011,
 		South		= 0b0100,
 		SouthWest	= 0b0101,
 		West		= 0b0110,
 		NorthWest	= 0b0111,
+		
+		Invalid		= 0b1111,
 	};
+	
+	
+	NLOHMANN_JSON_SERIALIZE_ENUM(DirectionValue, {
+		{ DirectionValue::NorthEast,	"NorthEast" },
+		{ DirectionValue::North,		"North" },
+		{ DirectionValue::East,			"East" },
+		{ DirectionValue::SouthEast,	"SouthEast" },
+		{ DirectionValue::South,		"South" },
+		{ DirectionValue::SouthWest,	"SouthWest" },
+		{ DirectionValue::West,			"West" },
+		{ DirectionValue::NorthWest,	"NorthWest" },
+		
+		{ DirectionValue::Invalid,		nullptr },
+	})
 	
 	
 	class Direction
@@ -55,8 +73,11 @@ namespace Steele
 		explicit Direction(int i): m_direction(to_dir(i)) {};
 		explicit Direction(DirectionValue dv): m_direction(dv) {};
 		
-		inline explicit operator const char*() const { return m_directionStrings[((int)m_direction & DIRECTION_MASK)]; }
+		explicit operator const char*() const;
 		inline explicit operator std::string() const { return { (char*)this }; }
+		
+		
+		inline DirectionValue get_value() const { return m_direction; }
 		
 		inline explicit operator int8_t () const { return (int8_t)m_direction; }
 		inline explicit operator int16_t () const { return (int16_t)m_direction; }
@@ -108,6 +129,11 @@ namespace Steele
 		static const Direction SouthWest;
 		static const Direction West;
 		static const Direction NorthWest;
+		
+		
+	public:
+		inline static Direction from_string(const std::string& s) { return from_string(s, Direction::North); }
+		static Direction from_string(const std::string& s, Direction def);
 	};
 	
 	
@@ -122,7 +148,24 @@ namespace Steele
 	inline godot::Vector2i& operator*=(godot::Vector2i& v, Direction d) { d.RotateInPlace(v); return v; }
 	inline godot::Vector3& operator*=(godot::Vector3& v, Direction d) { d.RotateInPlace(v); return v; }
 	inline godot::Vector3i& operator*=(godot::Vector3i& v, Direction d) { d.RotateInPlace(v); return v; }
-}
+	
+	
+	inline std::string to_string(Direction d) { return (const char*)d; }
 
+	inline void to_json(nlohmann::json& j, const Direction& d)
+	{
+		j = d.get_value();
+	}
+	
+	inline void from_json(const nlohmann::json& j, Direction& d)
+	{
+		DirectionValue val = j.get<DirectionValue>();
+		
+		if (val == DirectionValue::Invalid)
+			d = Direction::North;
+		else 
+			d = Direction(val);
+	}
+}
 
 #endif

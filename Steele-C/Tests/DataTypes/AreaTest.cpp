@@ -1690,4 +1690,80 @@ TEST(Area__GetRect)
 }
 
 
+void assert_json(const Area& a)
+{
+	Area result;
+	
+	auto json = a.json_write();
+	result.json_read(json);
+	
+	ASSERT_IS(a, result);
+}
+
+TEST(Area__Json)
+{
+	assert_json(Area::ZERO);
+	
+	assert_json(Area::ONE);
+	
+	assert_json(Area(
+		"**\n"
+		"**\n"
+	));
+	
+	assert_json(Area(
+		"**.**\n"
+	));
+	
+	assert_json(Area(
+		"**\n"
+		"..\n"
+		"**\n"
+	));
+	
+	assert_json(Area(
+		"...........\n"
+		"...******..\n"
+		"...******..\n"
+		"...******..\n"
+		"...******..\n"
+		"...******..\n"
+		"...******..\n"
+		"...........\n"
+	));
+	
+	assert_json(Area(
+		"...........\n"
+		"...**..**..\n"
+		"...**..**..\n"
+		"...........\n"
+		"...........\n"
+		"...**..**..\n"
+		"...**..**..\n"
+		"...........\n"
+	));
+	
+	assert_json(Area(
+		"...........\n"
+		"........*..\n"
+		"...........\n"
+		"....*......\n"
+		"......*....\n"
+		"...........\n"
+		"....*......\n"
+		"...........\n"
+	));
+}
+
+TEST(Area__Json__Area_Reset)
+{
+	Area a = Area::ONE;
+	
+	nlohmann::json json = 2;
+	a.json_read(json);
+	
+	ASSERT_IS(Area::ZERO, a);
+}
+
+
 #pragma clang diagnostic pop

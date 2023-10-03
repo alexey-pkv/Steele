@@ -1,7 +1,31 @@
 #include "Ground.h"
+#include "Exceptions/JSONException.h"
 
 
 using namespace Steele;
+
+
+void GroundTile::json_write(const IDMap& map, nlohmann::json& into) const
+{
+	into = {
+		{ "ID", map.require(ID) },
+		{ "Direction", Dir }
+	};
+}
+
+void GroundTile::json_read(const IDMap& map, const nlohmann::json& from)
+{
+	if (!from.contains("ID"))
+		throw JSONException("Missing `ID` field for GroundTile JSON");
+	if (!from.at("ID").is_string())
+		throw JSONException("`ID` field must be string in GroundTile JSON");
+	
+	auto idPath = from.at("ID").get<std::string>();
+	auto id = map.require(idPath);
+	
+	ID = id;
+	Dir = from.at("Direction").get<Direction>();
+}
 
 
 void Ground::add(const GroundTile &gt)

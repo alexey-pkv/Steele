@@ -193,25 +193,27 @@ void foo_3()
 }
 
 
+#include "Library/json.hpp"
+#include "Base/IJsonable.h"
+
+
+using namespace nlohmann;
+
+
 int main()
 {
-	Transformation a;
+	json j;
 	
-	Transformation of;
 	
-	of += v2i(2, 4);
+	DirectionSettings ds;
 	
-	a += of;
-	a += v2i(1, 0);
-	a += Direction::North - Direction::East;
-	a -= of;
+	ds.VariableDirection[2] = 0.5;
+	ds.SettingType = Steele::DirectionSettings::Type::Constant;
+	ds.json_write(j);
 	
-	cout << a.Offset.x << ":" << a.Offset.y << " " << a.Dir << endl;
+	cout << j.dump(1, '\t') << endl;
 	
-	v3i v_source(3, 4, 0);
-	v3i v_original(3, 5, 0);
 	
-	v3i res = a.apply(v_source);
 	
 	return 0;
 }

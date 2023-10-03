@@ -22,6 +22,7 @@ uint64_t Steele::XoroshiroRNG::StateCast::state_from_vector(const std::vector<by
 }
 #pragma clang diagnostic pop
 
+
 void Steele::XoroshiroRNG::StateCast::state_to_vector(uint64_t val, std::vector<byte>& source)
 {
 	UINT = val;

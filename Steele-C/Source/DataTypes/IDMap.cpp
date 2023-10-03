@@ -49,3 +49,27 @@ bool IDMap::remove(t_id id)
 	
 	return true;
 }
+
+std::string IDMap::require(t_id id) const
+{
+	auto it = m_byID.find(id);
+	
+	if (it == m_byID.end())
+	{
+		
+	}
+	
+	return it->second;
+}
+
+t_id IDMap::require(const std::string& name) const
+{
+	auto it = m_byName.find(name);
+	
+	if (it == m_byName.end())
+	{
+		
+	}
+	
+	return it->second;
+}

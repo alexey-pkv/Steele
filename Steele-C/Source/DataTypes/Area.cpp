@@ -552,5 +552,39 @@ void Area::clear()
 	m_offset = v2i_zero;
 }
 
+
+void Area::json_read(const nlohmann::json& json)
+{
+	clear();
+	
+	if (!json.is_array())
+		return;
+	
+	for (auto& v : json)
+	{
+		add_range(::json_read<v3i>(v));
+	}
+}
+
+nlohmann::json Area::json_write() const
+{
+	nlohmann::json json = nlohmann::json::array();
+	
+	int x = m_offset.x;
+	
+	for (auto& v : m_vertical)
+	{
+		for (auto& pair : v.ranges())
+		{
+			json.push_back(::json_write(v3i(x, pair.x, pair.y)));
+		}
+		
+		x++;
+	}
+	
+	return json;
+}
+
+
 const Area Area::ZERO	= {};
 const Area Area::ONE	= Area("*\n");

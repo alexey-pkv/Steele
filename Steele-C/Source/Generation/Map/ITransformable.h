@@ -35,12 +35,12 @@ namespace Steele
 		
 		
 	public:
-		LocalTransformation local_transform();
-		LocalTransformation local_transform(const Transformation& t);
-		inline LocalTransformation local_transform(Direction dir) { return local_transform(Transformation(dir)); };
-		inline LocalTransformation local_transform(const v2i& v, Direction dir = Direction::North) { return local_transform(Transformation { {v.x, v.y, 0 }, dir }); };
-		inline LocalTransformation local_transform(const v2i& v, int z, Direction dir = Direction::North) { return local_transform(Transformation { {v.x, v.y, z }, dir }); };
-		inline LocalTransformation local_transform(const v3i& v, Direction dir = Direction::North) { return local_transform(Transformation { v, dir }); };
+		[[nodiscard]] LocalTransformation local_transform();
+		[[nodiscard]] LocalTransformation local_transform(const Transformation& t);
+		[[nodiscard]] inline LocalTransformation local_transform(Direction dir) { return local_transform(Transformation(dir)); };
+		[[nodiscard]] inline LocalTransformation local_transform(const v2i& v, Direction dir = Direction::North) { return local_transform(Transformation { {v.x, v.y, 0 }, dir }); };
+		[[nodiscard]] inline LocalTransformation local_transform(const v2i& v, int z, Direction dir = Direction::North) { return local_transform(Transformation { {v.x, v.y, z }, dir }); };
+		[[nodiscard]] inline LocalTransformation local_transform(const v3i& v, Direction dir = Direction::North) { return local_transform(Transformation { v, dir }); };
 	};
 	
 	

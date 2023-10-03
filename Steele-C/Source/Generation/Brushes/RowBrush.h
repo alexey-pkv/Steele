@@ -8,7 +8,7 @@
 
 namespace Steele
 {
-	class RowBrush : public AbstractBrush<BrushType::Row>
+	class RowBrush : public AbstractBrush<BrushType::Block>
 	{
 	private:
 		int m_maxHeight	= 100;

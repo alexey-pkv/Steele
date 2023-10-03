@@ -20,13 +20,16 @@ namespace Steele
 		
 		
 	public:
-		inline bool has(t_id id) { return contains(m_byID, id); }
-		inline bool has(const std::string& s) { return contains(m_byName, s); }
-		inline t_id get(const std::string& s) { return get_value(m_byName, s, NULL_ID); }
-		inline std::string get(const t_id id) { return get_value(m_byID, id, std::string("")); }
+		inline bool has(t_id id) const { return contains(m_byID, id); }
+		inline bool has(const std::string& s) const { return contains(m_byName, s); }
+		inline t_id get(const std::string& s) const { return get_value(m_byName, s, NULL_ID); }
+		inline std::string get(t_id id) const { return get_value(m_byID, id, std::string("")); }
 		
 		
 	public:
+		std::string require(t_id id) const;
+		t_id require(const std::string& name) const;
+		
 		t_id add(const std::string& name);
 		bool update(t_id id, const std::string& newName);
 		bool remove(t_id id);

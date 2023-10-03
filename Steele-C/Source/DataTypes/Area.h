@@ -6,7 +6,7 @@
 
 #include "Types.h"
 #include "Direction.h"
-#include "godot_cpp/variant/rect2i.hpp"
+#include "Base/IJsonable.h"
 
 
 using namespace std;
@@ -15,7 +15,7 @@ using namespace godot;
 
 namespace Steele
 {
-	class Area
+	class Area : public IJsonable
 	{
 	private:
 		class AreaLine
@@ -100,6 +100,9 @@ namespace Steele
 			void operator<<=(int by);
 			
 			bool operator&&(const AreaLine& yva) const;
+			
+		public:
+			inline const vector<v2i>& ranges() const { return m_line; }
 			
 		public:
 			Iterator begin() const; 
@@ -308,6 +311,27 @@ namespace Steele
 			}; 
 		}
 		
+		inline void add_range(v2i from, v2i to)
+		{
+			*this += Area(r2i(from, to - from));
+		}
+		
+		inline void add_range(int at_x, v2i range)
+		{
+			if (range.x > range.y)
+				std::swap(range.x, range.y);
+			
+			v2i from = v2i(at_x, range.x);
+			v2i size = v2i(1, range.y - range.x + 1);
+			
+			*this += Area(r2i(from, size));
+		}
+		
+		inline void add_range(v3i range)
+		{
+			add_range(range.x, v3i_yz(range));
+		}
+		
 		
 		bool overlaps(const Area& a) const;
 		
@@ -334,6 +358,11 @@ namespace Steele
 	public:
 		static const Area ZERO;
 		static const Area ONE;
+		
+		
+	public: // IJsonable
+		void json_read(const nlohmann::json& json) override;
+		nlohmann::json json_write() const override;
 	};
 }
 
