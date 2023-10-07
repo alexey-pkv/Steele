@@ -24,12 +24,6 @@ namespace Steele
 			Constant
 		};
 		
-		NLOHMANN_JSON_SERIALIZE_ENUM(Type, {
-			{ Type::Homogeneous,	"Homogeneous" },
-			{ Type::Variable,		"Variable" },
-			{ Type::Constant,		nullptr }
-		})
-		
 		
 	public:
 		Type		SettingType				= Type::Homogeneous;
@@ -43,7 +37,7 @@ namespace Steele
 		
 	public: // JSON
 		void json_write(nlohmann::json& into) const;
-		void json_read(nlohmann::json& from);
+		void json_read(const nlohmann::json& from);
 	};
 }
 

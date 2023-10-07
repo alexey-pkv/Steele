@@ -2,6 +2,7 @@
 
 #include "Base/Generation/IGenerationScope.h"
 #include "Generation/Brushes/Row/combination.h"
+#include "Exceptions/JSONException.h"
 
 #include <set>
 
@@ -196,3 +197,40 @@ void RowBrush::paint(IGenerationScope& scope, const Area& area) const
 	}
 }
 
+
+void RowBrush::json_write(json& into) const
+{
+	auto& map = IDMap::global();
+	
+	into = json::object();
+	
+	into["min_height"] = m_minHeight;
+	into["max_height"] = m_maxHeight;
+	
+	if (m_paletteID != NULL_ID)
+	{
+		into["palette"]	= map.require(m_paletteID);
+	}
+	else if (m_fillID != NULL_ID)
+	{
+		into["ground"] = map.require(m_fillID);
+	}
+}
+
+void RowBrush::json_read(const json& from)
+{
+	auto& map = IDMap::global();
+	
+	if (from.contains("palette"))
+	{
+		m_paletteID = map.require(from["palette"].get<string>());
+	}
+	else if (from.contains("ground"))
+	{
+		m_fillID = map.require(from["ground"].get<string>());
+	}
+	else
+	{
+		throw JSONException("Either ground or palette must be set!");
+	}
+}

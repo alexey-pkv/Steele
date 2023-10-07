@@ -51,6 +51,7 @@ namespace Steele
 		Canvas	= 1,
 		Area	= 2,
 		Block	= 3,
+		Row		= 4,
 		
 		AreaComponent	= 100,
 		
@@ -62,6 +63,7 @@ namespace Steele
 		{ BrushType::Canvas,		"Canvas" },
 		{ BrushType::Area,			"Area" },
 		{ BrushType::Block,			"Block" },
+		{ BrushType::Row,			"Row" },
 		{ BrushType::AreaComponent,	"AreaComponent" },
 		
 		{ BrushType::Invalid,	nullptr },

@@ -54,3 +54,14 @@ void Steele::CanvasBrush::debug_set(const Steele::Area& a, t_id id)
 		c.set(Cell { id, Direction::North, 0 }, v);
 	}
 }
+
+
+void Steele::CanvasBrush::json_write(nlohmann::json& into) const
+{
+	m_canvas.json_write(into);
+}
+
+void Steele::CanvasBrush::json_read(const nlohmann::json& from)
+{
+	m_canvas.json_read(from);
+}

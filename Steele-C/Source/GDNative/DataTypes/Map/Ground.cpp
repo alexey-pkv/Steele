@@ -15,7 +15,7 @@ void godot::Ground::_bind_methods()
 	ClassDB::bind_method(D_METHOD("has_tile", "tile"), &Ground::has_tile);
 	ClassDB::bind_method(D_METHOD("add_tile", "tile"), &Ground::add_tile);
 	
-	ClassDB::bind_method(D_METHOD("add", "id", "direction", "index"), &Ground::add);
+	ClassDB::bind_method(D_METHOD("debug_add", "id", "direction", "index"), &Ground::add);
 	ClassDB::bind_method(D_METHOD("set", "id", "direction", "index"), &Ground::set);
 }
 

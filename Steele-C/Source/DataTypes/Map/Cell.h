@@ -37,6 +37,11 @@ namespace Steele
 		
 	public:
 		inline void clear() { Ground.clear(); }
+		
+		
+	public: // JSON
+		void json_write(nlohmann::json& into) const;
+		void json_read(const nlohmann::json& from);
 	};
 }
 

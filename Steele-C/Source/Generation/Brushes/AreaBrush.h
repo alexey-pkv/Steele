@@ -47,6 +47,11 @@ namespace Steele
 		
 		bool is_constant_area_brush() const override;
 		Area get_constant_area() const override;
+		
+		
+	public: // JSON
+		void json_write(nlohmann::json& json) const override;
+		void json_read(const nlohmann::json& json) override; 
 	};
 }
 

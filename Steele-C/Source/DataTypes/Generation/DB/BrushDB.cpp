@@ -15,6 +15,9 @@ Steele::IBrush* Steele::BrushDB::create(t_id id, BrushType type)
 		case BrushType::Canvas:
 			return create_canvas(id);
 			
+		case BrushType::Row:
+			return create_row(id);
+			
 		default:
 			throw SteeleException("Unexpected brush type ", (int)type);
 	}
@@ -24,6 +27,7 @@ Steele::IBrush* Steele::BrushDB::create(t_id id, BrushType type)
 Steele::FillBrush* Steele::BrushDB::create_fill(t_id id)		{ return _create_<FillBrush>(id); }
 Steele::CanvasBrush* Steele::BrushDB::create_canvas(t_id id)	{ return _create_<CanvasBrush>(id); }
 Steele::AreaBrush* Steele::BrushDB::create_area(t_id id)		{ return _create_<AreaBrush>(id); }
+Steele::RowBrush* Steele::BrushDB::create_row(t_id id)			{ return _create_<RowBrush>(id); }
 
 bool Steele::BrushDB::has(t_id id)								{ return AbstractDB::has(id); }
 Steele::IBrush* Steele::BrushDB::get(t_id id)					{ return AbstractDB::get(id); }

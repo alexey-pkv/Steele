@@ -5,7 +5,7 @@ void godot::Dir::_bind_methods()
 {
 	// Methods
 	ClassDB::bind_static_method("Dir", D_METHOD("get", "dir"), &Dir::get);
-	ClassDB::bind_static_method("Dir", D_METHOD("add", "a", "b"), &Dir::add);
+	ClassDB::bind_static_method("Dir", D_METHOD("debug_add", "a", "b"), &Dir::add);
 	ClassDB::bind_static_method("Dir", D_METHOD("sub", "a", "b"), &Dir::sub);
 	ClassDB::bind_static_method("Dir", D_METHOD("mul", "dir", "by"), &Dir::mul);
 	ClassDB::bind_static_method("Dir", D_METHOD("mul_v2i", "dir", "vector"), &Dir::mul_v2i);

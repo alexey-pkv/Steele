@@ -38,7 +38,7 @@ void Steele::DirectionSettings::json_write(nlohmann::json& into) const
 	}
 }
 
-void Steele::DirectionSettings::json_read(nlohmann::json& from)
+void Steele::DirectionSettings::json_read(const nlohmann::json& from)
 {
 	ConstantDirection = Direction::North;
 	

@@ -39,6 +39,11 @@ namespace Steele
 		
 	public:
 		void debug_set(const Area& a, t_id id);
+		
+		
+	public: // JSON
+		void json_write(nlohmann::json& into) const override;
+		void json_read(const nlohmann::json& from) override;
 	};
 }
 

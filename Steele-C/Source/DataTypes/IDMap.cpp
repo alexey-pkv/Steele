@@ -1,8 +1,14 @@
 #include "IDMap.h"
 
 
+#include "Exceptions/SteeleException.h"
+
+
 using namespace std;
 using namespace Steele;
+
+
+IDMap IDMap::m_global = {};
 
 
 t_id IDMap::add(const string& name)
@@ -72,4 +78,22 @@ t_id IDMap::require(const std::string& name) const
 	}
 	
 	return it->second;
+}
+
+
+void IDMap::debug_clear()
+{
+	m_byName.clear();
+	m_byID.clear();
+}
+
+void IDMap::debug_add(t_id id, const std::string& name)
+{
+	if (has(name) || has(id))
+		throw Steele::SteeleException("Can directly debug_add id and name only if both do not exist");
+	
+	m_byName[name] = id;
+	m_byID[id] = name;
+	
+	m_nextID = std::max(m_nextID, id + 1);
 }

@@ -162,6 +162,54 @@ namespace Steele
 		typename std::map<v3i, CELL>::iterator end() { return m_map.end(); }
 		typename std::map<v3i, CELL>::const_iterator begin() const { return m_map.begin(); }
 		typename std::map<v3i, CELL>::const_iterator end() const { return m_map.end(); }
+		
+		
+	public: // JSON
+		template<class ... ARG>
+		void json_write(nlohmann::json& into, const ARG& ... args) const
+		{
+			if (m_map.empty())
+			{
+				into = nlohmann::json::value_t::null; 
+				return;
+			}
+			
+			into = nlohmann::json::array();
+			
+			for (auto& it : m_map)
+			{
+				nlohmann::json item = {
+					{ "at",		Steele::json_write(it.first) },
+					{ "cell",	nlohmann::json() }
+				};
+				
+				into.emplace_back(item);
+				
+				it.second.json_write(into.back()["cell"], args ... );
+			}
+		}
+		
+		template<class ... ARG>
+		void json_read(const nlohmann::json& from, const ARG& ... args)
+		{
+			clear();
+			
+			if (from.is_null())
+				return;
+			else if (!from.is_array())
+				throw SteeleException("Map must be array");
+			
+			for (auto& item : from)
+			{
+				if (!item.is_object() || !item.contains("at") || !item.contains("cell"))
+					throw SteeleException("Invalid json format");
+				
+				v3i at = json_read_v3i(item["at"]);
+				auto c = this->get(at);
+				
+				c->json_read(item["cell"], args ... );
+			}
+		}
 	};
 }
 

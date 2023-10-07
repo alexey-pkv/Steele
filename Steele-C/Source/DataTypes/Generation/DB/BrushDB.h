@@ -28,6 +28,7 @@ namespace Steele
 		FillBrush* create_fill(t_id id) override;
 		CanvasBrush* create_canvas(t_id id) override;
 		AreaBrush* create_area(t_id id) override;
+		RowBrush* create_row(t_id id) override;
 	};
 }
 

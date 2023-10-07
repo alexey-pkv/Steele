@@ -92,3 +92,14 @@ Steele::Area Steele::AreaBrush::get_constant_area() const
 	
 	return total;
 }
+
+
+void Steele::AreaBrush::json_write(nlohmann::json& into) const
+{
+	into = m_components;
+}
+
+void Steele::AreaBrush::json_read(const nlohmann::json& from)
+{
+	m_components = from;
+}

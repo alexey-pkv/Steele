@@ -6,6 +6,7 @@
 
 #include "DataTypes/Area.h"
 #include "Base/Generation/IBrush.h"
+#include "DataTypes/IDMap.h"
 
 
 namespace Steele
@@ -58,6 +59,11 @@ namespace Steele
 		
 	public:
 		void paint_in_area(IGenerationScope& scope) const;
+		
+		
+	public: // JSON
+		void json_write(nlohmann::json& into) const;
+		void json_read(const nlohmann::json& from);
 	};
 }
 

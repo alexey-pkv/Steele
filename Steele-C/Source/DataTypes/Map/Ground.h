@@ -19,8 +19,12 @@ namespace Steele
 		
 		
 	public: // JSON
-		void json_write(const IDMap& map, nlohmann::json& into) const;
-		void json_read(const IDMap& map, const nlohmann::json& from);
+		void json_write(nlohmann::json& into) const;
+		void json_read(const nlohmann::json& from);
+		
+		
+	public:
+		inline static bool sort_by_index(const GroundTile& a, const GroundTile& b) { return (a.Index < b.Index); }
 	};
 	
 	
@@ -73,6 +77,11 @@ namespace Steele
 		
 	public:
 		inline GroundTile* operator[](int index) { return index < 0 || index >= m_ground.size() ? nullptr : &m_ground[index]; }
+		
+		
+	public: // JSON
+		void json_write(nlohmann::json& into) const;
+		void json_read(const nlohmann::json& from);
 	};
 }
 

@@ -6,7 +6,7 @@
 
 #include "Types.h"
 #include "Direction.h"
-#include "Base/IJsonable.h"
+#include "json.h"
 
 
 using namespace std;
@@ -364,6 +364,16 @@ namespace Steele
 		void json_read(const nlohmann::json& json);
 		nlohmann::json json_write() const;
 	};
+	
+	inline void to_json(nlohmann::json& j, const Area& a)
+	{
+		j = a.json_write();
+	}
+	
+	inline void from_json(const nlohmann::json& j, Area& a)
+	{
+		a.json_read(j);
+	}
 }
 
 namespace std

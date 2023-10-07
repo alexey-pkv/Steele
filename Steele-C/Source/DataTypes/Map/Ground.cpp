@@ -1,30 +1,32 @@
 #include "Ground.h"
 #include "Exceptions/JSONException.h"
 
+#include "json.h"
+
 
 using namespace Steele;
 
 
-void GroundTile::json_write(const IDMap& map, nlohmann::json& into) const
+void GroundTile::json_write(nlohmann::json& into) const
 {
 	into = {
-		{ "ID", map.require(ID) },
-		{ "Direction", Dir }
+		{ "id", IDMap::global().require(ID) },
+		{ "dir", Dir }
 	};
 }
 
-void GroundTile::json_read(const IDMap& map, const nlohmann::json& from)
+void GroundTile::json_read(const nlohmann::json& from)
 {
-	if (!from.contains("ID"))
-		throw JSONException("Missing `ID` field for GroundTile JSON");
-	if (!from.at("ID").is_string())
-		throw JSONException("`ID` field must be string in GroundTile JSON");
+	if (!from.contains("id"))
+		throw JSONException("Missing `id` field for GroundTile JSON");
+	if (!from.at("id").is_string())
+		throw JSONException("`id` field must be string in GroundTile JSON");
 	
-	auto idPath = from.at("ID").get<std::string>();
-	auto id = map.require(idPath);
+	auto idPath = from.at("id").get<std::string>();
+	auto id = IDMap::global().require(idPath);
 	
 	ID = id;
-	Dir = from.at("Direction").get<Direction>();
+	Dir = from.at("dir").get<Direction>();
 }
 
 
@@ -79,4 +81,27 @@ bool Ground::remove(t_id id)
 	}
 	
 	return false;
+}
+
+void Ground::json_write(nlohmann::json& into) const
+{
+	auto orderedGround = m_ground;
+	std::sort(orderedGround.begin(), orderedGround.end(), GroundTile::sort_by_index);
+	
+	into = orderedGround;
+}
+
+void Ground::json_read(const nlohmann::json& from)
+{
+	if (!from.is_array())
+		throw JSONException("Expected array. Got some fucking dumb shit instead");
+	
+	m_ground = from;
+	
+	int index = 0;
+	
+	for (auto& item : m_ground)
+	{
+		item.Index = index++;
+	}
 }

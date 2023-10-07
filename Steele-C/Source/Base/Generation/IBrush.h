@@ -24,6 +24,11 @@ namespace Steele
 		virtual bool try_paint(IGenerationScope& scope, const Area& area) const noexcept = 0;
 		virtual bool is_constant_area_brush() const = 0;
 		virtual Area get_constant_area() const = 0;
+		
+		
+	public: // JSON
+		virtual void json_write(nlohmann::json& into) const = 0;
+		virtual void json_read(const nlohmann::json& from) = 0;
 	};
 	
 	template <BrushType B>

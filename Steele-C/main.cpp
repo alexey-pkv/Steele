@@ -194,22 +194,41 @@ void foo_3()
 
 
 #include "Library/json.hpp"
-#include "Base/IJsonable.h"
+#include "json.h"
 
 
-using namespace nlohmann;
+		
+template<typename T, typename = std::enable_if_t<std::is_invocable_v<decltype(&T::json_write), json>>>
+void from_json(json& json, const T& t)
+{
+	t.json_write(json);
+}
+	
+namespace Steele
+{
+	// template<typename T, typename = std::enable_if_t<std::is_invocable_v<decltype(&T::json_write), const T&, json&>>>
+
+	
+	/*
+	void to_json(json& json, const DirectionSettings& t)
+	{
+		t.json_write(json);
+	}
+	 */
+}
+
+
 
 
 int main()
 {
+	AreaBrush a;
+	
 	json j;
 	
-	
-	DirectionSettings ds;
-	
-	ds.VariableDirection[2] = 0.5;
-	ds.SettingType = Steele::DirectionSettings::Type::Constant;
-	ds.json_write(j);
+	j = a;
+	a = j;
+	// ds.json_write(j);
 	
 	cout << j.dump(1, '\t') << endl;
 	

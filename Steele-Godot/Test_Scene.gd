@@ -18,6 +18,8 @@ func _ready():
 	var t: GroundTextures = TileSetLoader.load(
 		"res://Resources/TestResources/Ground/marble.32x16.tile-set.png")
 	
+	
+	
 	var aaa = ProjectSettings.globalize_path("res://Resources/TestResources/Ground/marble.32x16.tile-set.png")
 	
 	print(aaa);

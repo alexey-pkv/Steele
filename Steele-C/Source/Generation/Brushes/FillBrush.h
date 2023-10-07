@@ -4,6 +4,7 @@
 
 #include "Base/Generation/IBrush.h"
 #include "Generation/BrushSettings/Direction/DirectionSettings.h"
+#include "DataTypes/IDMap.h"
 
 
 namespace Steele
@@ -36,6 +37,10 @@ namespace Steele
 		inline t_id get_palette_id() const { return m_paletteID; }
 		inline void set_palette_id(t_id id) { m_paletteID = id; m_groundID = NULL_ID; }
 		
+		
+	public: // JSON
+		void json_write(nlohmann::json& into) const override;
+		void json_read(const nlohmann::json& from) override;
 	};
 }
 

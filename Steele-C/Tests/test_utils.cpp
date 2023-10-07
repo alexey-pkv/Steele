@@ -2,6 +2,7 @@
 
 
 #include "DataTypes/Types.h"
+#include "DataTypes/IDMap.h"
 
 #include <iostream>
 #include <chrono>
@@ -84,8 +85,11 @@ string generate_name_padding(const string& module_name, const string& test_name)
 	return res;
 }
 
+void reset_state()
+{
+	Steele::IDMap::global().debug_clear();
+}
 
-#include <sstream>
 
 void run_tests(const char* filter)
 {
@@ -131,6 +135,8 @@ void run_tests(const char* filter)
 				cout << module_name << endl << "[" << endl;
 				last_module = module_name;
 			}
+			
+			reset_state();
 			
 			cout << "\t" << test_name;
 			

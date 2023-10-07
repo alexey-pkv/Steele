@@ -14,6 +14,10 @@ namespace Steele
 	class IDMap
 	{
 	private:
+		static IDMap m_global;	
+		
+		
+	private:
 		std::map<t_id, std::string>		m_byID;
 		std::map<std::string, t_id>		m_byName;
 		t_id							m_nextID	= 1;
@@ -33,6 +37,14 @@ namespace Steele
 		t_id add(const std::string& name);
 		bool update(t_id id, const std::string& newName);
 		bool remove(t_id id);
+		
+		
+	public: // Use for debug and testing
+		void debug_add(t_id id, const std::string& name);
+		void debug_clear();
+		
+	public:
+		inline static IDMap& global() { return m_global; }
 	};
 }
 

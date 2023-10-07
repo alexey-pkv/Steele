@@ -1,6 +1,7 @@
 #include "FillBrush.h"
 
 #include "Base/Generation/IGenerationScope.h"
+#include "Exceptions/JSONException.h"
 
 
 void Steele::FillBrush::paint(Steele::IGenerationScope& scope, const Steele::Area& area) const
@@ -49,4 +50,46 @@ void Steele::FillBrush::paint(Steele::IGenerationScope& scope, const Steele::Are
 bool Steele::FillBrush::can_fill(const Steele::Area& a) const
 {
 	return true;
+}
+
+
+void Steele::FillBrush::json_write(nlohmann::json& into) const
+{
+	auto& map = IDMap::global();
+	
+	into = nlohmann::json::object();
+	
+	m_dir.json_write(into["dir"]);
+	
+	if (m_paletteID != NULL_ID)
+	{
+		into["palette"]	= map.require(m_paletteID);
+	}
+	else if (m_groundID != NULL_ID)
+	{
+		into["ground"]	= map.require(m_groundID);
+	}
+}
+
+void Steele::FillBrush::json_read(const nlohmann::json& from)
+{
+	auto& map = IDMap::global();
+	
+	m_groundID = NULL_ID;
+	m_paletteID = NULL_ID;
+	
+	m_dir.json_read(from);
+	
+	if (from.contains("palette"))
+	{
+		m_paletteID = map.require(from["palette"].get<string>());
+	}
+	else if (from.contains("ground"))
+	{
+		m_groundID = map.require(from["ground"].get<string>());
+	}
+	else
+	{
+		throw JSONException("Either ground or palette must be set!");
+	}
 }

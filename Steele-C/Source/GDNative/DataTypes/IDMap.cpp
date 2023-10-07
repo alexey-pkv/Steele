@@ -8,7 +8,7 @@ void godot::IDMap::_bind_methods()
 	ClassDB::bind_method(D_METHOD("has_name", "name"), &IDMap::has_name);
 	ClassDB::bind_method(D_METHOD("get_id", "name"), &IDMap::get_id);
 	ClassDB::bind_method(D_METHOD("get_name", "id"), &IDMap::get_name);
-	ClassDB::bind_method(D_METHOD("add", "name"), &IDMap::add);
+	ClassDB::bind_method(D_METHOD("debug_add", "name"), &IDMap::add);
 	ClassDB::bind_method(D_METHOD("update", "id", "new_name"), &IDMap::update);
 	ClassDB::bind_method(D_METHOD("remove_by_id", "id"), &IDMap::remove_by_id);
 	ClassDB::bind_method(D_METHOD("remove_by_name", "name"), &IDMap::remove_by_name);

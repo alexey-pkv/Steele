@@ -43,6 +43,11 @@ namespace Steele
 		
 		t_id get_fill_id() const { return m_fillID; }
 		void set_fill_id(t_id id) { m_fillID = id; }
+		
+		
+	public: // JSON
+		void json_write(nlohmann::json& into) const override;
+		void json_read(const nlohmann::json& from) override;
 	};
 }
 
