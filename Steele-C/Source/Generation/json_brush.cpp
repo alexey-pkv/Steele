@@ -15,8 +15,6 @@ void Steele::brush_json_write(json& json, const IBrush& brush)
 
 void Steele::brush_json_read(json& json, IBrushDB& db, t_id id)
 {
-	BrushType type;
-	
 	if (!json.is_object() || !json.contains("type") || !json["type"].is_string())
 		throw JSONException("Invalid JSON format when reading brush");
 	if (!json.contains("brush"))

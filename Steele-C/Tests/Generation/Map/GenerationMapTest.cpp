@@ -145,7 +145,7 @@ TEST(Generation__try_get__MultipleStacksExists__ReturnNewCell)
 	
 	auto a = gm.try_get(1, 1);
 	
-	a->IsRoad = true;
+	a->Ground.add(1, Direction::NorthWest, 0);
 	
 	gm.checkpoint();
 	

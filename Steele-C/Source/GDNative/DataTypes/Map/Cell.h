@@ -30,8 +30,6 @@ namespace godot
 
 	public:
 		Ref<Ground> get_ground() const;
-		bool get_is_road() const;
-		void set_is_road(bool is_road);
 
 		void add_ground_tile(const Ref<GroundTile>& tile);
 		bool remove_ground_tile(const Ref<GroundTile>& tile);

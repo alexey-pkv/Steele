@@ -219,20 +219,8 @@ namespace Steele
 
 
 
-
 int main()
 {
-	AreaBrush a;
-	
-	json j;
-	
-	j = a;
-	a = j;
-	// ds.json_write(j);
-	
-	cout << j.dump(1, '\t') << endl;
-	
-	
 	
 	return 0;
 }

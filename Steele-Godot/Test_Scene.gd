@@ -18,7 +18,7 @@ func _ready():
 	var t: GroundTextures = TileSetLoader.load(
 		"res://Resources/TestResources/Ground/marble.32x16.tile-set.png")
 	
-	
+	var c = DoableStack.global()
 	
 	var aaa = ProjectSettings.globalize_path("res://Resources/TestResources/Ground/marble.32x16.tile-set.png")
 	
@@ -31,9 +31,6 @@ func _ready():
 	var d = GroundTile.new()
 	var g = Ground.new()
 	var a = Area.ONE()
-	var c = Cell.new()
-	
-	print(c.get_is_road())
 	
 	var a2 = Area.ONE()
 	
