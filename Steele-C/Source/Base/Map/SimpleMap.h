@@ -152,6 +152,8 @@ namespace Steele
 	
 	public:
 		SimpleMap() = default;
+		SimpleMap(const SimpleMap&) = default;
+		SimpleMap(SimpleMap&&) = default;
 		~SimpleMap() = default;
 		
 		

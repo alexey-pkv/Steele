@@ -16,6 +16,7 @@ namespace godot
 	private:
 		Steele::GroundTile m_tile;
 		
+		
 	public:
 		~GroundTile() override = default;
 		GroundTile() = default;

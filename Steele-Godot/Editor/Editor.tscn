@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://b2owcterdibf7"]
+
+[ext_resource type="Script" path="res://Editor/Editor.gd" id="1_5ho5h"]
+
+[node name="Editor" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_5ho5h")
+
+[node name="Tree" type="Tree" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VSeparator" type="VSeparator" parent="."]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 50.0
+offset_right = 54.0
+offset_bottom = 90.0

@@ -29,13 +29,13 @@ void initialize_steele_module(ModuleInitializationLevel p_level)
 	// Data Types
 	ClassDB::register_class<Dir>();
 	ClassDB::register_class<Area>();
-	ClassDB::register_class<IDMap>();
+	ClassDB::register_abstract_class<IDMap>();
 
 	// Data Types :: Map
 	ClassDB::register_class<GroundTile>();
 	ClassDB::register_class<Ground>();
 	ClassDB::register_class<Cell>();
-
+	
 	
 	// RNG
 	ClassDB::register_class<XoroshiroRNG>();

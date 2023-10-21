@@ -10,11 +10,11 @@
 
 namespace godot
 {
-	class IDMap : public RefCounted
+	class IDMap : public Object
 	{
-		GDCLASS(IDMap, RefCounted) // NOLINT(*-use-auto)
+		GDCLASS(IDMap, Object) // NOLINT(*-use-auto)
 	private:
-		Steele::IDMap m_map;
+		inline static Steele::IDMap& map() { return Steele::IDMap::global(); };
 		
 	
 	public:
@@ -22,25 +22,15 @@ namespace godot
 		
 		
 	public:
-		~IDMap() override = default;
-		IDMap() = default;
-		
-		
-	public:
-		bool has_id(int id) const;
-		bool has_name(const String& s) const;
-		int get_id(const String& s) const;
-		String get_name(int id) const;
+		static bool has_id(int id);
+		static bool has_name(const String& s);
+		static int get_id(const String& s);
+		static String get_name(int id);
 
-		int add(const String& name);
-		bool update(int id, const String& newName);
-		bool remove_by_id(int id);
-		bool remove_by_name(const String& name);
-		
-		
-	public:
-		inline Steele::IDMap& source() { return m_map; }
-		inline const Steele::IDMap& source() const { return m_map; }
+		static int add(const String& name);
+		static bool update(int id, const String& newName);
+		static bool remove_by_id(int id);
+		static bool remove_by_name(const String& name);
 	};
 }
 

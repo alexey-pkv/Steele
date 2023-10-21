@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://cn7nacd1mjr8e"]
-
-[ext_resource type="Script" path="res://Components/Elements/WallSprite2D.gd" id="1_yq745"]
-
-[node name="WallSprite2D" type="Sprite2D"]
-script = ExtResource("1_yq745")

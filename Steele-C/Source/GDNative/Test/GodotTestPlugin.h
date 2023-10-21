@@ -4,6 +4,7 @@
 
 #include <godot.hpp>
 #include <godot_cpp/classes/ref_counted.hpp>
+#include "godot_cpp/classes/node.hpp"
 
 
 namespace godot
@@ -27,6 +28,7 @@ namespace godot
 	public:
 		int get_value() const;
 		void set_value(int i);
+		int test_node(Node* n);
 		
 		
 	public:

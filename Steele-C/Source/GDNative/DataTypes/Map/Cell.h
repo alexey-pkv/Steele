@@ -17,16 +17,26 @@ namespace godot
 
 	private:
 		Steele::Cell m_cell;
-
+	
+	
 	public:
 		static void _bind_methods();
-
+	
+	
 	public:
 		Cell() = default;
 		Cell(const Cell&) = default;
 		Cell(Cell&&) = default;
 
 		~Cell() override = default;
+		
+		
+	public:
+		inline void set(const Steele::Cell* c) { m_cell = *c; }
+		inline void set(const Steele::Cell& c) { m_cell = c; }
+		inline Steele::Cell& steele_cell() { return m_cell; }
+		inline const Steele::Cell& steele_cell() const { return m_cell; }
+		
 
 	public:
 		Ref<Ground> get_ground() const;
