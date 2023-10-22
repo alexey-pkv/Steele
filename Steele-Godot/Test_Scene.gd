@@ -5,8 +5,8 @@ extends Control
 
 
 func _ready():
-	$LoadingScene.begin()
 	return
+	
 	var map = IDMap.add("abasd")
 	
 	
@@ -19,7 +19,7 @@ func _ready():
 	var r = load(res)
 	
 	
-	var id = TextureRegistry.add_ground_textures(r, res, 5)
+	var id = TexturesRegistryNode.g_add_ground_textures(r, res, 5)
 	var g_id = id.create_child_i(2)
 	
 	var data = AtlasData.create_gound_atlas(id)
@@ -27,7 +27,7 @@ func _ready():
 	data.cell_size = Vector2(32, 16)
 	data.rows = 5
 	
-	DataRegistry.textures_registry().add_atlas(data)
+	TemplatesRegistry.textures_registry().add_atlas(data)
 	
 	
 

@@ -7,54 +7,47 @@ const PATH_SEPARATOR	= "/"
 
 
 var m_parent:		ResourceID	= null
-var m_id:			int			= 0
-
-var m_path:			String = ""
-var m_short_name:	String = ""
-var m_module:		String
-var m_module_path:	String
-var m_local_path:	String = ""
 
 
 var registry_id: int:
 	get:
-		if m_id == 0:
-			m_id = IDMap.get_id(path)
+		if registry_id == 0:
+			registry_id = IDMap.get_id(path)
 		
-		return m_id
+		return registry_id
 
 var path: String:
 	get:
-		if m_path == "":
+		if path == "":
 			if m_parent != null:
-				m_path = m_parent.path + SEPARATOR + m_local_path
+				path = m_parent.path + SEPARATOR + local_name
 			else:
-				m_path = m_module + SEPARATOR + m_module_path 
+				path = module + SEPARATOR + module_path 
 		
-		return m_path
+		return path
 
 var short_name: String:
 	get:
-		if m_short_name == "":
+		if short_name == "":
 			if m_parent != null:
-				m_short_name = m_parent.short_name + SEPARATOR + m_local_path
+				short_name = m_parent.short_name + SEPARATOR + local_name
 			else:
-				var parts = m_module_path.rsplit(PATH_SEPARATOR, true, 1)
-				m_short_name = parts[-1] if len(parts) > 0 else ""
+				var parts = module_path.rsplit(PATH_SEPARATOR, true, 1)
+				short_name = parts[-1] if len(parts) > 0 else ""
 		
-		return m_short_name
+		return short_name
 
 var module: String:
 	get:
-		return m_module if m_parent == null else m_parent.module
+		return module if m_parent == null else m_parent.module
 
 var module_path: String:
 	get:
-		return m_module_path if m_parent == null else m_parent.module_path
+		return module_path if m_parent == null else m_parent.module_path
 
 var local_name: String:
 	get:
-		return m_local_path if m_parent != null else ""
+		return local_name if m_parent != null else ""
 
 var is_child: bool:
 	get:
@@ -72,10 +65,10 @@ func create_child(local_path: String) -> ResourceID:
 	
 	if m_parent != null:
 		id.m_parent = m_parent
-		id.local_path = m_local_path + SEPARATOR + local_path
+		id.local_path = local_name + SEPARATOR + local_path
 	else:
 		id.m_parent = self
-		id.m_local_path = local_path
+		id.local_name = local_path
 	
 	return id
 	
@@ -86,11 +79,19 @@ func register_child(local_path: String) -> int:
 	return create_child(local_path).register_id()
 
 func register_id() -> int:
-	if m_id == 0:
+	if registry_id == 0:
 		IDMap.add(path)
 	
 	return registry_id
 
+func get_path_parts() -> Array:
+	var result = []
+	
+	for part in path.split(PATH_SEPARATOR, false):
+		for sub_part in part.split(SEPARATOR, false):
+			result.push_back(sub_part)
+			
+	return result
 
 static func _remove_prefix(p_path: String) -> String:
 	var index = p_path.find(":/")
@@ -111,8 +112,8 @@ static func create(p_path: String) -> ResourceID:
 	
 	var id = ResourceID.new()
 	
-	id.m_module = parts[0]
-	id.m_module_path = parts[1]
+	id.module = parts[0]
+	id.module_path = parts[1]
 	
 	return id
 

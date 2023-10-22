@@ -1,17 +1,15 @@
 @tool
 extends Control
+class_name LoadingScene
 
 
-const RESOURCES = [
-	"res://Resources/Editor",
-	"user://Resources/Editor"
-]
+const WITH_TIMERS = false
 
 
 var _total: float = 0
 
 
-@export var resources_node: GameResourcesNode: 
+@export var resources_node: GameResourcesScene: 
 	get: return resources_node 
 	set(node): resources_node = node
 
@@ -21,8 +19,11 @@ var async_state: AsyncState:
 
 
 func _get_configuration_warnings():
+	if !is_inside_tree():
+		return []
+	
 	if resources_node == null:
-		return ["A GameResourcesNode must be set. See resources_node property"]
+		return ["A GameResourcesScene must be set. See resources_node property"]
 	
 	return []
 	
@@ -34,28 +35,42 @@ func _load_file(count: int, file_data: RLItemData) -> void:
 	if resources_node != null:
 		resources_node.load_file(file_data.full_path)
 	
-func _on_loaded(count: int) -> void:
-	on_complete.emit()
+func _on_loaded(_count: int) -> void:
+	if WITH_TIMERS:
+		$TimerComplete.start()
+	else:
+		on_complete.emit()
+
+func exec_begin() -> void:
+	if resources_node == null:
+		push_error("Missing resources node!")
+	else:
+		RecursiveLoader.count(
+			Resources_Common.RESOURCES_PATH, 
+			_on_counted, 
+			async_state)
+
+func begin() -> void:
+	if WITH_TIMERS:
+		$TimerBegin.start()
+	else:
+		exec_begin()
 
 
 func _on_counted(count: int) -> void:
 	_total = float(count)
 	
 	RecursiveLoader.load_files(
-		self.RESOURCES,
+		Resources_Common.RESOURCES_PATH,
 		_load_file,
 		_on_loaded,
 		async_state)
 
+func _on_timer_timeout():
+	exec_begin()
 
-func begin() -> void:
-	if resources_node == null:
-		push_error("Missing resources node!")
-	else:
-		RecursiveLoader.count(
-			self.RESOURCES, 
-			_on_counted, 
-			async_state)
+func _on_timer_complete_timeout():
+	on_complete.emit()
 
 
 signal on_complete

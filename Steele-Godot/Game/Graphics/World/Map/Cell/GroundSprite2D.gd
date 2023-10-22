@@ -31,9 +31,9 @@ func __update():
 	var id = ground
 	var dir = direction
 	
-	if id == 0:
+	if id == 0 || !TexturesRegistryNode.has_glboal():
 		texture = null
 	else:
 		dir = WorldDataNode.get_direction(self, dir)
-		texture = TextureRegistry.get_ground(id, dir)
+		texture = TexturesRegistryNode.g_get_ground(id, dir)
 	

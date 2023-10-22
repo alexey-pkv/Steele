@@ -2,8 +2,8 @@ extends RefCounted
 class_name AbstractRegistryObject
 
 
-const TYPE_INVALID		= 0
-const TYPE_GROUND_ATLAS	= 1
+const TYPE_INVALID		= -1
+const TYPE_GROUND_ATLAS	= 0
 
 
 var m_type: int

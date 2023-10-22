@@ -1,20 +1,96 @@
-[gd_scene load_steps=2 format=3 uid="uid://b2owcterdibf7"]
+[gd_scene load_steps=6 format=3 uid="uid://cfnck60pwh4xy"]
 
-[ext_resource type="Script" path="res://Editor/Editor.gd" id="1_5ho5h"]
+[ext_resource type="Script" path="res://Editor/Editor.gd" id="1_lu3ps"]
+[ext_resource type="Script" path="res://Editor/UI/Editor_Tree.gd" id="2_6kwbs"]
+[ext_resource type="Script" path="res://Editor/UI/Editor_TabContainer.gd" id="3_ielen"]
+[ext_resource type="PackedScene" uid="uid://uioqp0kbqpey" path="res://Game/Scenes/LoadingScene.tscn" id="4_t2uie"]
+[ext_resource type="PackedScene" uid="uid://csb0kvos7rijd" path="res://Game/Engine/Resources/GameResourcesScene.tscn" id="5_gk1vs"]
 
-[node name="Editor" type="Control"]
+[node name="EditorScene" type="Control"]
 layout_mode = 3
-anchors_preset = 0
-script = ExtResource("1_5ho5h")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.00099, 0.999503)
+script = ExtResource("1_lu3ps")
+metadata/_edit_use_anchors_ = true
 
-[node name="Tree" type="Tree" parent="."]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="GridContainer" type="HBoxContainer" parent="."]
+clip_contents = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
 
-[node name="VSeparator" type="VSeparator" parent="."]
-layout_mode = 0
-offset_left = 50.0
-offset_top = 50.0
-offset_right = 54.0
-offset_bottom = 90.0
+[node name="ExplorerContainer" type="MarginContainer" parent="GridContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_stretch_ratio = 2.0
+
+[node name="Explorer" type="Tree" parent="GridContainer/ExplorerContainer"]
+layout_mode = 2
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+theme_override_constants/item_margin = 10
+theme_override_constants/draw_relationship_lines = 1
+theme_override_constants/relationship_line_width = 1
+theme_override_constants/draw_guides = 0
+hide_root = true
+script = ExtResource("2_6kwbs")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="EditorTabs" type="TabContainer" parent="GridContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+all_tabs_in_front = true
+script = ExtResource("3_ielen")
+
+[node name="Output" type="RichTextLabel" parent="GridContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+text = "Errors and notices should go here
+"
+scroll_following = true
+
+[node name="SettingsContainer" type="MarginContainer" parent="GridContainer"]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="GridContainer/SettingsContainer"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="GridContainer/SettingsContainer/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "This is the settings tab"
+
+[node name="LoadingScene" parent="." node_paths=PackedStringArray("resources_node") instance=ExtResource("4_t2uie")]
+visible = false
+layout_mode = 1
+resources_node = NodePath("../GameResources")
+
+[node name="GameResources" parent="." instance=ExtResource("5_gk1vs")]
+
+[connection signal="on_complete" from="LoadingScene" to="." method="_on_loading_scene_complete"]
+[connection signal="on_failed_to_load" from="GameResources" to="." method="_on_game_resources_failed"]
+[connection signal="on_resource_loaded" from="GameResources" to="." method="_on_game_resources_loaded"]

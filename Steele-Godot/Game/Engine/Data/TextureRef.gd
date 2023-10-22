@@ -54,6 +54,9 @@ func get_texture_for_type(for_type: int, i = null) -> Texture2D:
 	
 	return get_texture(i)
 
+static func create_static_ref(source: Texture2D) -> TextureRef:
+	return TextureRef.new(TYPE_TEXTURE, source)
+
 static func create_ground_ref(source: Texture2D, row: int, size: Vector2) -> TextureRef:
 	return _create_repeating_ref(source, TYPE_GROUND, 4, row, size)
 

@@ -30,7 +30,6 @@ func invoke(path: String) -> bool:
 	
 	data.free()
 	
-
 	return result
 
 class RLFuncCallback:
