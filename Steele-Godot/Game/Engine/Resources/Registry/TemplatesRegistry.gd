@@ -38,7 +38,7 @@ func get_data(id) -> AbstractRegistryObject:
 	
 func get_data_type(id) -> int:
 	var item = get_data(id)
-	return item.type if item != null else AbstractRegistryObject.TYPE_INVALID
+	return item.type if item != null else TemplateType.TYPE_INVALID
 
 func get_data_by_type(id, type: int) -> AbstractRegistryObject:
 	var item = get_data(id)
@@ -52,10 +52,10 @@ func has_data(id) -> bool:
 	return m_registry.has(_get_path(id))
 	
 func has_ground_atlas(id) -> bool:
-	return get_data_by_type(id, AbstractRegistryObject.TYPE_GROUND_ATLAS) != null
+	return get_data_by_type(id, TemplateType.TYPE_GROUND_ATLAS) != null
 	
 func get_ground_atlas(id) -> AtlasData:
-	return get_data_by_type(id, AbstractRegistryObject.TYPE_GROUND_ATLAS)
+	return get_data_by_type(id, TemplateType.TYPE_GROUND_ATLAS)
 	
 
 func clear() -> void:

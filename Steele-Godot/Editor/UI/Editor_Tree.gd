@@ -22,6 +22,16 @@ static func get_or_create_path(p_root: TreeItem, path: Array) -> TreeItem:
 	return curr_item
 
 
+var is_selected: bool: 
+	get:
+		var selected = get_selected()
+		return selected != null && selected.get_metadata(0) != null
+
+var selected_id: ResourceID: 
+	get:
+		var selected = get_selected()
+		return selected.get_metadata(0) if selected != null else null
+
 var root: TreeItem: 
 	get:
 		if root == null:
@@ -43,6 +53,13 @@ func remove_resource(id: ResourceID) -> void:
 func move_resource(prev: ResourceID, new: ResourceID) -> void:
 	remove_resource(prev)
 	add_resource(new)
+
+
+func _on_item_activated():
+	if !is_selected:
+		return
+	
+	on_open.emit(selected_id)
 
 
 signal on_open(id: ResourceID)

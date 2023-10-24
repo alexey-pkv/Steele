@@ -12,11 +12,7 @@ var max_zoom 	= Vector2(4, 4)
 
 
 func mouse_events_handler(event: InputEventMouseButton):
-	if event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
-		zoom_camera(-zoom_speed, event.position)
-	elif event.button_index == MOUSE_BUTTON_WHEEL_UP:
-		zoom_camera(zoom_speed, event.position)
-	elif event.button_index == MOUSE_BUTTON_MIDDLE:
+	if event.button_index == MOUSE_BUTTON_MIDDLE:
 		set_dragging(event)
 	
 func keyboard_events_handler(event: InputEventKey):
@@ -24,7 +20,6 @@ func keyboard_events_handler(event: InputEventKey):
 		reset()
 			
 func reset():
-	zoom = init_zoom
 	offset = init_offcet
 
 func zoom_camera(zoom_factor, mouse_position):
@@ -42,26 +37,19 @@ func set_dragging(event):
 		is_dragging = false
 		
 func drag_camera(event):
+	print(is_dragging)
+	
 	if is_dragging and event is InputEventMouseMotion:
 		var drag_end = get_global_mouse_position()
 		var drag_vector = drag_end - drag_start
 		
 		offset -= drag_vector * drag_speed * get_process_delta_time()
-		
-func _ready():
-	var image_node = Image.new()
-	var texture = preload('res://Resources/TestResources/Ground/marble.32x16.tile-set.png')
-	
-	var texture_rect = TextureRect.new()
-	texture_rect.texture = texture
 
-	add_child(texture_rect)
 
-	
 func _input(event):
 	if event is InputEventMouseButton:
-		mouse_events_handler(event)
-	elif event is InputEventKey:
-		keyboard_events_handler(event)
-		
-	drag_camera(event)
+		if event.button_index == MOUSE_BUTTON_MIDDLE:
+			set_dragging(event)
+	
+	if is_dragging:
+		drag_camera(event)

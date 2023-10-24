@@ -13,7 +13,7 @@ class_name GroundAtlasView
 
 var cell_size: Vector2:
 	get:
-		var data = DataRegistry.get_ground_atlas_id(atlas_id)
+		var data = _get_atlas_data()
 		
 		if data == null:
 			return Vector2.ZERO
@@ -25,7 +25,7 @@ var rows: int:
 		if atlas_id == null:
 			return 0
 		
-		var data = DataRegistry.get_ground_atlas_id(atlas_id)
+		var data = _get_atlas_data()
 		
 		if data == null:
 			return 0
@@ -50,13 +50,16 @@ var atlas_id: ResourceID:
 	get: return atlas_id
 	set(value):
 		if value != null:
-			if !DataRegistry.textures_registry().has_ground_atlas(value.path):
+			if !TemplatesRegistryNode.global().has_ground_atlas(value.path):
 				push_error("Atlas with ID " + value.path + " not found")
 				return
 		
 		atlas_id = value
 		_update()
 
+
+func _get_atlas_data() -> AtlasData:
+	return TemplatesRegistryNode.global().get_ground_atlas(atlas_id)
 
 func _clear() -> void:
 	var i = 0
@@ -73,8 +76,6 @@ func _update_view(view: GroundTextureView, id: ResourceID, pos: Vector2) -> void
 	view.cell_size	= cell_size
 	view.ground_id	= id
 	view.padding	= padding.x
-	
-	print(view.position)
 
 
 func _add_view(id: ResourceID, pos: Vector2) -> void:
@@ -89,7 +90,6 @@ func _update():
 	if !is_inside_tree() || atlas_id == null:
 		_clear()
 		return
-	
 	
 	var children = get_children()
 	var children_count = len(children)

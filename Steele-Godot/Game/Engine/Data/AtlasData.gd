@@ -24,4 +24,4 @@ func get_child_ids() -> Array[ResourceID]:
 
 
 static func create_gound_atlas(p_id: ResourceID) -> AtlasData:
-	return AtlasData.new(p_id, AbstractRegistryObject.TYPE_GROUND_ATLAS)
+	return AtlasData.new(p_id, TemplateType.TYPE_GROUND_ATLAS)

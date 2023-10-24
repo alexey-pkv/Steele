@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://di0p37n0dxp28"]
+
+[ext_resource type="Script" path="res://Editor/Graphics/Textures/Floor/GroundTextureView.gd" id="1_nxyh6"]
+[ext_resource type="Script" path="res://Game/Graphics/World/Map/Cell/GroundSprite2D.gd" id="2_a1w2r"]
+
+[node name="GroundTextureView" type="Node2D"]
+script = ExtResource("1_nxyh6")
+padding = 10.0
+
+[node name="Ground_North" type="Sprite2D" parent="."]
+script = ExtResource("2_a1w2r")
+
+[node name="Ground_East" type="Sprite2D" parent="."]
+script = ExtResource("2_a1w2r")
+
+[node name="Ground_South" type="Sprite2D" parent="."]
+script = ExtResource("2_a1w2r")
+
+[node name="Ground_West" type="Sprite2D" parent="."]
+script = ExtResource("2_a1w2r")

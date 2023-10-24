@@ -91,6 +91,8 @@ resources_node = NodePath("../GameResources")
 
 [node name="GameResources" parent="." instance=ExtResource("5_gk1vs")]
 
+[connection signal="item_activated" from="GridContainer/ExplorerContainer/Explorer" to="GridContainer/ExplorerContainer/Explorer" method="_on_item_activated"]
+[connection signal="on_open" from="GridContainer/ExplorerContainer/Explorer" to="." method="_on_explorer_open"]
 [connection signal="on_complete" from="LoadingScene" to="." method="_on_loading_scene_complete"]
 [connection signal="on_failed_to_load" from="GameResources" to="." method="_on_game_resources_failed"]
 [connection signal="on_resource_loaded" from="GameResources" to="." method="_on_game_resources_loaded"]

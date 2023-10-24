@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://eb8rbaosovd5"]
+
+[ext_resource type="Script" path="res://Editor/Tabs/AtlasViewTab.gd" id="1_ohs7v"]
+[ext_resource type="PackedScene" uid="uid://bg77q3rcd023p" path="res://Editor/UI/Board/DrawingBoard.tscn" id="2_fev4j"]
+[ext_resource type="PackedScene" uid="uid://d3af3unnkt3g3" path="res://Editor/Graphics/Textures/Ground/GroundAtlasView.tscn" id="3_dqqau"]
+
+[node name="AtlasViewTab" type="Control"]
+clip_contents = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ohs7v")
+
+[node name="DrawingBoard" parent="." instance=ExtResource("2_fev4j")]
+
+[node name="GroundAtlasView" parent="DrawingBoard" instance=ExtResource("3_dqqau")]
+padding = Vector2(5, 10)

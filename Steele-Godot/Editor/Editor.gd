@@ -14,6 +14,9 @@ var c_main_view: Control:
 var c_tree: Editor_Tree:
 	get: return $GridContainer/ExplorerContainer/Explorer
 
+var c_editor_tabs: Editor_Tabs:
+	get: return $GridContainer/VBoxContainer/EditorTabs
+
 
 func _ready():
 	c_main_view.visible = false
@@ -31,3 +34,6 @@ func _on_game_resources_failed(path: String) -> void:
 
 func _on_game_resources_loaded(id: ResourceID) -> void:
 	c_tree.add_resource(id)
+
+func _on_explorer_open(id):
+	c_editor_tabs.open_resource(id)
