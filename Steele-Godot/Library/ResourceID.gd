@@ -93,6 +93,12 @@ func get_path_parts() -> Array:
 			
 	return result
 
+func equals(to) -> bool:
+	if !(to is ResourceID):
+		return false
+	
+	return self == to || path == to.path
+
 static func _remove_prefix(p_path: String) -> String:
 	var index = p_path.find(":/")
 	

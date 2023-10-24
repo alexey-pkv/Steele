@@ -19,8 +19,35 @@ func _add_tab(tab_scene: PackedScene, id: ResourceID) -> GenericTab:
 	
 	return tab
 
+func find_tab_index(id: ResourceID) -> int:
+	var chilren = get_children();
+	
+	for i in range(len(chilren)):
+		var child = chilren[i]
+		
+		if !(child is GenericTab):
+			continue
+		
+		if id.equals(child.resource_id):
+			return i
+	
+	return -1
+	
+func select_tab(id: ResourceID) -> bool:
+	var index = find_tab_index(id)
+	
+	if index == -1:
+		return false
+	
+	current_tab = index
+	
+	return true
+
 
 func _open_floor_atlas(data: AtlasData) -> void:
+	if select_tab(data.id):
+		return
+	
 	_add_tab(ATLAS_TAB_SCENE, data.id)
 
 

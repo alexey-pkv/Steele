@@ -58,8 +58,8 @@ func move_resource(prev: ResourceID, new: ResourceID) -> void:
 func _on_item_activated():
 	if !is_selected:
 		return
-	
 	on_open.emit(selected_id)
+	
 
 
 signal on_open(id: ResourceID)

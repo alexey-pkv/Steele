@@ -28,14 +28,16 @@ func set_dragging(event):
 	else:
 		m_is_dragging = false
 		
-func drag_camera(event):
-	if m_is_dragging and event is InputEventMouseMotion:
-		var drag_end = get_global_mouse_position()
-		var drag_vector = drag_end - m_drag_start
+func drag_camera(event) -> void:
+	if !m_is_dragging or !(event is InputEventMouseMotion):
+		return
+	
+	var drag_end = get_global_mouse_position()
+	var drag_vector = drag_end - m_drag_start
+	
+	position += drag_vector
 		
-		position += drag_vector
-			
-		m_drag_start = drag_end
+	m_drag_start = drag_end
 
 
 func _input(event):
@@ -47,5 +49,11 @@ func _input(event):
 	
 	if m_is_dragging:
 		drag_camera(event)
+	
+	if event is InputEventKey:
+		if event.as_text_keycode() == 'R':
+			_reset()
 
-
+func _reset() -> void:
+	position = Vector2.ZERO
+	c_zoom_factor.applay_default_zoom()

@@ -125,7 +125,7 @@ func zoom_to_index(index: int) -> void:
 	_modify_factor_to(factors[index])
 
 func applay_default_zoom() -> void:
-	zoom_to_index(defaultm_factor_index)
+	zoom_to_nearest(default_factor)
 
 func zoom_in() -> void:
 	zoom_to_index(factor_index + 1)

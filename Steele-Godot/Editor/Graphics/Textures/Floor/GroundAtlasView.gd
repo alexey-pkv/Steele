@@ -79,7 +79,7 @@ func _update_view(view: GroundTextureView, id: ResourceID, pos: Vector2) -> void
 
 
 func _add_view(id: ResourceID, pos: Vector2) -> void:
-	var i = load("res://Editor/Graphics/Textures/Ground/GroundTextureView.tscn")
+	var i = load("res://Editor/Graphics/Textures/Floor/GroundTextureView.tscn")
 	var view = i.instantiate()
 	
 	add_child(view)
