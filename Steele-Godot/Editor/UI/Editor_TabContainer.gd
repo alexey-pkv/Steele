@@ -65,4 +65,3 @@ func open_resource(id: ResourceID) -> void:
 	
 
 
-

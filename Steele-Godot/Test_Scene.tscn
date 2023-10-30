@@ -1,6 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://4yt3tih4wsk4"]
+[gd_scene load_steps=5 format=3 uid="uid://4yt3tih4wsk4"]
 
 [ext_resource type="Script" path="res://Test_Scene.gd" id="1_w5nkg"]
+[ext_resource type="Script" path="res://Library/Atoms/Map/IsometricGrid.gd" id="2_1dbfp"]
+[ext_resource type="Texture2D" uid="uid://n37q2niyq4eg" path="res://Resources/TestResources/Ground/arrow.e.png" id="3_2eq2s"]
+[ext_resource type="Texture2D" uid="uid://bi3fkgwtthpdd" path="res://Resources/TestResources/Ground/arrow.n.png" id="4_32hyy"]
 
 [node name="Main" type="Control"]
 layout_mode = 3
@@ -11,3 +14,21 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_w5nkg")
 metadata/_edit_vertical_guides_ = []
+
+[node name="IsometricGrid" type="Node2D" parent="."]
+position = Vector2(500, 300)
+scale = Vector2(2, 2)
+script = ExtResource("2_1dbfp")
+Size = Vector3i(64, 32, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="IsometricGrid"]
+visible = false
+z_index = 1000
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_2eq2s")
+
+[node name="Sprite2D2" type="Sprite2D" parent="IsometricGrid"]
+visible = false
+z_index = 1000
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_32hyy")

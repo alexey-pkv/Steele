@@ -5,6 +5,10 @@ class_name AsyncState
 var m_on_complete: Array[Callable] = []
 
 
+var state_id: int = 0:
+	get:
+		return state_id
+
 var total_calls: int:
 	get: return total_calls
 
@@ -24,8 +28,8 @@ func _complete() -> void:
 	
 	m_on_complete.clear()
 
-func _execute_callback(c: Callable) -> void:
-	if should_run:
+func _execute_callback(c: Callable, p_state_id: int) -> void:
+	if should_run && p_state_id == state_id:
 		total_calls += 1
 		c.call()
 	
@@ -48,8 +52,10 @@ func defer_callback(c: Callable) -> void:
 		return
 	
 	pending_count += 1
-	_execute_callback.call_deferred(c)
+	_execute_callback.call_deferred(c, state_id)
 
+func reset() -> void:
+	state_id = state_id + 1
 
 func is_complete() -> bool:
 	return pending_count == 0

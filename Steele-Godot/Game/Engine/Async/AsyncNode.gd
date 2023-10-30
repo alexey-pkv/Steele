@@ -31,6 +31,9 @@ func defer_callback(c: Callable) -> void:
 func is_complete() -> bool:
 	return m_state.is_complete()
 
+func reset() -> void:
+	m_state.reset()
+
 
 func _exit_tree():
 	abort()

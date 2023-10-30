@@ -17,6 +17,9 @@ var c_tree: Editor_Tree:
 var c_editor_tabs: Editor_Tabs:
 	get: return $GridContainer/VBoxContainer/EditorTabs
 
+var c_resource_explorer: ResourceExplorer:
+	get: return $GridContainer/SettingsContainer/TabContainer/ResourceExplorer
+
 
 func _ready():
 	c_main_view.visible = false
@@ -28,6 +31,7 @@ func _ready():
 func _on_loading_scene_complete():
 	c_main_view.visible = true
 	c_loading_scene.queue_free()
+	c_resource_explorer.update_items()
 
 func _on_game_resources_failed(path: String) -> void:
 	print("Failed to load: " + path)

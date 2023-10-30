@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://cfnck60pwh4xy"]
+[gd_scene load_steps=7 format=3 uid="uid://cfnck60pwh4xy"]
 
 [ext_resource type="Script" path="res://Editor/Editor.gd" id="1_lu3ps"]
 [ext_resource type="Script" path="res://Editor/UI/Editor_Tree.gd" id="2_6kwbs"]
 [ext_resource type="Script" path="res://Editor/UI/Editor_TabContainer.gd" id="3_ielen"]
+[ext_resource type="PackedScene" uid="uid://vkofhmmva7ll" path="res://Editor/Graphics/ResourceExplorer/ResourceExplorer.tscn" id="4_gpc3q"]
 [ext_resource type="PackedScene" uid="uid://uioqp0kbqpey" path="res://Game/Scenes/LoadingScene.tscn" id="4_t2uie"]
 [ext_resource type="PackedScene" uid="uid://csb0kvos7rijd" path="res://Game/Engine/Resources/GameResourcesScene.tscn" id="5_gk1vs"]
 
@@ -49,10 +50,12 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="EditorTabs" type="TabContainer" parent="GridContainer/VBoxContainer"]
+clip_contents = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 all_tabs_in_front = true
+drag_to_rearrange_enabled = true
 script = ExtResource("3_ielen")
 
 [node name="Output" type="RichTextLabel" parent="GridContainer/VBoxContainer"]
@@ -65,11 +68,19 @@ scroll_following = true
 [node name="SettingsContainer" type="MarginContainer" parent="GridContainer"]
 layout_mode = 2
 
-[node name="Control" type="Control" parent="GridContainer/SettingsContainer"]
+[node name="TabContainer" type="TabContainer" parent="GridContainer/SettingsContainer"]
+layout_mode = 2
+
+[node name="ResourceExplorer" parent="GridContainer/SettingsContainer/TabContainer" instance=ExtResource("4_gpc3q")]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 
-[node name="Label" type="Label" parent="GridContainer/SettingsContainer/Control"]
+[node name="Properties" type="Control" parent="GridContainer/SettingsContainer/TabContainer"]
+visible = false
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="GridContainer/SettingsContainer/TabContainer/Properties"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5

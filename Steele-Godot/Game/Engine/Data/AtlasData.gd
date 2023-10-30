@@ -10,7 +10,7 @@ var cell_size: Vector2:
 	get:		return cell_size
 	set(value):	cell_size = value
 
-func get_child_ids() -> Array[ResourceID]:
+func get_child_ids() -> Array:
 	var ids = []
 	var _id = id
 	

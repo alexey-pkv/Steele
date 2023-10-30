@@ -28,6 +28,9 @@ static func get_world(node: Node) -> WorldDataNode:
 	return tree.get_first_node_in_group(GROUP_NAME)
 
 static func get_direction(node: Node, dir: int = Direction.NORTH) -> int:
+	if !node.is_inside_tree():
+		return dir
+	
 	var tree = node.get_tree()
 	
 	if tree == null:

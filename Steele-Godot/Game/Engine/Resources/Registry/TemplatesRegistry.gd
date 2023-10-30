@@ -2,7 +2,6 @@ extends Node
 class_name TemplatesRegistryNode
 
 
-
 var m_registry: Dictionary = {}
 
 

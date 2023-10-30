@@ -5,6 +5,10 @@ class_name TexturesRegistryNode
 var m_registry : Dictionary = {}
 
 
+var registry: Dictionary:
+	get: return m_registry
+
+
 func get_texture_type(type: int, id: int, i = null) -> Texture2D:
 	if !m_registry.has(id):
 		return null

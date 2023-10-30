@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://bqjqmvrc1rqsj"]
+
+[ext_resource type="Script" path="res://Editor/Graphics/ResourceExplorer/AbstractResourceExplorerItem.gd" id="1_5k3tt"]
+
+[node name="AbstractResourceExplorerItem" type="Control"]
+clip_contents = true
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_5k3tt")

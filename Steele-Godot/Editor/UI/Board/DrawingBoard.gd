@@ -31,7 +31,7 @@ func set_dragging(event):
 func drag_camera(event) -> void:
 	if !m_is_dragging or !(event is InputEventMouseMotion):
 		return
-	
+		
 	var drag_end = get_global_mouse_position()
 	var drag_vector = drag_end - m_drag_start
 	
