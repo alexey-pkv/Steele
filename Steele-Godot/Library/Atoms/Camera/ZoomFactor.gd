@@ -25,7 +25,7 @@ var factor_index: int = 0:
 	get:	return m_factor_index
 	set(v):	zoom_to_index(v)
 
-@export var zoom_reference: Node2D: 
+@export var zoom_reference: CanvasItem: 
 	get: return zoom_reference
 	set(n): 
 		zoom_reference = n

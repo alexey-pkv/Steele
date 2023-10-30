@@ -1,5 +1,5 @@
 @tool
-extends Node2D
+extends Control
 class_name DrawingBoard
 
 
@@ -9,7 +9,16 @@ var m_is_dragging = false
 
 var c_zoom_factor: ZoomFactor: 
 	get: return $ZoomFactor
+	
 
+func _get_configuration_warnings():
+	if !is_inside_tree():
+		return []
+	
+	if get_child_count() == 0:
+		return ["Scene incorrectly imported"]
+	
+	return []
 
 func mouse_events_handler(event: InputEventMouseButton):
 	if event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
@@ -40,7 +49,11 @@ func drag_camera(event) -> void:
 	m_drag_start = drag_end
 
 
-func _input(event):
+func _reset() -> void:
+	position = Vector2.ZERO
+	c_zoom_factor.applay_default_zoom()
+
+func _handle_gui_input(event):
 	if event is InputEventMouseButton:
 		mouse_events_handler(event)
 		
@@ -54,6 +67,3 @@ func _input(event):
 		if event.as_text_keycode() == 'R':
 			_reset()
 
-func _reset() -> void:
-	position = Vector2.ZERO
-	c_zoom_factor.applay_default_zoom()

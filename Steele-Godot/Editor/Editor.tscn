@@ -26,15 +26,17 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+split_offset = 300
 metadata/_edit_use_anchors_ = true
 
 [node name="ExplorerContainer" type="MarginContainer" parent="GridContainer"]
 clip_contents = true
-custom_minimum_size = Vector2(300, 0)
+custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 size_flags_stretch_ratio = 2.0
 
 [node name="Explorer" type="Tree" parent="GridContainer/ExplorerContainer"]
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 theme_override_constants/h_separation = 0
 theme_override_constants/v_separation = 0
@@ -44,6 +46,8 @@ theme_override_constants/relationship_line_width = 1
 theme_override_constants/draw_guides = 0
 hide_root = true
 script = ExtResource("2_6kwbs")
+
+[node name="PopupMenu" type="PopupMenu" parent="GridContainer/ExplorerContainer/Explorer"]
 
 [node name="HSplitContainer" type="HSplitContainer" parent="GridContainer"]
 layout_mode = 2
@@ -107,6 +111,7 @@ resources_node = NodePath("../GameResources")
 
 [node name="GameResources" parent="." instance=ExtResource("5_gk1vs")]
 
+[connection signal="gui_input" from="GridContainer/ExplorerContainer/Explorer" to="GridContainer/ExplorerContainer/Explorer" method="_on_gui_input"]
 [connection signal="item_activated" from="GridContainer/ExplorerContainer/Explorer" to="GridContainer/ExplorerContainer/Explorer" method="_on_item_activated"]
 [connection signal="on_open" from="GridContainer/ExplorerContainer/Explorer" to="." method="_on_explorer_open"]
 [connection signal="on_complete" from="LoadingScene" to="." method="_on_loading_scene_complete"]
