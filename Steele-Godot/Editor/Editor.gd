@@ -15,10 +15,10 @@ var c_tree: Editor_Tree:
 	get: return $GridContainer/ExplorerContainer/Explorer
 
 var c_editor_tabs: Editor_Tabs:
-	get: return $GridContainer/VBoxContainer/EditorTabs
+	get: return $GridContainer/HSplitContainer/VSplitContainer/EditorTabs
 
 var c_resource_explorer: ResourceExplorer:
-	get: return $GridContainer/SettingsContainer/TabContainer/ResourceExplorer
+	get: return $GridContainer/HSplitContainer/SettingsContainer/TabContainer/ResourceExplorer
 
 
 func _ready():

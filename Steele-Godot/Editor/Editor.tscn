@@ -18,7 +18,7 @@ scale = Vector2(1.00099, 0.999503)
 script = ExtResource("1_lu3ps")
 metadata/_edit_use_anchors_ = true
 
-[node name="GridContainer" type="HBoxContainer" parent="."]
+[node name="GridContainer" type="HSplitContainer" parent="."]
 clip_contents = true
 layout_mode = 1
 anchors_preset = 15
@@ -45,42 +45,47 @@ theme_override_constants/draw_guides = 0
 hide_root = true
 script = ExtResource("2_6kwbs")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="GridContainer"]
+[node name="HSplitContainer" type="HSplitContainer" parent="GridContainer"]
 layout_mode = 2
-size_flags_horizontal = 3
+split_offset = 10000
 
-[node name="EditorTabs" type="TabContainer" parent="GridContainer/VBoxContainer"]
-clip_contents = true
+[node name="VSplitContainer" type="VSplitContainer" parent="GridContainer/HSplitContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 3
+split_offset = 5000
+
+[node name="EditorTabs" type="TabContainer" parent="GridContainer/HSplitContainer/VSplitContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_horizontal = 3
 all_tabs_in_front = true
 drag_to_rearrange_enabled = true
 script = ExtResource("3_ielen")
 
-[node name="Output" type="RichTextLabel" parent="GridContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 200)
+[node name="Output" type="RichTextLabel" parent="GridContainer/HSplitContainer/VSplitContainer"]
+custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 text = "Errors and notices should go here
 "
 scroll_following = true
 
-[node name="SettingsContainer" type="MarginContainer" parent="GridContainer"]
+[node name="SettingsContainer" type="MarginContainer" parent="GridContainer/HSplitContainer"]
 layout_mode = 2
 
-[node name="TabContainer" type="TabContainer" parent="GridContainer/SettingsContainer"]
+[node name="TabContainer" type="TabContainer" parent="GridContainer/HSplitContainer/SettingsContainer"]
 layout_mode = 2
 
-[node name="ResourceExplorer" parent="GridContainer/SettingsContainer/TabContainer" instance=ExtResource("4_gpc3q")]
+[node name="ResourceExplorer" parent="GridContainer/HSplitContainer/SettingsContainer/TabContainer" instance=ExtResource("4_gpc3q")]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 
-[node name="Properties" type="Control" parent="GridContainer/SettingsContainer/TabContainer"]
+[node name="Properties" type="Control" parent="GridContainer/HSplitContainer/SettingsContainer/TabContainer"]
 visible = false
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 
-[node name="Label" type="Label" parent="GridContainer/SettingsContainer/TabContainer/Properties"]
+[node name="Label" type="Label" parent="GridContainer/HSplitContainer/SettingsContainer/TabContainer/Properties"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
