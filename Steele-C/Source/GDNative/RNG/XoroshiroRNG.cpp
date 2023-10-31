@@ -22,6 +22,11 @@ void XoroshiroRNG::_bind_methods()
 	// State
 	ClassDB::bind_method(D_METHOD("get_state"), &XoroshiroRNG::get_state);
 	ClassDB::bind_method(D_METHOD("set_state", "state"), &XoroshiroRNG::set_state);
+	
+	ClassDB::bind_method(D_METHOD("reset_to_reference_i", "value"), &XoroshiroRNG::reset_to_reference_i);
+	ClassDB::bind_method(D_METHOD("reset_to_reference_f", "value"), &XoroshiroRNG::reset_to_reference_f);
+	ClassDB::bind_method(D_METHOD("reset_to_reference_v2i", "value"), &XoroshiroRNG::reset_to_reference_v2i);
+	ClassDB::bind_method(D_METHOD("reset_to_reference_v3i", "value"), &XoroshiroRNG::reset_to_reference_v3i);
 }
 
 
@@ -99,4 +104,25 @@ Ref<RandomState> XoroshiroRNG::get_state() const
 void XoroshiroRNG::set_state(const Ref<RandomState>& rs)
 {
 	m_rng.set_state(rs->get_steele_state());
+}
+
+
+void XoroshiroRNG::reset_to_reference_i(int to)
+{
+	reset_to_reference_T(to);
+}
+
+void XoroshiroRNG::reset_to_reference_f(float to)
+{
+	reset_to_reference_T(to);
+}
+
+void XoroshiroRNG::reset_to_reference_v2i(v2i to)
+{
+	reset_to_reference_T(to);
+}
+
+void XoroshiroRNG::reset_to_reference_v3i(v3i to)
+{
+	reset_to_reference_T(to);
 }

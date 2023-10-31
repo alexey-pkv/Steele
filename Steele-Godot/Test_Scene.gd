@@ -13,38 +13,39 @@ var d = {
 
 var k
 
+var c_rng: RNGNode:
+	get: return $RNGNode
+
 
 func _ready():
-	for i in range(100_000):
-		d[i] = i
+	var rng: RNGNode = c_rng
 	
-	print("done" )
-	k = d.keys()
-	print("done keys")
+	var a =  ""
 	
+	var s = rng.m_rng.get_state()
+	
+	for i in range(100):
+		var n = rng.next_int_r(0, 9)
+		a += str(n)
+	
+	print(a)
+	a = ""
+	
+	rng.m_rng.set_state(s)
+	
+	for i in range(100):
+		var n = rng.next_int_r(0, 9)
+		a += str(n)
+	
+	print(a)
+	a = ""
 	
 
 var lastrow = 0
 var lastnoe = null
 
 func _input(_event):
-	if Input.is_action_pressed("ui_cancel"):
-		_show_main_menu()
-	
-	var _id = ResourceID.cast("res://Resources/TestResources/Ground/marble.32x16.tile-set.png")
-	# $GroundAtlasView.atlas_id = id
-	
-	if _event is InputEventMouseMotion:
-		var ind = c_map.global_to_grid(_event.position)
-		var node = c_map.get_at_v2i(ind)
-		
-		if lastnoe != null && lastnoe != node:
-			lastnoe.texture = $IsometricGrid/Sprite2D.texture
-		
-		if node != null:
-			node.texture = $IsometricGrid/Sprite2D2.texture
-		
-		lastnoe = node
+	pass
 
 
 func _notification(what):
@@ -57,4 +58,15 @@ func _show_main_menu():
 	get_tree().change_scene_to_file("res://Components/UI/MainMenu/MainMenu.tscn")
 
 
+
+
+
+func _on_map_editor_on_hover(args: GridCellHoverArgs):
+	# print("Hovered " + str(args.at_v2) + " p " + str(args.previous_v2))
+	pass # Replace with function body.
+
+
+func _on_map_editor_on_mouse_button(args: GridCellButtonArgs):
+	# print("Pressed")
+	pass # Replace with function body.
 

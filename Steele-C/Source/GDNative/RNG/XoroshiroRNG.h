@@ -40,7 +40,7 @@ namespace godot
 		float	next_float_r(float min, float max);
 		
 		
-	public:	// Properties
+	public:	// State
 		void jump(int count);
 		String get_seed() const;
 		
@@ -49,6 +49,30 @@ namespace godot
 		
 		Ref<RandomState> get_state() const;
 		void set_state(const Ref<RandomState>& rs);
+		
+		void reset_to_reference_i(int to);
+		void reset_to_reference_f(float to);
+		void reset_to_reference_v2i(v2i to);
+		void reset_to_reference_v3i(v3i to);
+		
+	
+	private:
+		template<class T>
+		inline void reset_to_reference_T(T to)
+		{
+			auto state = m_rng.get_state();
+			
+			if (state.has_reference())
+			{
+				state.remove_reference();
+				m_rng.set_state(state);
+			}
+			
+			m_rng.reset_state();
+			
+			state = m_rng.create_referenced_state(to);
+			m_rng.set_state(state);
+		}
 	};
 }
 
