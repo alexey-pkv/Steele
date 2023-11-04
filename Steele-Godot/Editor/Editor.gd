@@ -39,5 +39,6 @@ func _on_game_resources_failed(path: String) -> void:
 func _on_game_resources_loaded(id: ResourceID) -> void:
 	c_tree.add_resource(id)
 
-func _on_explorer_open(id):
+func _handle_explorer_open(id):
 	c_editor_tabs.open_resource(id)
+

@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://cfnck60pwh4xy"]
 
 [ext_resource type="Script" path="res://Editor/Editor.gd" id="1_lu3ps"]
-[ext_resource type="Script" path="res://Editor/UI/Editor_Tree.gd" id="2_6kwbs"]
+[ext_resource type="PackedScene" uid="uid://cdfq2h1exnc4u" path="res://Editor/UI/Editor_Tree.tscn" id="2_t1ew3"]
 [ext_resource type="Script" path="res://Editor/UI/Editor_TabContainer.gd" id="3_ielen"]
 [ext_resource type="PackedScene" uid="uid://vkofhmmva7ll" path="res://Editor/Graphics/ResourceExplorer/ResourceExplorer.tscn" id="4_gpc3q"]
 [ext_resource type="PackedScene" uid="uid://uioqp0kbqpey" path="res://Game/Scenes/LoadingScene.tscn" id="4_t2uie"]
@@ -35,19 +35,8 @@ custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 size_flags_stretch_ratio = 2.0
 
-[node name="Explorer" type="Tree" parent="GridContainer/ExplorerContainer"]
-custom_minimum_size = Vector2(100, 0)
+[node name="Explorer" parent="GridContainer/ExplorerContainer" instance=ExtResource("2_t1ew3")]
 layout_mode = 2
-theme_override_constants/h_separation = 0
-theme_override_constants/v_separation = 0
-theme_override_constants/item_margin = 10
-theme_override_constants/draw_relationship_lines = 1
-theme_override_constants/relationship_line_width = 1
-theme_override_constants/draw_guides = 0
-hide_root = true
-script = ExtResource("2_6kwbs")
-
-[node name="PopupMenu" type="PopupMenu" parent="GridContainer/ExplorerContainer/Explorer"]
 
 [node name="HSplitContainer" type="HSplitContainer" parent="GridContainer"]
 layout_mode = 2
@@ -111,9 +100,7 @@ resources_node = NodePath("../GameResources")
 
 [node name="GameResources" parent="." instance=ExtResource("5_gk1vs")]
 
-[connection signal="gui_input" from="GridContainer/ExplorerContainer/Explorer" to="GridContainer/ExplorerContainer/Explorer" method="_on_gui_input"]
-[connection signal="item_activated" from="GridContainer/ExplorerContainer/Explorer" to="GridContainer/ExplorerContainer/Explorer" method="_on_item_activated"]
-[connection signal="on_open" from="GridContainer/ExplorerContainer/Explorer" to="." method="_on_explorer_open"]
+[connection signal="on_open" from="GridContainer/ExplorerContainer/Explorer" to="." method="_handle_explorer_open"]
 [connection signal="on_complete" from="LoadingScene" to="." method="_on_loading_scene_complete"]
 [connection signal="on_failed_to_load" from="GameResources" to="." method="_on_game_resources_failed"]
 [connection signal="on_resource_loaded" from="GameResources" to="." method="_on_game_resources_loaded"]

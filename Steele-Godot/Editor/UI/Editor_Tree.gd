@@ -44,9 +44,11 @@ func add_resource(id: ResourceID) -> void:
 	var parts = id.get_path_parts()
 	var item = Editor_Tree.get_or_create_path(root, parts)
 	
-	item.set_metadata(0, id)
 	
-
+	item.set_metadata(0, id)
+	item.set_cell_mode(1, TreeItem.CELL_MODE_CUSTOM)
+	
+	
 func remove_resource(id: ResourceID) -> void:
 	pass
 
@@ -55,17 +57,16 @@ func move_resource(prev: ResourceID, new: ResourceID) -> void:
 	add_resource(new)
 
 
-func _on_item_activated():
+func handle_item_activated():
 	if !is_selected:
 		return
 	
 	on_open.emit(selected_id)
-	
+
+
+func handle_gui_input(event):
+	pass # Replace with function body.
 
 
 signal on_open(id: ResourceID)
 
-
-func _on_gui_input(event):
-	if event is InputEventMouseButton:
-		pass

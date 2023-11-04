@@ -18,28 +18,16 @@ var c_rng: RNGNode:
 
 
 func _ready():
-	var rng: RNGNode = c_rng
+	var root: TreeItem = $Tree.create_item(null)
+	root.set_text(0, "root ")
 	
-	var a =  ""
+	for a in range(10):
+		var i: TreeItem = $Tree.create_item(root)
+		i.set_text(0, "hell world " + str(a))
 	
-	var s = rng.m_rng.get_state()
 	
-	for i in range(100):
-		var n = rng.next_int_r(0, 9)
-		a += str(n)
-	
-	print(a)
-	a = ""
-	
-	rng.m_rng.set_state(s)
-	
-	for i in range(100):
-		var n = rng.next_int_r(0, 9)
-		a += str(n)
-	
-	print(a)
-	a = ""
-	
+func a():
+	pass
 
 var lastrow = 0
 var lastnoe = null
@@ -67,6 +55,15 @@ func _on_map_editor_on_hover(args: GridCellHoverArgs):
 
 
 func _on_map_editor_on_mouse_button(args: GridCellButtonArgs):
+	
 	# print("Pressed")
 	pass # Replace with function body.
 
+
+
+func _on_tree_custom_popup_edited(arrow_clicked):
+	print("A")
+
+
+func _on_tree_gui_input(event):
+	print($Tree.get_item_at_position(event.position))
