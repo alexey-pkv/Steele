@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://crm0sjwchc5rp"]
+
+[ext_resource type="Script" path="res://Game/Graphics/World/Map/CellNode.gd" id="1_45xvo"]
+[ext_resource type="Script" path="res://Game/Graphics/World/Map/Cell/GroundSprite2D.gd" id="2_hn8fr"]
+
+[node name="CellNode" type="Node2D"]
+script = ExtResource("1_45xvo")
+
+[node name="Floor" type="Sprite2D" parent="."]
+script = ExtResource("2_hn8fr")

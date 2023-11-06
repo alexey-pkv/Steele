@@ -23,6 +23,7 @@ class_name GroundSprite2D
 		direction = value
 		__update()
 
+
 var ground_id: ResourceID:
 	set(value):
 		ground = value.registry_id if value != null else 0

@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://bodesmmqx46yg"]
+
+[ext_resource type="Script" path="res://Editor/Tabs/AreaEditorTab.gd" id="1_7uhqo"]
+[ext_resource type="PackedScene" uid="uid://b4neuseb6w4hi" path="res://Editor/Tabs/AreaEditor/AreaDrawingBoard.tscn" id="2_laws4"]
+[ext_resource type="PackedScene" uid="uid://vkofhmmva7ll" path="res://Editor/Graphics/ResourceExplorer/ResourceExplorer.tscn" id="2_ucxbv"]
+
+[node name="AreaEditorTag" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7uhqo")
+
+[node name="_split_container" type="HSplitContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/autohide = 0
+split_offset = 200
+
+[node name="AreaDrawingBoard" parent="_split_container" instance=ExtResource("2_laws4")]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="ResourceExplorer" parent="_split_container" instance=ExtResource("2_ucxbv")]
+layout_mode = 2

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Game/Engine/Resources/GameResourcesScene.gd" id="1_o35uh"]
 [ext_resource type="Script" path="res://Game/Engine/Resources/Registry/TexturesRegistryNode.gd" id="2_2o2kv"]
-[ext_resource type="Script" path="res://Game/Engine/Resources/Registry/TemplatesRegistry.gd" id="3_go16b"]
+[ext_resource type="Script" path="res://Game/Engine/Resources/Registry/TemplatesRegistryNode.gd" id="3_1ebj6"]
 
 [node name="GameResourcesScene" type="Node"]
 script = ExtResource("1_o35uh")
@@ -11,4 +11,4 @@ script = ExtResource("1_o35uh")
 script = ExtResource("2_2o2kv")
 
 [node name="TemplatesRegistryNode" type="Node" parent="."]
-script = ExtResource("3_go16b")
+script = ExtResource("3_1ebj6")

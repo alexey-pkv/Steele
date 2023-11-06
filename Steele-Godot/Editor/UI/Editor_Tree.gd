@@ -49,7 +49,7 @@ func add_resource(id: ResourceID) -> void:
 	item.set_cell_mode(1, TreeItem.CELL_MODE_CUSTOM)
 	
 	
-func remove_resource(id: ResourceID) -> void:
+func remove_resource(_id: ResourceID) -> void:
 	pass
 
 func move_resource(prev: ResourceID, new: ResourceID) -> void:
@@ -62,10 +62,6 @@ func handle_item_activated():
 		return
 	
 	on_open.emit(selected_id)
-
-
-func handle_gui_input(event):
-	pass # Replace with function body.
 
 
 signal on_open(id: ResourceID)

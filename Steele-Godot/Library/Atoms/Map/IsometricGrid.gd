@@ -1,3 +1,4 @@
+@tool
 extends Node2D
 class_name IsometricGrid
 
@@ -6,7 +7,10 @@ var m_size:	Vector3i
 var m_map:	Dictionary = {}
 
 
-@export var Size: Vector3i:
+var count: int:
+	get: return m_map.size()
+
+@export var size: Vector3i:
 	set(v):
 		m_size = v
 	get:
@@ -100,3 +104,4 @@ func local_to_grid(local: Vector2) -> Vector2i:
 
 func grid_to_local(local: Vector2i) -> Vector2:
 	return Isometric.grid_to_local(Vector3i(local.x, local.y, 0), m_size)
+

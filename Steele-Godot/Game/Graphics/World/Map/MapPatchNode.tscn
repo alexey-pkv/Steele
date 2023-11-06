@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://b2breuq480gc0"]
+
+[ext_resource type="Script" path="res://Game/Graphics/World/Map/MapPatchNode.gd" id="1_kq5le"]
+[ext_resource type="Script" path="res://Library/Atoms/Map/IsometricGrid.gd" id="2_0qr62"]
+
+[node name="MapPatchNode" type="Node2D"]
+script = ExtResource("1_kq5le")
+
+[node name="Grid" type="Node2D" parent="."]
+script = ExtResource("2_0qr62")
+size = Vector3i(32, 0, 0)

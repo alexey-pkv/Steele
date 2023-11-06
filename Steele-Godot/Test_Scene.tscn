@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://4yt3tih4wsk4"]
+[gd_scene load_steps=4 format=3 uid="uid://4yt3tih4wsk4"]
 
 [ext_resource type="Script" path="res://Test_Scene.gd" id="1_w5nkg"]
+[ext_resource type="PackedScene" uid="uid://3ldknq4sqbw4" path="res://Game/Nodes/Grid/GridMouseEventsNode.tscn" id="2_rf08x"]
+[ext_resource type="Script" path="res://Library/Atoms/Map/IsometricGrid.gd" id="3_tib7c"]
 
 [node name="Main" type="Control"]
 layout_mode = 3
@@ -12,6 +14,10 @@ grow_vertical = 2
 script = ExtResource("1_w5nkg")
 metadata/_edit_vertical_guides_ = []
 
+[node name="GridMouseEventsNode" parent="." node_paths=PackedStringArray("isometric_grid", "mouse_control_node") instance=ExtResource("2_rf08x")]
+isometric_grid = NodePath("../IsometricGrid")
+mouse_control_node = NodePath("..")
+
 [node name="Tree" type="Tree" parent="."]
 layout_mode = 1
 anchors_preset = 15
@@ -21,5 +27,13 @@ offset_right = -767.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="IsometricGrid" type="Node2D" parent="."]
+scale = Vector2(3, 3)
+script = ExtResource("3_tib7c")
+size = Vector3i(32, 16, 0)
+
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
+[connection signal="on_click" from="GridMouseEventsNode" to="." method="_on_grid_mouse_events_node_on_click"]
+[connection signal="on_hover" from="GridMouseEventsNode" to="." method="_on_grid_mouse_events_node_on_hover"]
 [connection signal="custom_popup_edited" from="Tree" to="." method="_on_tree_custom_popup_edited"]
 [connection signal="gui_input" from="Tree" to="." method="_on_tree_gui_input"]

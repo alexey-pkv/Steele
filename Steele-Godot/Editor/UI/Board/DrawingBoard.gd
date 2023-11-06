@@ -12,13 +12,9 @@ var c_zoom_factor: ZoomFactor:
 	
 
 func _get_configuration_warnings():
-	if !is_inside_tree():
-		return []
-	
-	if get_child_count() == 0:
-		return ["Scene incorrectly imported"]
-	
-	return []
+	return ["Scene incorrectly imported"] \
+		if is_inside_tree() && get_child_count() == 0 else []
+
 
 func mouse_events_handler(event: InputEventMouseButton):
 	if event.button_index == MOUSE_BUTTON_WHEEL_DOWN:

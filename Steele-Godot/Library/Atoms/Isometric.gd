@@ -33,3 +33,54 @@ static func local_to_grid(v_at: Vector2, grid_size: Vector3i, style: int = STYLE
 		round((n.x + n.y) / 2),
 		round((n.x - n.y) / 2),
 	)
+
+
+static func mouse_to_grid(
+		mouse_at: Vector2i, 
+		grid:		Node2D, 
+		cell_size:	Vector3i) -> Vector2i:
+	return local_to_grid(grid.to_local(mouse_at), cell_size)
+	
+
+static func create_grid_event_mouse_motion(
+		event:		InputEventMouseMotion, 
+		grid:		Node2D, 
+		cell_size:	Vector3i,
+		last_cell:	Vector2i) -> GridCellMotionArgs:
+	
+	if grid == null: return null
+	
+	var at_grid: Vector2i = mouse_to_grid(event.position, grid, cell_size)
+	
+	if at_grid == last_cell:
+		return null
+	
+	var args = GridCellMotionArgs.new()
+	
+	args.mouse_event	= event
+	args.at				= at_grid
+	args.previous_at	= last_cell
+	
+	return args
+	
+static func create_grid_event_mouse_button(
+		event:		InputEventMouseButton, 
+		grid:		Node2D, 
+		cell_size:	Vector3i) -> GridCellButtonArgs:
+	
+	if grid == null: return null
+	
+	var args = GridCellButtonArgs.new()
+	
+	args.mouse_event	= event
+	args.at				= mouse_to_grid(event.position, grid, cell_size)
+	
+	return args
+
+
+
+
+
+
+
+

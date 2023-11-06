@@ -41,10 +41,10 @@ func _update_margin() -> void:
 	var container = c_margin_container
 	
 	if container != null:
-		container.add_theme_constant_override("margin_top",		margin)
-		container.add_theme_constant_override("margin_left",	margin)
-		container.add_theme_constant_override("margin_bottom",	margin)
-		container.add_theme_constant_override("margin_right",	margin)
+		container.add_theme_constant_override("margin_top",		int(margin))
+		container.add_theme_constant_override("margin_left",	int(margin))
+		container.add_theme_constant_override("margin_bottom",	int(margin))
+		container.add_theme_constant_override("margin_right",	int(margin))
 
 func _clear() -> void:
 	if c_main == null:

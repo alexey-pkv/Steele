@@ -49,7 +49,7 @@ func _show_main_menu():
 
 
 
-func _on_map_editor_on_hover(args: GridCellHoverArgs):
+func _on_map_editor_on_hover(args: GridCellMotionArgs):
 	# print("Hovered " + str(args.at_v2) + " p " + str(args.previous_v2))
 	pass # Replace with function body.
 
@@ -66,4 +66,19 @@ func _on_tree_custom_popup_edited(arrow_clicked):
 
 
 func _on_tree_gui_input(event):
-	print($Tree.get_item_at_position(event.position))
+	# print($Tree.get_item_at_position(event.position))
+	pass
+
+
+func _on_grid_mouse_events_node_on_click(event: GridCellButtonArgs):
+	print(event.at)
+
+
+
+func _on_grid_mouse_events_node_on_hover(event: GridCellMotionArgs):
+	print(event.at)
+
+
+
+func _on_mouse_exited():
+	print("Mouse exit")
