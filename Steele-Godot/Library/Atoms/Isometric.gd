@@ -39,6 +39,7 @@ static func mouse_to_grid(
 		mouse_at: Vector2i, 
 		grid:		Node2D, 
 		cell_size:	Vector3i) -> Vector2i:
+	
 	return local_to_grid(grid.to_local(mouse_at), cell_size)
 	
 
@@ -50,7 +51,7 @@ static func create_grid_event_mouse_motion(
 	
 	if grid == null: return null
 	
-	var at_grid: Vector2i = mouse_to_grid(event.position, grid, cell_size)
+	var at_grid: Vector2i = mouse_to_grid(event.global_position, grid, cell_size)
 	
 	if at_grid == last_cell:
 		return null
@@ -73,7 +74,7 @@ static func create_grid_event_mouse_button(
 	var args = GridCellButtonArgs.new()
 	
 	args.mouse_event	= event
-	args.at				= mouse_to_grid(event.position, grid, cell_size)
+	args.at				= mouse_to_grid(event.global_position, grid, cell_size)
 	
 	return args
 

@@ -14,6 +14,20 @@ func _get_configuration_warnings():
 @onready var m_grid: IsometricGrid = $Grid
 
 
+@export var is_debug: bool = false:
+	get: return is_debug
+	set(v): 
+		is_debug = v
+		
+		if is_inside_tree():
+			$dbg.visible = v
+
+@export var mouse_control_node: Control:
+	get: return $GridMouseEventsNode.mouse_control_node
+	set(n): 
+		if $GridMouseEventsNode != null:
+			$GridMouseEventsNode.mouse_control_node = n
+
 @export var cell_size: Vector3i = Vector3i(32, 16, 0): 
 	get: return cell_size
 	set(v): 
@@ -27,13 +41,14 @@ var count: int:
 	get: return m_grid.count
 
 
-func _create_cell() -> CellNode:
+func _create_cell(at: Vector3i) -> CellNode:
 	var cell: CellNode = SCENE_CellNode.instantiate();
-	
-	cell.cell_size = cell_size
 	
 	return cell
 
+
+func _ready():
+	m_grid.size = cell_size
 
 func is_empty_v3(at: Vector3i) -> bool:
 	return m_grid.is_empty_v3i(at)
@@ -45,22 +60,41 @@ func get_at_v3(at: Vector3i) -> CellNode:
 	var res = m_grid.get_at_v3i(at)
 	
 	if res == null:
-		res = _create_cell()
+		res = _create_cell(at)
 		m_grid.set_at_v3i(at, res)
 	
+	print(at)
+	
 	return res
+	
+func get_at_v2(at: Vector2i, z: int = 0) -> CellNode:
+	return get_at_v3(Vector3i(at.x, at.y, z))
 	
 func create_at_v3(at: Vector3i) -> void:
 	if m_grid.has_v3i(at):
 		return
 	
-	m_grid.set_at_v3i(at, _create_cell())
+	m_grid.set_at_v3i(at, _create_cell(at))
 
 func clear_at_v3(at: Vector3i) -> bool:
+	print(at)
+	
+	
 	return m_grid.remove_v3i(at)
+	
+func clear_at_v2(at: Vector2i, z: int = 0) -> bool:
+	return m_grid.remove_v3i(Vector3i(at.x, at.y, z))
 
 func clear() -> void:
 	m_grid.clear()
 
 
+func handle_grid_mouse_motion(event: GridCellMotionArgs):
+	on_hover.emit(event)
 
+func handle_grid_mouse_click(event: GridCellButtonArgs):
+	on_click.emit(event)
+
+
+signal on_hover(event: GridCellMotionArgs)
+signal on_click(event: GridCellButtonArgs)

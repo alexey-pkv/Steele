@@ -18,6 +18,7 @@ func _get_configuration_warnings():
 	
 	return notes
 
+
 @export var isometric_grid: IsometricGrid:
 	set(n): isometric_grid = n
 
@@ -55,7 +56,7 @@ func handle_hover(event: InputEventMouseMotion):
 
 
 func handle_mouse_exited():
-	m_is_on_hover = false
+	m_is_on_hover = false 
 
 
 func handle_gui_event(event: InputEvent):

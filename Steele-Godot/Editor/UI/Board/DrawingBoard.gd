@@ -1,5 +1,5 @@
 @tool
-extends Control
+extends Node2D
 class_name DrawingBoard
 
 
@@ -7,13 +7,46 @@ var m_drag_start 	= Vector2()
 var m_is_dragging = false
 
 
+@export var debug_mod: bool = false:
+	get: return debug_mod
+	set(v):
+		debug_mod = v
+		$Debug_Label.visible = v
+
+
+@export var mouse_control_node: Control:
+	set(n): 
+		_disconnect_events()
+		mouse_control_node = n
+		_connect_events()
+
+
 var c_zoom_factor: ZoomFactor: 
 	get: return $ZoomFactor
 	
 
 func _get_configuration_warnings():
-	return ["Scene incorrectly imported"] \
-		if is_inside_tree() && get_child_count() == 0 else []
+	var notes = []
+	
+	if is_inside_tree() && get_child_count() == 0:
+		notes.push_back("Scene incorrectly imported")
+	if mouse_control_node == null:
+		notes.push_back("Mouse control node must be set")
+	
+	return notes
+
+
+func _disconnect_events() -> void:
+	if mouse_control_node == null:
+		return
+	
+	mouse_control_node.gui_input.disconnect(_handle_gui_input)
+	
+func _connect_events() -> void:
+	if mouse_control_node == null:
+		return
+	
+	mouse_control_node.gui_input.connect(_handle_gui_input)
 
 
 func mouse_events_handler(event: InputEventMouseButton):
@@ -41,7 +74,7 @@ func drag_camera(event) -> void:
 	var drag_vector = drag_end - m_drag_start
 	
 	position += drag_vector
-		
+	
 	m_drag_start = drag_end
 
 

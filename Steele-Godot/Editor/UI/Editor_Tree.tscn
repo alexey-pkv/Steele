@@ -25,5 +25,4 @@ allow_search = false
 
 [node name="PopupMenu" type="PopupMenu" parent="."]
 
-[connection signal="gui_input" from="." to="." method="handle_gui_input"]
 [connection signal="item_activated" from="." to="." method="handle_item_activated"]

@@ -62,7 +62,7 @@ func _on_map_editor_on_mouse_button(args: GridCellButtonArgs):
 
 
 func _on_tree_custom_popup_edited(arrow_clicked):
-	print("A")
+	pass
 
 
 func _on_tree_gui_input(event):
@@ -71,14 +71,10 @@ func _on_tree_gui_input(event):
 
 
 func _on_grid_mouse_events_node_on_click(event: GridCellButtonArgs):
-	print(event.at)
+	pass
 
 
 
 func _on_grid_mouse_events_node_on_hover(event: GridCellMotionArgs):
-	print(event.at)
+	pass
 
-
-
-func _on_mouse_exited():
-	print("Mouse exit")

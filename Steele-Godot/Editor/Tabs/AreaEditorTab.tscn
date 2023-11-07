@@ -21,11 +21,13 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/autohide = 0
-split_offset = 200
 
 [node name="AreaDrawingBoard" parent="_split_container" instance=ExtResource("2_laws4")]
-custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="ResourceExplorer" parent="_split_container" instance=ExtResource("2_ucxbv")]
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
+
+[connection signal="on_selected" from="_split_container/ResourceExplorer" to="." method="_on_resource_explorer_on_selected"]

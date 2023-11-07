@@ -3,13 +3,7 @@
 [ext_resource type="Script" path="res://Editor/UI/Board/DrawingBoard.gd" id="1_xwpgx"]
 [ext_resource type="Script" path="res://Library/Atoms/Camera/ZoomFactor.gd" id="3_8kf3w"]
 
-[node name="DrawingBoard" type="Control"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="DrawingBoard" type="Node2D"]
 scale = Vector2(3, 3)
 script = ExtResource("1_xwpgx")
 
@@ -23,9 +17,8 @@ factor = 3.0
 
 [node name="Debug_Label" type="Label" parent="."]
 visible = false
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+offset_left = -5.0
+offset_top = -11.6667
+offset_right = 35.0
+offset_bottom = 14.3333
 text = "X"
-
-[connection signal="gui_input" from="." to="." method="_handle_gui_input"]

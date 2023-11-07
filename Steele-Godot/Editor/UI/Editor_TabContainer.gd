@@ -4,6 +4,8 @@ class_name Editor_Tabs
 
 const ATLAS_TAB_SCENE = preload("res://Editor/Tabs/AtlasViewTab.tscn")
 
+const TEST_SCENE = preload("res://Editor/Tabs/AreaEditorTab.tscn")
+
 
 func _add_tab(tab_scene: PackedScene, id: ResourceID) -> GenericTab:
 	var tab: GenericTab = tab_scene.instantiate()
@@ -50,6 +52,12 @@ func _open_floor_atlas(data: AtlasData) -> void:
 	
 	_add_tab(ATLAS_TAB_SCENE, data.id)
 
+
+func open_test() -> void:
+	var id = ResourceID.new()
+	id.short_name = "test"
+	
+	_add_tab(TEST_SCENE, id)
 
 func open_resource(id: ResourceID) -> void:
 	var data = TemplatesRegistryNode.global().get_data(id)

@@ -26,12 +26,15 @@ func _ready():
 	
 	c_loading_scene.visible = true
 	c_loading_scene.begin()
+	
 
 
 func _on_loading_scene_complete():
 	c_main_view.visible = true
 	c_loading_scene.queue_free()
 	c_resource_explorer.update_items()
+	
+	c_editor_tabs.open_test()
 
 func _on_game_resources_failed(path: String) -> void:
 	print("Failed to load: " + path)

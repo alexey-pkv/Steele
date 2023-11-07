@@ -14,8 +14,8 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ohs7v")
 
-[node name="DrawingBoard" parent="." instance=ExtResource("2_fev4j")]
-layout_mode = 1
+[node name="DrawingBoard" parent="." node_paths=PackedStringArray("mouse_control_node") instance=ExtResource("2_fev4j")]
+mouse_control_node = NodePath("..")
 
 [node name="GroundAtlasView" parent="DrawingBoard" instance=ExtResource("3_dqqau")]
 padding = Vector2(5, 10)

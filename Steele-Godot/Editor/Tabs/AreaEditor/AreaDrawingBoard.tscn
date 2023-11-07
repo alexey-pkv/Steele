@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://b4neuseb6w4hi"]
+[gd_scene load_steps=4 format=3 uid="uid://b4neuseb6w4hi"]
 
 [ext_resource type="Script" path="res://Editor/Tabs/AreaEditor/AreaDrawingBoard.gd" id="1_vsdmn"]
 [ext_resource type="PackedScene" uid="uid://bg77q3rcd023p" path="res://Editor/UI/Board/DrawingBoard.tscn" id="2_cfg7e"]
+[ext_resource type="PackedScene" uid="uid://b2breuq480gc0" path="res://Game/Graphics/World/Map/MapPatchNode.tscn" id="3_io1wf"]
 
 [node name="AreaDrawingBoard" type="Control"]
 layout_mode = 3
@@ -12,5 +13,27 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_vsdmn")
 
-[node name="DrawingBoard" parent="." instance=ExtResource("2_cfg7e")]
+[node name="_margin" type="MarginContainer" parent="."]
 layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Control" type="Control" parent="_margin"]
+clip_contents = true
+layout_mode = 2
+
+[node name="DrawingBoard" parent="_margin/Control" node_paths=PackedStringArray("mouse_control_node") instance=ExtResource("2_cfg7e")]
+mouse_control_node = NodePath("..")
+
+[node name="MapPatchNode" parent="_margin/Control/DrawingBoard" node_paths=PackedStringArray("mouse_control_node") instance=ExtResource("3_io1wf")]
+mouse_control_node = NodePath("../..")
+
+[connection signal="on_click" from="_margin/Control/DrawingBoard/MapPatchNode" to="." method="handle_grid_mouse_click"]
+[connection signal="on_hover" from="_margin/Control/DrawingBoard/MapPatchNode" to="." method="handle_grid_mouse_motion"]

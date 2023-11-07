@@ -1,11 +1,28 @@
-[gd_scene load_steps=3 format=3 uid="uid://b2breuq480gc0"]
+[gd_scene load_steps=4 format=3 uid="uid://b2breuq480gc0"]
 
 [ext_resource type="Script" path="res://Game/Graphics/World/Map/MapPatchNode.gd" id="1_kq5le"]
 [ext_resource type="Script" path="res://Library/Atoms/Map/IsometricGrid.gd" id="2_0qr62"]
+[ext_resource type="PackedScene" uid="uid://3ldknq4sqbw4" path="res://Game/Nodes/Grid/GridMouseEventsNode.tscn" id="3_nciqe"]
 
 [node name="MapPatchNode" type="Node2D"]
 script = ExtResource("1_kq5le")
+is_debug = true
 
 [node name="Grid" type="Node2D" parent="."]
+y_sort_enabled = true
 script = ExtResource("2_0qr62")
-size = Vector3i(32, 0, 0)
+size = Vector3i(32, 16, 0)
+
+[node name="GridMouseEventsNode" parent="." node_paths=PackedStringArray("isometric_grid") instance=ExtResource("3_nciqe")]
+isometric_grid = NodePath("../Grid")
+
+[node name="dbg" type="Label" parent="."]
+offset_left = -5.0
+offset_top = -12.0
+offset_right = 35.0
+offset_bottom = 14.0
+text = "X
+"
+
+[connection signal="on_click" from="GridMouseEventsNode" to="." method="handle_grid_mouse_click"]
+[connection signal="on_hover" from="GridMouseEventsNode" to="." method="handle_grid_mouse_motion"]
