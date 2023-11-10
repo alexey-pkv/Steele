@@ -25,7 +25,8 @@ var factor_index: int = 0:
 	get:	return m_factor_index
 	set(v):	zoom_to_index(v)
 
-@export var zoom_reference: CanvasItem: 
+
+@export var zoom_reference: Node2D: 
 	get: return zoom_reference
 	set(n): 
 		zoom_reference = n
@@ -74,7 +75,26 @@ var factor_index: int = 0:
 	set(v):	zoom_to_nearest(v)
 
 
-func zoom_to_nearest(to: float) -> void:
+
+func _modify_factor_to(to: float, relative: Vector2) -> void:
+	if m_factor == to:
+		return
+	
+	var pos_change = Vector2.ZERO
+	var _prev = m_factor
+	m_factor = to
+	
+	if relative != Vector2.ZERO && zoom_reference != null:
+		pos_change = relative * (to - _prev)
+	
+	factor_changed.emit(m_factor, _prev, pos_change)
+	scale = Vector2(m_factor, m_factor)
+	
+	if zoom_reference != null:
+		zoom_reference.scale = scale
+		zoom_reference.position -= pos_change
+
+func zoom_to_nearest(to: float, relative: Vector2 = Vector2.ZERO) -> void:
 	var _factors = factors
 	var _last: float
 	
@@ -86,32 +106,19 @@ func zoom_to_nearest(to: float) -> void:
 			continue
 		
 		if i == 0:
-			min_zoom()
+			min_zoom(relative)
 			return
 		
 		if to - _last <= _curr - to:
-			zoom_to_index(i - 1)
+			zoom_to_index(i - 1, relative)
 		else:
-			zoom_to_index(i)
+			zoom_to_index(i, relative)
 		
 		return
 	
 	max_zoom()
 
-func _modify_factor_to(to: float) -> void:
-	if m_factor == to:
-		return
-	
-	var _prev = m_factor;
-	m_factor = to
-	
-	factor_changed.emit(m_factor, _prev)
-	scale = Vector2(m_factor, m_factor)
-	
-	if zoom_reference != null:
-		zoom_reference.scale = Vector2(m_factor, m_factor)
-
-func zoom_to_index(index: int) -> void:
+func zoom_to_index(index: int, relative: Vector2 = Vector2.ZERO) -> void:
 	if index < 0:
 		min_zoom()
 		return
@@ -122,22 +129,22 @@ func zoom_to_index(index: int) -> void:
 	var _prev = m_factor
 	
 	m_factor_index = index
-	_modify_factor_to(factors[index])
+	_modify_factor_to(factors[index], relative)
 
-func applay_default_zoom() -> void:
-	zoom_to_nearest(default_factor)
+func applay_default_zoom(relative: Vector2 = Vector2.ZERO) -> void:
+	zoom_to_nearest(default_factor, relative)
 
-func zoom_in() -> void:
-	zoom_to_index(factor_index + 1)
+func zoom_in(relative: Vector2 = Vector2.ZERO) -> void:
+	zoom_to_index(factor_index + 1, relative)
 
-func zoom_out() -> void:
-	zoom_to_index(factor_index - 1)
+func zoom_out(relative: Vector2 = Vector2.ZERO) -> void:
+	zoom_to_index(factor_index - 1, relative)
 
-func min_zoom() -> void:
-	zoom_to_index(0)
+func min_zoom(relative: Vector2 = Vector2.ZERO) -> void:
+	zoom_to_index(0, relative)
 	
-func max_zoom() -> void:
-	zoom_to_index(factors_count - 1)
+func max_zoom(relative: Vector2 = Vector2.ZERO) -> void:
+	zoom_to_index(factors_count - 1, relative)
 
 
 func _update_scale() -> void:
@@ -178,6 +185,6 @@ func _update_scale() -> void:
 	factor_range_changed.emit()
 
 
-signal factor_changed(to: float, from: float)
+signal factor_changed(to: float, from: float, offset: Vector2)
 signal factor_range_changed()
 

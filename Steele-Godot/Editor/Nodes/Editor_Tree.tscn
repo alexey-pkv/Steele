@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cdfq2h1exnc4u"]
 
-[ext_resource type="Script" path="res://Editor/UI/Editor_Tree.gd" id="1_yfgi4"]
+[ext_resource type="Script" path="res://Editor/Nodes/Editor_Tree.gd" id="1_yfgi4"]
 
 [node name="Explorer" type="Tree"]
 custom_minimum_size = Vector2(100, 0)

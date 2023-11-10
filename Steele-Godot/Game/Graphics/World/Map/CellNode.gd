@@ -3,7 +3,7 @@ extends Node2D
 class_name CellNode
 
 
-var floor: GroundSprite2D: 
+var ground: GroundSprite2D: 
 	get: return $Floor
 
 

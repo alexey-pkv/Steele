@@ -1,15 +1,15 @@
 [gd_scene load_steps=3 format=3 uid="uid://bg77q3rcd023p"]
 
-[ext_resource type="Script" path="res://Editor/UI/Board/DrawingBoard.gd" id="1_xwpgx"]
-[ext_resource type="Script" path="res://Library/Atoms/Camera/ZoomFactor.gd" id="3_8kf3w"]
+[ext_resource type="Script" path="res://Editor/Nodes/Board/DrawingBoard.gd" id="1_222h7"]
+[ext_resource type="Script" path="res://Library/Atoms/Camera/ZoomFactor.gd" id="2_x8nph"]
 
 [node name="DrawingBoard" type="Node2D"]
 scale = Vector2(3, 3)
-script = ExtResource("1_xwpgx")
+script = ExtResource("1_222h7")
 
 [node name="ZoomFactor" type="Node2D" parent="." node_paths=PackedStringArray("zoom_reference")]
 scale = Vector2(3, 3)
-script = ExtResource("3_8kf3w")
+script = ExtResource("2_x8nph")
 zoom_reference = NodePath("..")
 default_factor = 3.0
 max_factor = 6.0

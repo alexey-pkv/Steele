@@ -27,7 +27,7 @@ func handle_grid_mouse_motion(event: GridCellMotionArgs):
 	
 	if event.button_mask == MOUSE_BUTTON_LEFT:
 		var cell: CellNode = c_map.get_at_v2(event.at)
-		cell.floor.ground_id = brush_id
+		cell.ground.ground_id = brush_id
 	
 
 func handle_grid_mouse_click(event: GridCellButtonArgs):
@@ -40,5 +40,5 @@ func handle_grid_mouse_click(event: GridCellButtonArgs):
 	
 	if event.button_mask == MOUSE_BUTTON_LEFT:
 		var cell: CellNode = c_map.get_at_v2(event.at)
-		cell.floor.ground_id = brush_id
+		cell.ground.ground_id = brush_id
 

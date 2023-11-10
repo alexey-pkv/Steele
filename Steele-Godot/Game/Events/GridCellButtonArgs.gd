@@ -8,5 +8,5 @@ class_name GridCellButtonArgs
 	set(e): mouse_event = e
 
 
-var button_mask: MouseButtonMask:
+var button_mask: int:
 	get: return mouse_event.button_mask

@@ -41,10 +41,8 @@ var count: int:
 	get: return m_grid.count
 
 
-func _create_cell(at: Vector3i) -> CellNode:
-	var cell: CellNode = SCENE_CellNode.instantiate();
-	
-	return cell
+func _create_cell() -> CellNode:
+	return SCENE_CellNode.instantiate()
 
 
 func _ready():
@@ -60,10 +58,8 @@ func get_at_v3(at: Vector3i) -> CellNode:
 	var res = m_grid.get_at_v3i(at)
 	
 	if res == null:
-		res = _create_cell(at)
+		res = _create_cell()
 		m_grid.set_at_v3i(at, res)
-	
-	print(at)
 	
 	return res
 	
@@ -74,7 +70,7 @@ func create_at_v3(at: Vector3i) -> void:
 	if m_grid.has_v3i(at):
 		return
 	
-	m_grid.set_at_v3i(at, _create_cell(at))
+	m_grid.set_at_v3i(at, _create_cell())
 
 func clear_at_v3(at: Vector3i) -> bool:
 	print(at)

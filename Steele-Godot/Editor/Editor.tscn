@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://cfnck60pwh4xy"]
 
 [ext_resource type="Script" path="res://Editor/Editor.gd" id="1_lu3ps"]
-[ext_resource type="PackedScene" uid="uid://cdfq2h1exnc4u" path="res://Editor/UI/Editor_Tree.tscn" id="2_t1ew3"]
-[ext_resource type="Script" path="res://Editor/UI/Editor_TabContainer.gd" id="3_ielen"]
+[ext_resource type="PackedScene" uid="uid://cdfq2h1exnc4u" path="res://Editor/Nodes/Editor_Tree.tscn" id="2_t1ew3"]
+[ext_resource type="Script" path="res://Editor/Nodes/Editor_TabContainer.gd" id="3_ielen"]
 [ext_resource type="PackedScene" uid="uid://vkofhmmva7ll" path="res://Editor/Graphics/ResourceExplorer/ResourceExplorer.tscn" id="4_gpc3q"]
 [ext_resource type="PackedScene" uid="uid://uioqp0kbqpey" path="res://Game/Scenes/LoadingScene.tscn" id="4_t2uie"]
 [ext_resource type="PackedScene" uid="uid://csb0kvos7rijd" path="res://Game/Engine/Resources/GameResourcesScene.tscn" id="5_gk1vs"]

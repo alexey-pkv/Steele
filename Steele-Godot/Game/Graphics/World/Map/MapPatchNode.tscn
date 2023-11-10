@@ -6,7 +6,6 @@
 
 [node name="MapPatchNode" type="Node2D"]
 script = ExtResource("1_kq5le")
-is_debug = true
 
 [node name="Grid" type="Node2D" parent="."]
 y_sort_enabled = true
@@ -17,6 +16,7 @@ size = Vector3i(32, 16, 0)
 isometric_grid = NodePath("../Grid")
 
 [node name="dbg" type="Label" parent="."]
+visible = false
 offset_left = -5.0
 offset_top = -12.0
 offset_right = 35.0

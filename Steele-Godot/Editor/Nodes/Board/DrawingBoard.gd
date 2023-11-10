@@ -11,7 +11,9 @@ var m_is_dragging = false
 	get: return debug_mod
 	set(v):
 		debug_mod = v
-		$Debug_Label.visible = v
+		
+		if is_inside_tree():
+			$Debug_Label.visible = v
 
 
 @export var mouse_control_node: Control:
@@ -52,10 +54,10 @@ func _connect_events() -> void:
 func mouse_events_handler(event: InputEventMouseButton):
 	if event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
 		if event.pressed:
-			c_zoom_factor.zoom_out()
+			c_zoom_factor.zoom_out(to_local(event.global_position))
 	elif event.button_index == MOUSE_BUTTON_WHEEL_UP:
 		if event.pressed:
-			c_zoom_factor.zoom_in()
+			c_zoom_factor.zoom_in(to_local(event.global_position))
 	elif event.button_index == MOUSE_BUTTON_MIDDLE:
 		set_dragging(event)
 
@@ -96,3 +98,6 @@ func _handle_gui_input(event):
 		if event.as_text_keycode() == 'R':
 			_reset()
 
+func _ready():
+	if debug_mod:
+		$Debug_Label.visible = debug_mod
