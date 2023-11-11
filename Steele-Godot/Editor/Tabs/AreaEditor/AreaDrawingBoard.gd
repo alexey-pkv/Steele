@@ -49,6 +49,8 @@ func _get_configuration_warnings():
 var last_dir = Direction.NORTH
 
 func handle_grid_mouse_motion(event: GridCellMotionArgs):
+	draw_placeholder(event);
+		
 	if event.button_mask == MOUSE_BUTTON_RIGHT:
 		var line = Vectors.get_line(event.previous_at, event.at)
 		
