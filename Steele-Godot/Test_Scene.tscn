@@ -15,7 +15,6 @@ metadata/_edit_vertical_guides_ = []
 
 [node name="MapPatchNode" parent="." node_paths=PackedStringArray("mouse_control_node") instance=ExtResource("2_psumf")]
 scale = Vector2(3, 3)
-is_debug = null
 mouse_control_node = NodePath("..")
 
 [node name="Tree" type="Tree" parent="."]

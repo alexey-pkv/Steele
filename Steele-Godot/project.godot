@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Steele-godot"
-run/main_scene="res://Steele/SteeleGame.tscn"
+run/main_scene="res://Editor/Editor.tscn"
 config/features=PackedStringArray("4.1", "Forward Plus")
 config/icon="res://icon.svg"
 

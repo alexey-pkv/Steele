@@ -11,8 +11,10 @@ func _get_configuration_warnings():
 		if is_inside_tree() && get_child_count() == 0 else []
 
 
-@onready var m_patch: MapPatch = MapPatch.new()
-@onready var m_grid: IsometricGrid = $Grid
+@onready var m_map: MapPatch = MapPatch.new()
+
+var m_grid: IsometricGrid:
+	get: return $Grid
 
 
 @export var is_debug: bool = false:
@@ -39,58 +41,70 @@ func _get_configuration_warnings():
 
 
 var count: int:
-	get: return m_patch.size()
+	get: return m_map.size()
 
 
 func _create_cell() -> CellNode:
 	return SCENE_CellNode.instantiate()
 
-func _update_at(at: Vector3i) -> void:
-	if !m_patch.has_v3i(at):
-		m_grid.remove_v3i(at)
-		return
-	
-	var curr_node = m_grid.get_at_v3i(at)
-	var curr_cell = m_patch.get_at_v3i(at)
-
 
 func _ready():
 	m_grid.size = cell_size
 
+func update_at(at: Vector3i) -> void:
+	if !m_map.has_v3i(at):
+		m_grid.remove_v3i(at)
+		return
+		
+	var curr_node: CellNode = m_grid.get_at_v3i(at)
+	var curr_cell: Cell = m_map.get_v3i(at)
+	
+	if curr_node == null:
+		curr_node = _create_cell()
+		m_grid.set_at_v3i(at, curr_node)
+	
+	var ground = curr_node.ground
+	var t = curr_cell.get_ground().tiles()
+	var tile: GroundTile = curr_cell.get_ground().tiles()[0]
+	
+	ground.direction = tile.direction
+	ground.ground_id = tile.tile
+
 
 func is_empty_v3(at: Vector3i) -> bool:
-	return !m_patch.has_v3i(at)
+	return !m_map.has_v3i(at)
 
-func try_get_at_v3(at: Vector3i) -> CellNode:
-	return m_grid.get_at_v3i(at)
+func try_get_at_v3(at: Vector3i) -> Cell:
+	if !m_map.has_v3i(at):
+		return null
+		
+	return m_map.get_v3i(at)
 	
-func get_at_v3(at: Vector3i) -> CellNode:
-	var cell = m_patch.get_
+func get_at_v3(at: Vector3i) -> Cell:
+	return m_map.get_v3i(at)
 	
-	var res = m_grid.get_at_v3i(at)
-	
-	if res == null:
-		res = _create_cell()
-		m_grid.set_at_v3i(at, res)
-	
-	return res
-	
-func get_at_v2(at: Vector2i, z: int = 0) -> CellNode:
+func get_at_v2(at: Vector2i, z: int = 0) -> Cell:
 	return get_at_v3(Vector3i(at.x, at.y, z))
 	
 func create_at_v3(at: Vector3i) -> void:
-	if m_grid.has_v3i(at):
+	if m_map.has_v3i(at):
 		return
 	
-	m_grid.set_at_v3i(at, _create_cell())
+	m_map.set_v3i(at, Cell.new())
 
 func clear_at_v3(at: Vector3i) -> bool:
-	return m_grid.remove_v3i(at)
+	if !m_map.remove_v3i(at):
+		return false
+	
+	update_at(at)
+	
+	return true
 	
 func clear_at_v2(at: Vector2i, z: int = 0) -> bool:
-	return m_grid.remove_v3i(Vector3i(at.x, at.y, z))
+	return clear_at_v3(Vector3i(at.x, at.y, z))
 
 func clear() -> void:
+	m_map.clear()
 	m_grid.clear()
 
 

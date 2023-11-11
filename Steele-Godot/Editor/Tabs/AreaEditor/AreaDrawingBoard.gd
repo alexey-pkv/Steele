@@ -26,8 +26,12 @@ func handle_grid_mouse_motion(event: GridCellMotionArgs):
 		return
 	
 	if event.button_mask == MOUSE_BUTTON_LEFT:
-		var cell: CellNode = c_map.get_at_v2(event.at)
-		cell.ground.ground_id = brush_id
+		c_map.create_at_v3(Vector3i(event.at.x, event.at.y, 0))
+		
+		var cell: Cell = c_map.get_at_v2(event.at)
+		cell.get_ground().set(brush_id.registry_id, Direction.NORTH, 0)
+		
+		c_map.update_at(Vector3i(event.at.x, event.at.y, 0))
 	
 
 func handle_grid_mouse_click(event: GridCellButtonArgs):
@@ -39,6 +43,15 @@ func handle_grid_mouse_click(event: GridCellButtonArgs):
 		return
 	
 	if event.button_mask == MOUSE_BUTTON_LEFT:
-		var cell: CellNode = c_map.get_at_v2(event.at)
-		cell.ground.ground_id = brush_id
+		c_map.create_at_v3(Vector3i(event.at.x, event.at.y, 0))
+		
+		var cell: Cell = c_map.get_at_v2(event.at)		
+		var tile = GroundTile.new()
+		
+		tile.direction = Direction.NORTH
+		tile.tile = brush_id.registry_id
+		
+		cell.add_ground_tile(tile)
+		
+		c_map.update_at(Vector3i(event.at.x, event.at.y, 0))
 
