@@ -11,6 +11,7 @@ func _get_configuration_warnings():
 		if is_inside_tree() && get_child_count() == 0 else []
 
 
+@onready var m_patch: MapPatch = MapPatch.new()
 @onready var m_grid: IsometricGrid = $Grid
 
 
@@ -38,23 +39,32 @@ func _get_configuration_warnings():
 
 
 var count: int:
-	get: return m_grid.count
+	get: return m_patch.size()
 
 
 func _create_cell() -> CellNode:
 	return SCENE_CellNode.instantiate()
 
+func _update_at(at: Vector3i) -> void:
+	if !m_patch.has_v3i(at):
+		m_grid.remove_v3i(at)
+		return
+	
+	var curr_node = m_grid.get_at_v3i(at)
+	var curr_cell = m_patch.get_at_v3i(at)
 
 func _ready():
 	m_grid.size = cell_size
 
 func is_empty_v3(at: Vector3i) -> bool:
-	return m_grid.is_empty_v3i(at)
+	return !m_patch.has_v3i(at)
 
 func try_get_at_v3(at: Vector3i) -> CellNode:
 	return m_grid.get_at_v3i(at)
 	
 func get_at_v3(at: Vector3i) -> CellNode:
+	var cell = m_patch.get_
+	
 	var res = m_grid.get_at_v3i(at)
 	
 	if res == null:
@@ -73,9 +83,6 @@ func create_at_v3(at: Vector3i) -> void:
 	m_grid.set_at_v3i(at, _create_cell())
 
 func clear_at_v3(at: Vector3i) -> bool:
-	print(at)
-	
-	
 	return m_grid.remove_v3i(at)
 	
 func clear_at_v2(at: Vector2i, z: int = 0) -> bool:

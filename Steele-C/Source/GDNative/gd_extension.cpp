@@ -10,6 +10,7 @@
 #include "GDNative/DataTypes/Area.h"
 #include "GDNative/DataTypes/IDMap.h"
 #include "GDNative/DataTypes/Map/Cell.h"
+#include "GDNative/DataTypes/Map/MapPatch.h"
 
 
 using namespace godot;
@@ -35,6 +36,7 @@ void initialize_steele_module(ModuleInitializationLevel p_level)
 	ClassDB::register_class<GroundTile>();
 	ClassDB::register_class<Ground>();
 	ClassDB::register_class<Cell>();
+	ClassDB::register_class<MapPatch>();
 	
 	
 	// RNG

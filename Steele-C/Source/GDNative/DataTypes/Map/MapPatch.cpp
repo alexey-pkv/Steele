@@ -3,7 +3,25 @@
 
 void MapPatch::_bind_methods()
 {
+	ClassDB::bind_method(D_METHOD("area"), &MapPatch::area);
+	ClassDB::bind_method(D_METHOD("size"), &MapPatch::size);
 	
+	
+	ClassDB::bind_method(D_METHOD("has", "x", "y", "z"), &MapPatch::has);
+	ClassDB::bind_method(D_METHOD("has_v3i", "at"), &MapPatch::has_v3i);
+	ClassDB::bind_method(D_METHOD("has_v2i", "at"), &MapPatch::has_v2i);
+	
+	ClassDB::bind_method(D_METHOD("get", "x", "y", "z"), &MapPatch::get);
+	ClassDB::bind_method(D_METHOD("get_v3i", "at"), &MapPatch::get_v3i);
+	ClassDB::bind_method(D_METHOD("get_v2i", "at"), &MapPatch::get_v2i);
+	
+	ClassDB::bind_method(D_METHOD("set", "x", "y", "z", "c"), &MapPatch::set);
+	ClassDB::bind_method(D_METHOD("set_v3i", "at", "c"), &MapPatch::set_v3i);
+	ClassDB::bind_method(D_METHOD("set_v2i", "at", "c"), &MapPatch::set_v2i);
+	
+	ClassDB::bind_method(D_METHOD("remove", "x", "y", "z"), &MapPatch::remove);
+	ClassDB::bind_method(D_METHOD("remove_v3i", "at"), &MapPatch::remove_v3i);
+	ClassDB::bind_method(D_METHOD("remove_v2i", "at"), &MapPatch::remove_v2i);
 }
 
 
@@ -14,9 +32,14 @@ MapPatch::MapPatch(Steele::SimpleMap<Steele::Cell>& source) :
 }
 
 
-godot::Area MapPatch::area() const
+Ref<godot::Area> MapPatch::area() const
 {
-	return m_patch.get_area();
+	Ref<Area> area;
+	
+	area.instantiate();
+	area->steele_area() = m_patch.get_area();
+	
+	return area; 
 }
 
 int MapPatch::size() const

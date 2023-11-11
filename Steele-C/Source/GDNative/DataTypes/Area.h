@@ -54,7 +54,8 @@ namespace godot
 
 		godot::String debug_info() const;
 		godot::String debug_info_extended(int fill, int empty, bool withBoarder = true) const;
-
+		
+		
 	public:
 		bool is_equal(const Ref<Area>& a) const;
 
@@ -65,11 +66,17 @@ namespace godot
 		void combine_v2i(const v2i& v);
 		void combine_a(const Ref<Area>& a);
 		void combine_r2i(const Rect2i& r);
-
+		
+		
 	public:
 		static Ref<Area> from_string(const godot::String& str);
 		static Ref<Area> ZERO();
 		static Ref<Area> ONE();
+		
+		
+	public:
+		inline Steele::Area& steele_area() { return m_area; }
+		inline const Steele::Area& steele_area() const { return m_area; }
 	};
 }
 

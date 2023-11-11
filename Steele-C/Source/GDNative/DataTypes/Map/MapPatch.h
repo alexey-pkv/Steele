@@ -32,7 +32,7 @@ namespace godot
 		
 		
 	public:
-		godot::Area area() const;
+		Ref<godot::Area> area() const;
 		int size() const;
 		
 		bool has(int x, int y, int z) const;

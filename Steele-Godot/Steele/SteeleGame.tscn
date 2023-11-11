@@ -1,0 +1,44 @@
+[gd_scene load_steps=5 format=3 uid="uid://b8jrk1lnbhioc"]
+
+[ext_resource type="PackedScene" uid="uid://uioqp0kbqpey" path="res://Game/Scenes/LoadingScene.tscn" id="1_8hdt7"]
+[ext_resource type="Script" path="res://Steele/SteeleGame.gd" id="1_hd7sr"]
+[ext_resource type="PackedScene" uid="uid://csb0kvos7rijd" path="res://Game/Engine/Resources/GameResourcesScene.tscn" id="2_38qwa"]
+[ext_resource type="Script" path="res://Game/Graphics/World/Map/MapPatchNode.gd" id="4_ljb4l"]
+
+[node name="SteeleGame" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_hd7sr")
+
+[node name="LoadingScene" parent="." node_paths=PackedStringArray("resources_node") instance=ExtResource("1_8hdt7")]
+visible = false
+layout_mode = 1
+resources_node = NodePath("../GameResources")
+
+[node name="GameResources" parent="." instance=ExtResource("2_38qwa")]
+
+[node name="Main" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Scene" type="Node2D" parent="Main"]
+
+[node name="Me" type="ColorRect" parent="Main/Scene"]
+offset_left = 538.0
+offset_top = 268.0
+offset_right = 578.0
+offset_bottom = 308.0
+color = Color(0.615686, 0.423529, 0.615686, 1)
+
+[node name="MapPatchNode" type="Node2D" parent="Main/Scene"]
+script = ExtResource("4_ljb4l")
+
+[connection signal="on_complete" from="LoadingScene" to="." method="handle_loading_scene_complete"]

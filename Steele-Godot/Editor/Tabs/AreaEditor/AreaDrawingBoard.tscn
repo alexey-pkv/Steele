@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://b4neuseb6w4hi"]
 
 [ext_resource type="Script" path="res://Editor/Tabs/AreaEditor/AreaDrawingBoard.gd" id="1_vsdmn"]
-[ext_resource type="PackedScene" uid="uid://bg77q3rcd023p" path="res://Editor/UI/Board/DrawingBoard.tscn" id="2_cfg7e"]
+[ext_resource type="PackedScene" uid="uid://bg77q3rcd023p" path="res://Editor/Nodes/Board/DrawingBoard.tscn" id="2_cfg7e"]
 [ext_resource type="PackedScene" uid="uid://b2breuq480gc0" path="res://Game/Graphics/World/Map/MapPatchNode.tscn" id="3_io1wf"]
 
 [node name="AreaDrawingBoard" type="Control"]

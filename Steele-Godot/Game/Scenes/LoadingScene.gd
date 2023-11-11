@@ -3,15 +3,17 @@ extends Control
 class_name LoadingScene
 
 
-const WITH_TIMERS = false
-
-
 var _total: float = 0
 
+
+@export var with_delay: bool = false:
+	get: return with_delay
+	set(b): with_delay = b
 
 @export var resources_node: GameResourcesScene: 
 	get: return resources_node 
 	set(node): resources_node = node
+
 
 var async_state: AsyncState:
 	get:
@@ -36,7 +38,7 @@ func _load_file(count: int, file_data: RLItemData) -> void:
 		resources_node.load_file(file_data.full_path)
 	
 func _on_loaded(_count: int) -> void:
-	if WITH_TIMERS:
+	if with_delay:
 		$TimerComplete.start()
 	else:
 		on_complete.emit()
@@ -51,7 +53,7 @@ func exec_begin() -> void:
 			async_state)
 
 func begin() -> void:
-	if WITH_TIMERS:
+	if with_delay:
 		$TimerBegin.start()
 	else:
 		exec_begin()
