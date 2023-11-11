@@ -96,7 +96,6 @@ text = "This is the settings tab"
 [node name="LoadingScene" parent="." node_paths=PackedStringArray("resources_node") instance=ExtResource("4_t2uie")]
 visible = false
 layout_mode = 1
-with_delay = null
 resources_node = NodePath("../GameResources")
 
 [node name="GameResources" parent="." instance=ExtResource("5_gk1vs")]

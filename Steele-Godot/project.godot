@@ -19,6 +19,10 @@ config/icon="res://icon.svg"
 
 window/stretch/aspect="expand"
 
+[editor]
+
+movie_writer/fps=100
+
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0

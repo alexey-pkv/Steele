@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://b8jrk1lnbhioc"]
+[gd_scene load_steps=6 format=3 uid="uid://b8jrk1lnbhioc"]
 
 [ext_resource type="PackedScene" uid="uid://uioqp0kbqpey" path="res://Game/Scenes/LoadingScene.tscn" id="1_8hdt7"]
 [ext_resource type="Script" path="res://Steele/SteeleGame.gd" id="1_hd7sr"]
 [ext_resource type="PackedScene" uid="uid://csb0kvos7rijd" path="res://Game/Engine/Resources/GameResourcesScene.tscn" id="2_38qwa"]
-[ext_resource type="Script" path="res://Game/Graphics/World/Map/MapPatchNode.gd" id="4_ljb4l"]
+[ext_resource type="PackedScene" uid="uid://b2breuq480gc0" path="res://Game/Graphics/World/Map/MapPatchNode.tscn" id="4_uypxl"]
+[ext_resource type="Texture2D" uid="uid://n37q2niyq4eg" path="res://Resources/TestResources/Ground/arrow.e.png" id="5_8h0lf"]
 
 [node name="SteeleGame" type="Control"]
 layout_mode = 3
@@ -22,23 +23,30 @@ resources_node = NodePath("../GameResources")
 [node name="GameResources" parent="." instance=ExtResource("2_38qwa")]
 
 [node name="Main" type="Control" parent="."]
+clip_contents = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(3, 3)
+metadata/_edit_use_anchors_ = true
 
 [node name="Scene" type="Node2D" parent="Main"]
 
-[node name="Me" type="ColorRect" parent="Main/Scene"]
-offset_left = 538.0
-offset_top = 268.0
-offset_right = 578.0
-offset_bottom = 308.0
-color = Color(0.615686, 0.423529, 0.615686, 1)
+[node name="MapPatchNode" parent="Main/Scene" node_paths=PackedStringArray("mouse_control_node") instance=ExtResource("4_uypxl")]
+mouse_control_node = NodePath("../..")
 
-[node name="MapPatchNode" type="Node2D" parent="Main/Scene"]
-script = ExtResource("4_ljb4l")
+[node name="Me" type="Node2D" parent="Main/Scene"]
+
+[node name="TextureRect" type="TextureRect" parent="Main/Scene/Me"]
+offset_left = -16.0
+offset_top = -8.0
+offset_right = 48.0
+offset_bottom = 24.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_8h0lf")
 
 [connection signal="on_complete" from="LoadingScene" to="." method="handle_loading_scene_complete"]
+[connection signal="on_click" from="Main/Scene/MapPatchNode" to="." method="handle_map_patch_node_on_click"]

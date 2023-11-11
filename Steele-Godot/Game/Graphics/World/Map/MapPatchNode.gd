@@ -53,8 +53,10 @@ func _update_at(at: Vector3i) -> void:
 	var curr_node = m_grid.get_at_v3i(at)
 	var curr_cell = m_patch.get_at_v3i(at)
 
+
 func _ready():
 	m_grid.size = cell_size
+
 
 func is_empty_v3(at: Vector3i) -> bool:
 	return !m_patch.has_v3i(at)
