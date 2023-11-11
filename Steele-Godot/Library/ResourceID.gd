@@ -80,7 +80,7 @@ func register_child(local_path: String) -> int:
 
 func register_id() -> int:
 	if registry_id == 0:
-		IDMap.add(path)
+		registry_id = IDMap.add(path)
 	
 	return registry_id
 

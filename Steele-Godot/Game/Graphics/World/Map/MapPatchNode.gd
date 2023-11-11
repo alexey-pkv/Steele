@@ -64,11 +64,10 @@ func update_at(at: Vector3i) -> void:
 		m_grid.set_at_v3i(at, curr_node)
 	
 	var ground = curr_node.ground
-	var t = curr_cell.get_ground().tiles()
 	var tile: GroundTile = curr_cell.get_ground().tiles()[0]
 	
 	ground.direction = tile.direction
-	ground.ground_id = tile.tile
+	ground.ground = tile.tile
 
 
 func is_empty_v3(at: Vector3i) -> bool:
@@ -85,6 +84,13 @@ func get_at_v3(at: Vector3i) -> Cell:
 	
 func get_at_v2(at: Vector2i, z: int = 0) -> Cell:
 	return get_at_v3(Vector3i(at.x, at.y, z))
+	
+func set_at_v3(at: Vector3i, c: Cell) -> void:
+	m_map.set_v3i(at, c)
+	update_at(at)
+	
+func set_at_v2(at: Vector2i, c: Cell) -> void:
+	set_at_v3(Vector3i(at.x, at.y, 0), c)
 	
 func create_at_v3(at: Vector3i) -> void:
 	if m_map.has_v3i(at):
