@@ -22,6 +22,7 @@ var c_resource_explorer: ResourceExplorer:
 
 
 func _ready():
+
 	c_main_view.visible = false
 	
 	c_loading_scene.visible = true
