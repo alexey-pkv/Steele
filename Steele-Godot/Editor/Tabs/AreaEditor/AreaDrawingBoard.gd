@@ -50,7 +50,11 @@ var last_dir = Direction.NORTH
 
 func handle_grid_mouse_motion(event: GridCellMotionArgs):
 	if event.button_mask == MOUSE_BUTTON_RIGHT:
-		c_map.clear_at_v2(event.at, 0)
+		var line = Vectors.get_line(event.previous_at, event.at)
+		
+		for v in line:
+			c_map.clear_at_v2(v, 0)
+			
 		return
 	
 	if brush_id == null:
