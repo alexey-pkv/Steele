@@ -18,6 +18,8 @@ var c_rng: RNGNode:
 
 
 func _ready():
+	
+	
 	var root: TreeItem = $Tree.create_item(null)
 	root.set_text(0, "root ")
 	
@@ -26,8 +28,6 @@ func _ready():
 		i.set_text(0, "hell world " + str(a))
 	
 	
-func a():
-	pass
 
 var lastrow = 0
 var lastnoe = null

@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3 uid="uid://w2lxykjtb7an"]
+
+[ext_resource type="Script" path="res://Editor/Graphics/Palette/Nodes/RecordsList.gd" id="1_op0js"]
+
+[node name="RecordsList" type="Control"]
+clip_contents = true
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_op0js")
+
+[node name="Container" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+theme_override_constants/separation = 1

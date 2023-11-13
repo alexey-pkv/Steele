@@ -24,7 +24,6 @@ grow_vertical = 2
 theme_override_constants/autohide = 0
 
 [node name="AreaDrawingBoard" parent="_split_container" instance=ExtResource("2_laws4")]
-visible = true
 layout_mode = 2
 size_flags_horizontal = 3
 

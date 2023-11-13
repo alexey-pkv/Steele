@@ -6,7 +6,6 @@
 [ext_resource type="Script" path="res://Library/Atoms/Map/IsometricGrid.gd" id="4_sdssb"]
 
 [node name="AreaDrawingBoard" type="Control"]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

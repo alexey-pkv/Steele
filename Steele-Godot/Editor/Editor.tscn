@@ -1,9 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://cfnck60pwh4xy"]
+[gd_scene load_steps=6 format=3 uid="uid://cfnck60pwh4xy"]
 
 [ext_resource type="Script" path="res://Editor/Editor.gd" id="1_lu3ps"]
 [ext_resource type="PackedScene" uid="uid://cdfq2h1exnc4u" path="res://Editor/Nodes/Editor_Tree.tscn" id="2_t1ew3"]
 [ext_resource type="Script" path="res://Editor/Nodes/Editor_TabContainer.gd" id="3_ielen"]
-[ext_resource type="PackedScene" uid="uid://vkofhmmva7ll" path="res://Editor/Graphics/ResourceExplorer/ResourceExplorer.tscn" id="4_gpc3q"]
 [ext_resource type="PackedScene" uid="uid://uioqp0kbqpey" path="res://Game/Scenes/LoadingScene.tscn" id="4_t2uie"]
 [ext_resource type="PackedScene" uid="uid://csb0kvos7rijd" path="res://Game/Engine/Resources/GameResourcesScene.tscn" id="5_gk1vs"]
 
@@ -69,12 +68,7 @@ layout_mode = 2
 [node name="TabContainer" type="TabContainer" parent="GridContainer/HSplitContainer/SettingsContainer"]
 layout_mode = 2
 
-[node name="ResourceExplorer" parent="GridContainer/HSplitContainer/SettingsContainer/TabContainer" instance=ExtResource("4_gpc3q")]
-custom_minimum_size = Vector2(300, 0)
-layout_mode = 2
-
 [node name="Properties" type="Control" parent="GridContainer/HSplitContainer/SettingsContainer/TabContainer"]
-visible = false
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 

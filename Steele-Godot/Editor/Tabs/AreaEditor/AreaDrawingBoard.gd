@@ -101,4 +101,6 @@ func handle_grid_mouse_click(event: GridCellButtonArgs):
 		cell.add_ground_tile(tile)
 		
 		c_map.set_at_v2(event.at, cell)
+	
+	print(c_map.m_map.to_json())
 

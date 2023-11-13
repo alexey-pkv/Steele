@@ -54,6 +54,10 @@ namespace godot
 		bool remove(int x, int y, int z);
 		bool remove_v3i(v3i at);
 		bool remove_v2i(v2i at);
+	
+	
+	public:
+		godot::String to_json() const;
 	};
 }
 

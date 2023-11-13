@@ -1,0 +1,34 @@
+[gd_scene load_steps=4 format=3 uid="uid://bcd6177pubaba"]
+
+[ext_resource type="Script" path="res://Editor/Graphics/Palette/Palette.gd" id="1_6uqn1"]
+[ext_resource type="PackedScene" uid="uid://w2lxykjtb7an" path="res://Editor/Graphics/Palette/Nodes/RecordsList.tscn" id="2_r1sy6"]
+[ext_resource type="PackedScene" uid="uid://vkofhmmva7ll" path="res://Editor/Graphics/ResourceExplorer/ResourceExplorer.tscn" id="3_h7set"]
+
+[node name="Palette" type="Control"]
+clip_contents = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_6uqn1")
+
+[node name="cont" type="HSplitContainer" parent="."]
+clip_contents = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RecordsList" parent="cont" instance=ExtResource("2_r1sy6")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ResourceExplorer" parent="cont" instance=ExtResource("3_h7set")]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+
+[connection signal="on_selected" from="cont/ResourceExplorer" to="." method="handle_resource_selected"]

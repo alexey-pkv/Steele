@@ -99,6 +99,9 @@ func equals(to) -> bool:
 	
 	return self == to || path == to.path
 
+func get_parent() -> ResourceID:
+	return m_parent
+
 static func _remove_prefix(p_path: String) -> String:
 	var index = p_path.find(":/")
 	

@@ -22,6 +22,8 @@ void MapPatch::_bind_methods()
 	ClassDB::bind_method(D_METHOD("remove", "x", "y", "z"), &MapPatch::remove);
 	ClassDB::bind_method(D_METHOD("remove_v3i", "at"), &MapPatch::remove_v3i);
 	ClassDB::bind_method(D_METHOD("remove_v2i", "at"), &MapPatch::remove_v2i);
+	
+	ClassDB::bind_method(D_METHOD("to_json"), &MapPatch::to_json);
 }
 
 
@@ -140,4 +142,14 @@ bool MapPatch::remove_v3i(v3i at)
 bool MapPatch::remove_v2i(v2i at)
 {
 	return m_patch.remove(at);
+}
+
+
+godot::String MapPatch::to_json() const
+{
+	nlohmann::json target;
+	
+	m_patch.json_write(target);
+	
+	return { target.dump(1, '\t').c_str() };
 }
