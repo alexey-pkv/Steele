@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://cdfq2h1exnc4u" path="res://Editor/Nodes/Editor_Tree.tscn" id="2_t1ew3"]
 [ext_resource type="Script" path="res://Editor/Nodes/Editor_TabContainer.gd" id="3_ielen"]
 [ext_resource type="PackedScene" uid="uid://uioqp0kbqpey" path="res://Game/Scenes/LoadingScene.tscn" id="4_t2uie"]
-[ext_resource type="PackedScene" uid="uid://csb0kvos7rijd" path="res://Game/Engine/Resources/GameResourcesScene.tscn" id="5_gk1vs"]
+[ext_resource type="PackedScene" uid="uid://csb0kvos7rijd" path="res://Game/Nodes/GameResourcesScene.tscn" id="5_gk1vs"]
 
 [node name="EditorScene" type="Control"]
 layout_mode = 3

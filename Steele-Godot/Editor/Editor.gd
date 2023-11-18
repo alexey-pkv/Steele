@@ -35,17 +35,17 @@ func _on_loading_scene_complete():
 	c_loading_scene.queue_free()
 	# c_resource_explorer.update_items()
 	
-	c_editor_tabs.open_test(last_id.create_child_i(0))
+	# c_editor_tabs.open_test(last_id.create_child_i(0))
 
 func _on_game_resources_failed(path: String) -> void:
 	print("Failed to load: " + path)
 
-var last_id: ResourceID
+var last_id: int
 
-func _on_game_resources_loaded(id: ResourceID) -> void:
+func _on_game_resources_loaded(id: int) -> void:
 	last_id = id
 	c_tree.add_resource(id)
 
-func _handle_explorer_open(id):
+func _handle_explorer_open(id: int):
 	c_editor_tabs.open_resource(id)
 

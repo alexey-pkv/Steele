@@ -10,6 +10,7 @@ anchors_preset = 10
 anchor_right = 1.0
 grow_horizontal = 2
 script = ExtResource("1_tav4g")
+preview_mode = 1
 resource_name = "Hello"
 resource_path = "steele:what_what:1"
 resource_weight = 50
@@ -79,6 +80,7 @@ theme_override_constants/margin_bottom = 5
 
 [node name="Weight" type="LineEdit" parent="HBoxContainer/margin_weight"]
 layout_mode = 2
+text = "50"
 
 [node name="PreviewTimer" type="Timer" parent="."]
 

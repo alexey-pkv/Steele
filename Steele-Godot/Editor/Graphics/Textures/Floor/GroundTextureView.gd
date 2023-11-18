@@ -32,14 +32,17 @@ var size: Vector2:
 		cell_size.y
 	)
 
-var ground_id: ResourceID:
-	get: return ground_id
+@export var floor_id: int:
+	get: return floor_id
 	set(value):
-		ground_id = value
+		if floor_id == value:
+			return
+		
+		floor_id = value
 		_redraw()
 
 
-func _sprites() -> Array[GroundSprite2D]:
+func _sprites() -> Array[FloorSprite2D]:
 	if !is_inside_tree():
 		return []
 	
@@ -70,10 +73,10 @@ func _redraw() -> void:
 		if sprite == null:
 			continue
 		
-		if ground_id == null:
-			sprite.ground_id = null
-		else:
-			sprite.ground_id	= ground_id
+		sprite.floor_id = floor_id
+		
+		if floor_id != SteeleID.NULL:
+			sprite.floor_id		= floor_id
 			sprite.direction	= dir
 			sprite.position		= pos
 		

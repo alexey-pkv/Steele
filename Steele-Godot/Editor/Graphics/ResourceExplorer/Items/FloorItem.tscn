@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://sy3evx43qg2w"]
 
 [ext_resource type="Script" path="res://Editor/Graphics/ResourceExplorer/Items/FloorItem.gd" id="1_t2wko"]
-[ext_resource type="Script" path="res://Game/Graphics/World/Map/Cell/GroundSprite2D.gd" id="2_v5b5p"]
+[ext_resource type="Script" path="res://Game/Graphics/World/Map/Cell/FloorSprite2D.gd" id="2_wtxlj"]
 
 [node name="FloorItem" type="Control"]
 custom_minimum_size = Vector2(96, 48)
@@ -10,6 +10,9 @@ anchors_preset = 0
 offset_right = 96.0
 offset_bottom = 48.0
 script = ExtResource("1_t2wko")
+
+[node name="Floor" type="Sprite2D" parent="."]
+script = ExtResource("2_wtxlj")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 visible = false
@@ -20,10 +23,5 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.411765, 0.411765, 0.411765, 1)
-
-[node name="GroundSprite2D" type="Sprite2D" parent="."]
-scale = Vector2(3, 3)
-offset = Vector2(16, 8)
-script = ExtResource("2_v5b5p")
 
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]

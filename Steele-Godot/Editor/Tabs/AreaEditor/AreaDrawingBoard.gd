@@ -6,7 +6,7 @@ class_name AreaDrawingBoard
 const SCENE_CellNode = preload("res://Game/Graphics/World/Map/CellNode.tscn")
 
 
-var brush_id: ResourceID = null:
+var brush_id: int = SteeleID.NULL:
 	get: return brush_id
 	set(b): brush_id = b
 	
@@ -23,7 +23,7 @@ var current_hover_y = null
 
 	
 func draw_placeholder(event: GridCellMotionArgs):
-	if brush_id == null:
+	if brush_id == SteeleID.NULL:
 		return
 	
 	if (current_hover_x == event.at.x && current_hover_y == event.at.y):
@@ -37,7 +37,7 @@ func draw_placeholder(event: GridCellMotionArgs):
 	current_hover_x = event.at.x
 	current_hover_y = event.at.y
 	
-	cell.ground.ground = brush_id.registry_id;
+	cell.floor.floor_id = brush_id;
 	
 	c_hover.set_at(current_hover_x, current_hover_y, 0, cell)
 
@@ -71,7 +71,7 @@ func handle_grid_mouse_motion(event: GridCellMotionArgs):
 		var tile = GroundTile.new()
 		
 		tile.direction = last_dir
-		tile.tile = brush_id.registry_id
+		tile.tile = brush_id
 		
 		last_dir = Direction.rotate_clockwise(last_dir)
 		
@@ -95,7 +95,7 @@ func handle_grid_mouse_click(event: GridCellButtonArgs):
 		var tile = GroundTile.new()
 		
 		tile.direction = last_dir
-		tile.tile = brush_id.registry_id
+		tile.tile = brush_id
 		
 		last_dir = Direction.rotate_clockwise(last_dir)
 		cell.add_ground_tile(tile)

@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://4yt3tih4wsk4"]
 
 [ext_resource type="Script" path="res://Test_Scene.gd" id="1_w5nkg"]
-[ext_resource type="PackedScene" uid="uid://b2breuq480gc0" path="res://Game/Graphics/World/Map/MapPatchNode.tscn" id="2_psumf"]
+[ext_resource type="Script" path="res://Game/Nodes/ResourcesNode.gd" id="3_f2h5x"]
 
 [node name="Main" type="Control"]
 layout_mode = 3
@@ -13,20 +13,9 @@ grow_vertical = 2
 script = ExtResource("1_w5nkg")
 metadata/_edit_vertical_guides_ = []
 
-[node name="MapPatchNode" parent="." node_paths=PackedStringArray("mouse_control_node") instance=ExtResource("2_psumf")]
+[node name="ResourcesNode" type="Node" parent="."]
+script = ExtResource("3_f2h5x")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(100, 100)
 scale = Vector2(3, 3)
-mouse_control_node = NodePath("..")
-
-[node name="Tree" type="Tree" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = -767.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[connection signal="on_click" from="MapPatchNode" to="." method="_on_grid_mouse_events_node_on_click"]
-[connection signal="on_hover" from="MapPatchNode" to="." method="_on_grid_mouse_events_node_on_hover"]
-[connection signal="custom_popup_edited" from="Tree" to="." method="_on_tree_custom_popup_edited"]
-[connection signal="gui_input" from="Tree" to="." method="_on_tree_gui_input"]

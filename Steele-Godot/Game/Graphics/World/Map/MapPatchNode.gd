@@ -63,11 +63,11 @@ func update_at(at: Vector3i) -> void:
 		curr_node = _create_cell()
 		m_grid.set_at_v3i(at, curr_node)
 	
-	var ground = curr_node.ground
 	var tile: GroundTile = curr_cell.get_ground().tiles()[0]
+	var _floor = curr_node.floor
 	
-	ground.direction = tile.direction
-	ground.ground = tile.tile
+	_floor.direction = tile.direction
+	_floor.floor_id = tile.tile
 
 
 func is_empty_v3(at: Vector3i) -> bool:

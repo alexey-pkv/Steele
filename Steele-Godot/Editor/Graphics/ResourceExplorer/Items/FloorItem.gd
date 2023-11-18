@@ -4,9 +4,9 @@ class_name FloorItem
 
 
 
-var c_floor: GroundSprite2D:
+var c_floor: FloorSprite2D:
 	get:
-		return $GroundSprite2D if is_inside_tree() else null
+		return $Floor if is_inside_tree() else null
 
 
 func _update() -> void:
@@ -15,7 +15,7 @@ func _update() -> void:
 	if f == null:
 		return
 	
-	f.ground_id = resource_id
+	f.floor_id = resource_id
 
 
 func _ready():
@@ -39,4 +39,4 @@ func deselect() -> void:
 	$ColorRect.visible = false
 
 
-signal on_pressed(id: ResourceID)
+signal on_pressed(id: int)

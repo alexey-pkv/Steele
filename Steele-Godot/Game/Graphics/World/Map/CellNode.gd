@@ -3,9 +3,8 @@ extends Node2D
 class_name CellNode
 
 
-var ground: GroundSprite2D: 
+var floor: FloorSprite2D: 
 	get: return $Floor
-
 
 func _get_configuration_warnings():
 	return ["Scene incorrectly imported"] \

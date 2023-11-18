@@ -33,7 +33,7 @@ var c_main: GridContainer:
 		cell_size = v
 		_update()
 
-var selected_id: ResourceID = null: 
+var selected_id: int = SteeleID.NULL: 
 	get: return selected_id
 
 
@@ -50,12 +50,12 @@ func _clear() -> void:
 	if c_main == null:
 		return
 	
-	selected_id = null
+	selected_id = SteeleID.NULL
 	
 	for child in c_main.get_children():
 		child.queue_free()
 
-func _add_floot(resource_id: ResourceID) -> void:
+func _add_floot(resource_id: int) -> void:
 	var item = FloorItemInstace.instantiate()
 	var main = c_main
 	
@@ -72,31 +72,23 @@ func _add_floot(resource_id: ResourceID) -> void:
 	main.add_child(item)
 
 
-func _add_atlas(data: AtlasData) -> void:
-	for id in data.get_child_ids():
+func _add_atlas(data: ResourceFloorAtlas) -> void:
+	for id in data.children:
 		_add_floot(id)
 
 func _update() -> void:
 	_update_margin()
 	_clear()
 	
-	var global = TemplatesRegistryNode.global()
+	var all = Resources.get_all_of_type(SteeleResource.TYPE_FLOOR_ATLAS)
 	
-	if global == null:
-		return
-	
-	var registry = global.registry
-	
-	for key in registry:
-		var item: AbstractRegistryObject = registry[key]
-		
-		if item.m_type == TemplateType.TYPE_GROUND_ATLAS:
-			_add_atlas(item)
+	for key in all:
+		_add_atlas(all[key])
 		
 
-func _handle_item_pressed(id: ResourceID) -> void:
+func _handle_item_pressed(id: int) -> void:
 	for child in c_main.get_children():
-		if id.equals(child.resource_id):
+		if id == child.resource_id:
 			child.select()
 		else:
 			child.deselect()
@@ -114,4 +106,4 @@ func update_items() -> void:
 	_update()
 
 
-signal on_selected(id: ResourceID)
+signal on_selected(id: int)

@@ -27,10 +27,10 @@ var is_selected: bool:
 		var selected = get_selected()
 		return selected != null && selected.get_metadata(0) != null
 
-var selected_id: ResourceID: 
+var selected_id: int: 
 	get:
 		var selected = get_selected()
-		return selected.get_metadata(0) if selected != null else null
+		return selected.get_metadata(0) if selected != null else SteeleID.NULL
 
 var root: TreeItem: 
 	get:
@@ -40,8 +40,9 @@ var root: TreeItem:
 		return root
 
 
-func add_resource(id: ResourceID) -> void:
-	var parts = id.get_path_parts()
+func add_resource(id: int) -> void:
+	var data = Resources.get_id(id)
+	var parts = data.get_path_parts()
 	var item = Editor_Tree.get_or_create_path(root, parts)
 	
 	
@@ -49,12 +50,8 @@ func add_resource(id: ResourceID) -> void:
 	item.set_cell_mode(1, TreeItem.CELL_MODE_CUSTOM)
 	
 	
-func remove_resource(_id: ResourceID) -> void:
+func remove_resource(_id: int) -> void:
 	pass
-
-func move_resource(prev: ResourceID, new: ResourceID) -> void:
-	remove_resource(prev)
-	add_resource(new)
 
 
 func handle_item_activated():
@@ -64,5 +61,5 @@ func handle_item_activated():
 	on_open.emit(selected_id)
 
 
-signal on_open(id: ResourceID)
+signal on_open(id: int)
 

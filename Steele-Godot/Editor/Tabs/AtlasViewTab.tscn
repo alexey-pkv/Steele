@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://eb8rbaosovd5"]
 
 [ext_resource type="Script" path="res://Editor/Tabs/AtlasViewTab.gd" id="1_ohs7v"]
-[ext_resource type="PackedScene" uid="uid://bg77q3rcd023p" path="res://Editor/Nodes/Board/DrawingBoard.tscn" id="2_fev4j"]
+[ext_resource type="PackedScene" uid="uid://bg77q3rcd023p" path="res://Editor/Graphics/Board/DrawingBoard.tscn" id="2_fev4j"]
 [ext_resource type="PackedScene" uid="uid://d3af3unnkt3g3" path="res://Editor/Graphics/Textures/Floor/GroundAtlasView.tscn" id="3_dqqau"]
 
 [node name="AtlasViewTab" type="Control"]

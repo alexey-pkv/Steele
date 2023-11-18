@@ -3,7 +3,7 @@ extends Control
 class_name PaletteRecord
 
 
-const SCENE_GroundSprite2D = preload("res://Game/Graphics/World/Map/Cell/GroundSprite2D.gd")
+const SCENE_FloorSprite2D = preload("res://Game/Graphics/World/Map/Cell/FloorSprite2D.gd")
 
 
 var m_update_pending: bool = false
@@ -17,19 +17,24 @@ var c_preview_node: Node2D:
 	get: return $HBoxContainer/margin_preview/node_preview if is_inside_tree() else null
 
 
-var resource_id: ResourceID:
+@export var resource_id: int:
 	get: return resource_id
 	set(n): 
+		if resource_id == n:
+			return
+		
 		resource_id = n
 		
-		if n == null:
+		var res = Resources.get_id(n)
+		
+		if res == null:
 			unset_preview()
 			
 			resource_name = ""
 			resource_path = ""
 		else:
-			resource_name = n.short_name
-			resource_path = n.path
+			resource_name = res.name
+			resource_path = res.full_path
 
 
 @export var preview_mode: int = 0:
@@ -58,6 +63,7 @@ var resource_id: ResourceID:
 			
 		resource_path = n
 		_queue_update()
+
 
 @export var resource_weight: int:
 	get: return resource_weight
@@ -95,21 +101,16 @@ func _queue_update() -> void:
 	_update.call_deferred()
 
 func _update_preview() -> void:
-	var data = TemplatesRegistryNode.global().get_data(resource_id)
-	
-	if data != null || !resource_id.is_child:
-		return
-	
-	data = TemplatesRegistryNode.global().get_data(resource_id.get_parent())
+	var data = Resources.get_id(resource_id)
 	
 	if data == null:
 		return
 	
-	if data.type == TemplateType.TYPE_GROUND_ATLAS:
-		var node = SCENE_GroundSprite2D.new()
+	if data is ResourceFloor:
+		var node = SCENE_FloorSprite2D.new()
 		
 		node.scale = Vector2(3, 3)
-		node.ground_id = resource_id
+		node.floor_id = resource_id
 		
 		set_preview(node)
 
@@ -126,7 +127,7 @@ func _update() -> void:
 	
 	if resource_weight == 1:
 		if $HBoxContainer/margin_weight/Weight != get_viewport().gui_get_focus_owner():
-			$HBoxContainer/margin_weight/Weight.text = str(resource_weight)
+			$HBoxCoAntainer/margin_weight/Weight.text = str(resource_weight)
 		elif curr_weight_text != "" && curr_weight_text != "1":
 			$HBoxContainer/margin_weight/Weight.text = str(resource_weight)
 	elif str(resource_weight) != curr_weight_text:
@@ -197,7 +198,7 @@ func handle_preview_timer_timeout() -> void:
 	if node == null: 
 		return
 	
-	if node is GroundSprite2D:
+	if node is FloorSprite2D:
 		m_direction = Direction.rotate_clockwise(m_direction)
 		node.direction = m_direction
 
@@ -206,4 +207,4 @@ func handle_weight_focus_exited():
 		$HBoxContainer/margin_weight/Weight.text = str(resource_weight)
 
 
-signal on_weight_changed(id: ResourceID, weight: int)
+signal on_weight_changed(id: int, weight: int)

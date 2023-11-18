@@ -46,20 +46,22 @@ var size: Vector2:
 			_cell_size.y * _rows + _padding.y * (rows - 1)
 		)
 
-var atlas_id: ResourceID:
+var atlas_id: int:
 	get: return atlas_id
 	set(value):
-		if value != null:
-			if !TemplatesRegistryNode.global().has_ground_atlas(value.path):
-				push_error("Atlas with ID " + value.path + " not found")
-				return
+		if value == atlas_id:
+			return
+		
+		if value != SteeleID.NULL && !Resources.validate_type(value, SteeleResource.TYPE_FLOOR_ATLAS):
+			push_error("Atlas with ID " + str(value) + " not found")
+			return
 		
 		atlas_id = value
 		_update()
 
 
-func _get_atlas_data() -> AtlasData:
-	return TemplatesRegistryNode.global().get_ground_atlas(atlas_id)
+func _get_atlas_data() -> ResourceFloorAtlas:
+	return Resources.get_id_type(atlas_id, SteeleResource.TYPE_FLOOR_ATLAS)
 
 func _clear() -> void:
 	var i = 0
@@ -71,14 +73,14 @@ func _clear() -> void:
 			child.queue_free()
 		
 
-func _update_view(view: GroundTextureView, id: ResourceID, pos: Vector2) -> void:
+func _update_view(view: GroundTextureView, id: int, pos: Vector2) -> void:
 	view.position	= pos
 	view.cell_size	= cell_size
-	view.ground_id	= id
+	view.floor_id	= id
 	view.padding	= padding.x
 
 
-func _add_view(id: ResourceID, pos: Vector2) -> void:
+func _add_view(id: int, pos: Vector2) -> void:
 	var i = load("res://Editor/Graphics/Textures/Floor/GroundTextureView.tscn")
 	var view = i.instantiate()
 	
@@ -87,7 +89,7 @@ func _add_view(id: ResourceID, pos: Vector2) -> void:
 
 
 func _update():
-	if !is_inside_tree() || atlas_id == null:
+	if !is_inside_tree() || atlas_id == SteeleID.NULL:
 		_clear()
 		return
 	
@@ -96,10 +98,10 @@ func _update():
 	
 	var offset = padding.y + cell_size.y
 	var pos = cell_size / 2
-	var id = atlas_id
+	var atlas: ResourceFloorAtlas = Resources.get_id(atlas_id)
 	
-	for i in range(rows):
-		var child_id = id.create_child_i(i)
+	for i in len(atlas.children):
+		var child_id = atlas.children[i]
 		
 		if i < children_count:
 			_update_view(children[i], child_id, pos)

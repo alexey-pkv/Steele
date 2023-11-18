@@ -19,5 +19,5 @@ var c_area: AreaDrawingBoard:
 	get: return $_split_container/AreaDrawingBoard
 
 
-func _on_resource_explorer_on_selected(id: ResourceID):
+func _on_resource_explorer_on_selected(id: int):
 	c_area.brush_id = id
