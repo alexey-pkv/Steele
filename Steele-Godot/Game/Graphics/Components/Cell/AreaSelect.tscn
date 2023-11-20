@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=3 uid="uid://cfp56f0vaueku"]
+
+[ext_resource type="Script" path="res://Game/Graphics/Components/Cell/AreaSelect.gd" id="1_5s7ow"]
+[ext_resource type="Script" path="res://Library/Atoms/Map/IsometricGrid.gd" id="2_xn40i"]
+
+[node name="AreaSelect" type="Node2D"]
+script = ExtResource("1_5s7ow")
+border_color = Color(0.678431, 1, 0.654902, 1)
+fill_color = Color(0.839216, 1, 0.823529, 1)
+cell_size = Vector2i(32, 16)
+border_width = 1.0
+text = "HEllo"
+
+[node name="Grid" type="Node2D" parent="."]
+script = ExtResource("2_xn40i")
+size = Vector3i(32, 16, 0)
+
+[node name="Name" type="Label" parent="."]
+visible = false
+z_index = 5
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_right = 1.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Hello
+"

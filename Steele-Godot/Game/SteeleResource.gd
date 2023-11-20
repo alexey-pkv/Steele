@@ -25,7 +25,21 @@ const TYPE_FLOOR_TEXTURE	= TYPE_TEXTURE | 1
 @export var type: int = TYPE_UNDEFINED
 
 
-var full_path: String:
+var folder_path: String:
+	get: 
+		if path != "":
+			return module + "/" + path
+		else:
+			return module
+
+var file_path: String:
+	get: 
+		if path != "":
+			return module + "/" + path + "/" + name
+		else:
+			return module + "/" + name
+	
+var steele_path: String:
 	get: return module + ":" + path + ":" + name
 
 var parent: SteeleResource: 
@@ -42,12 +56,13 @@ func _init(_type: int = TYPE_UNDEFINED):
 
 
 func get_path_parts() -> Array:
-	var result = []
+	var result = [module]
 	
-	for part in full_path.split('/', false):
-		for sub_part in part.split(':', false):
-			result.push_back(sub_part)
-			
+	for part in path.split('/', false):
+		result.push_back(part)
+	
+	result.push_back(name)
+	
 	return result
 
 func setup_child(child: SteeleResource, _name: String) -> void:
@@ -100,8 +115,7 @@ func debug_data() -> String:
 func _to_string():
 	var data = str(id)
 	
-	
-	data += ":" + full_path + ":" + str(type)
+	data += ":" + steele_path + ":" + str(type)
 	
 	var debug = debug_data()
 	

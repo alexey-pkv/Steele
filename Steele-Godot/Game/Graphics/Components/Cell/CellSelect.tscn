@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://djj2ed3glb6en"]
+
+[ext_resource type="Script" path="res://Game/Graphics/Components/Cell/CellSelect.gd" id="1_7gavq"]
+
+[node name="CellSelect" type="Node2D"]
+script = ExtResource("1_7gavq")
+border_width = -1.0
+
+[node name="border" type="Line2D" parent="."]
+points = PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+width = 2.0
+default_color = Color(0.678431, 1, 0.654902, 1)
+joint_mode = 2
+begin_cap_mode = 2
+
+[node name="fill" type="Polygon2D" parent="."]
+z_index = 1
+color = Color(0.839216, 1, 0.823529, 1)
+polygon = PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0)

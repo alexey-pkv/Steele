@@ -28,7 +28,15 @@ void Area::_bind_methods()
 	ClassDB::bind_method(D_METHOD("combine_v2i", "v"), &Area::combine_v2i);
 	ClassDB::bind_method(D_METHOD("combine_a", "v"), &Area::combine_a);
 	ClassDB::bind_method(D_METHOD("combine_r2i", "r"), &Area::combine_r2i);
-
+	ClassDB::bind_method(D_METHOD("subtract_v2i", "v"), &Area::subtract_v2i);
+	ClassDB::bind_method(D_METHOD("subtract_a", "v"), &Area::subtract_a);
+	ClassDB::bind_method(D_METHOD("subtract_r2i", "r"), &Area::subtract_r2i);
+	ClassDB::bind_method(D_METHOD("contains_v2i", "v"), &Area::contains_v2i);
+	ClassDB::bind_method(D_METHOD("contains_a", "v"), &Area::contains_a);
+	ClassDB::bind_method(D_METHOD("contains_r2i", "r"), &Area::contains_r2i);
+	ClassDB::bind_method(D_METHOD("copy"), &Area::copy);
+	ClassDB::bind_method(D_METHOD("points"), &Area::points);
+	
 	ClassDB::bind_static_method(get_class_static(), D_METHOD("from_string", "str"), &Area::from_string);
 	ClassDB::bind_static_method(get_class_static(), D_METHOD("ZERO"), &Area::ZERO);
 	ClassDB::bind_static_method(get_class_static(), D_METHOD("ONE"), &Area::ONE);
@@ -80,7 +88,25 @@ void Area::intersect_r2i(const Rect2i &r) { m_area &= Steele::Area(r); }
 void Area::combine_v2i(const v2i &v) { m_area |= Steele::Area(v); }
 void Area::combine_a(const Ref<Area> &a) { m_area |= a->m_area; }
 void Area::combine_r2i(const Rect2i &r) { m_area |= Steele::Area(r); }
+void Area::subtract_v2i(const v2i& v) { m_area -= Steele::Area(v); }
+void Area::subtract_a(const Ref<Area>& a) { m_area -= a->m_area; }
+void Area::subtract_r2i(const Rect2i& r) { m_area -= Steele::Area(r); }
+bool Area::contains_v2i(const v2i& v) const { return m_area.contains(v); }
+bool Area::contains_a(const Ref<Area>& a) const { return m_area.contains(a->m_area); }
+bool Area::contains_r2i(const Rect2i& r) const { return m_area.contains(Steele::Area(r)); }
 
+
+Array Area::points() const
+{
+	Array a;
+	
+	for (auto v : m_area)
+	{
+		a.push_back(v);
+	}
+	
+	return a;
+}
 
 Ref<Area> Area::from_string(const godot::String &str)
 {
@@ -94,3 +120,13 @@ Ref<Area> Area::from_string(const godot::String &str)
 
 Ref<Area> Area::ZERO() { return {}; }
 Ref<Area> Area::ONE() { return Area::from_string("*\n"); }
+
+Ref<Area> Area::copy() const
+{
+	Ref<Area> a;
+
+	a.instantiate();
+	a->m_area = Steele::Area(m_area);
+	
+	return a;
+}

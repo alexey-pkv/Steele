@@ -51,12 +51,16 @@ namespace godot
 		Rect2i GetRect() const;
 
 		bool overlaps(const Ref<Area>& a) const;
+		
+		Array points() const;
 
 		godot::String debug_info() const;
 		godot::String debug_info_extended(int fill, int empty, bool withBoarder = true) const;
 		
 		
 	public:
+		Ref<Area> copy() const;
+		
 		bool is_equal(const Ref<Area>& a) const;
 
 		void intersect_v2i(const v2i& v);
@@ -66,6 +70,14 @@ namespace godot
 		void combine_v2i(const v2i& v);
 		void combine_a(const Ref<Area>& a);
 		void combine_r2i(const Rect2i& r);
+
+		void subtract_v2i(const v2i& v);
+		void subtract_a(const Ref<Area>& a);
+		void subtract_r2i(const Rect2i& r);
+
+		bool contains_v2i(const v2i& v) const;
+		bool contains_a(const Ref<Area>& a) const;
+		bool contains_r2i(const Rect2i& r) const;
 		
 		
 	public:

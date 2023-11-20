@@ -30,7 +30,10 @@ static func fail_on_size(img: Image) -> int:
 static func load_floor(path: String) -> int:
 	var atlas = ResourceFloorAtlas.new()
 	
-	atlas.texture = load(path)
+	var image = Image.load_from_file(path)
+	var image_texture = ImageTexture.create_from_image(image)
+	
+	atlas.texture = image_texture
 	atlas.setup(path)
 	
 	return atlas.id

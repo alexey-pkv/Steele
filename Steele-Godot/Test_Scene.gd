@@ -1,24 +1,15 @@
 extends Control
 
 
+var n: AreaSelect:
+	get: return $AreaSelect
+
 
 func _ready():
+	var i = TreeItemMetadata.new()
 	
-	var atlas = ResourceFloorAtlas.new()
+	i.item_name = "Floorz"
+	i.item_path = "Steele/"
 	
-	atlas.texture = load("res://Resources/Editor/Steele/Floors/Cobbolt.floor.png")
-	atlas.name = "Cobbolt"
-	atlas.module = "Steele"
-	atlas.path = "Editor/Steele/Floors"
-	
-	atlas.setup()
-	
-	atlas.get_texture(0, Direction.NORTH)
-	
-	print(atlas.row(1).full_path)
-	print(atlas.row(1).get_direction(2).full_path)
-	
-	print(atlas)
-	
-	$Sprite2D.texture = atlas.get_texture(0, Direction.NORTH)
+	print(i.rename("Floors"))
 
