@@ -23,7 +23,7 @@ func _init(_texture: Texture2D = null):
 
 func row_id(index: int) -> int:
 	if index < 0 || index >= len(m_rows):
-		return SteeleID.NULL
+		return SteeleID.NULL_ID
 	
 	return m_rows[index]
 

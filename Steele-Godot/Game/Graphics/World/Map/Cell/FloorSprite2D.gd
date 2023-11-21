@@ -8,7 +8,7 @@ class_name FloorSprite2D
 	set(i):
 		if floor_id == i:
 			return
-		elif i == SteeleID.NULL:
+		elif i == SteeleID.NULL_ID:
 			texture = null
 			return
 		
@@ -31,12 +31,12 @@ class_name FloorSprite2D
 var floor: ResourceFloor:
 	get: return ResourceFloor.g_get(floor_id)
 	set(i):
-		floor_id = i.id if i != null else SteeleID.NULL
+		floor_id = i.id if i != null else SteeleID.NULL_ID
 
 var texture_resource: ResourceDirectionalTexture:
 	set(v):
 		if v == null:
-			floor_id = SteeleID.NULL
+			floor_id = SteeleID.NULL_ID
 			texture = null
 		else:
 			direction = v.direction

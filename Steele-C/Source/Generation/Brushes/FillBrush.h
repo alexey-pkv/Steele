@@ -13,8 +13,8 @@ namespace Steele
 	{
 	private:
 		DirectionSettings	m_dir		= DirectionSettings();
-		t_id				m_groundID	= NULL_ID;
-		t_id				m_paletteID	= NULL_ID;
+		t_id				m_groundID	= STEELE_NULL_ID;
+		t_id				m_paletteID	= STEELE_NULL_ID;
 		
 	
 	public:
@@ -32,10 +32,10 @@ namespace Steele
 		inline void set_direction_settings(const DirectionSettings& s) { m_dir = s; }
 		
 		inline t_id get_ground_id() const { return m_groundID; }
-		inline void set_ground_id(t_id id) { m_groundID = id; m_paletteID = NULL_ID; }
+		inline void set_ground_id(t_id id) { m_groundID = id; m_paletteID = STEELE_NULL_ID; }
 
 		inline t_id get_palette_id() const { return m_paletteID; }
-		inline void set_palette_id(t_id id) { m_paletteID = id; m_groundID = NULL_ID; }
+		inline void set_palette_id(t_id id) { m_paletteID = id; m_groundID = STEELE_NULL_ID; }
 		
 		
 	public: // JSON

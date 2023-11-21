@@ -7,19 +7,24 @@ const TYPE_UNDEFINED	= 0
 
 const TYPE_FLOOR_ATLAS	= 1
 const TYPE_FLOOR		= 2
+const TYPE_PALETTE		= 3
 
-const TYPE_TEXTURE			= 0b1_00000000_00000000
+const TYPE_TEXTURE			= 0b00000001_00000000_00000000
+const TYPE_BRUSH			= 0b00000010_00000000_00000000
+
 const TYPE_FLOOR_TEXTURE	= TYPE_TEXTURE | 1
 
+const TYPE_BRUSH_FILL		= TYPE_BRUSH | 1
 
-@export var id: int = SteeleID.NULL:
+
+@export var id: int = SteeleID.NULL_ID:
 	get: return id
 	set(i): id = i
 
 @export var name: String = ""
 @export var path: String = ""
 @export var module: String = ""
-@export var parent_id: int = SteeleID.NULL
+@export var parent_id: int = SteeleID.NULL_ID
 @export var is_valid: bool = true
 
 @export var type: int = TYPE_UNDEFINED
@@ -44,7 +49,7 @@ var steele_path: String:
 
 var parent: SteeleResource: 
 	get:
-		return Resources.get_id(parent_id) if parent_id != SteeleID.NULL else null
+		return Resources.get_id(parent_id) if parent_id != SteeleID.NULL_ID else null
 
 
 func _init(_type: int = TYPE_UNDEFINED):
@@ -72,10 +77,10 @@ func setup_child(child: SteeleResource, _name: String) -> void:
 	child.name		= _name
 
 func has_id() -> bool:
-	return id != SteeleID.NULL
+	return id != SteeleID.NULL_ID
 
 func has_parent() -> bool:
-	return parent_id != SteeleID.NULL
+	return parent_id != SteeleID.NULL_ID
 
 func is_texture() -> bool:
 	return type & TYPE_TEXTURE

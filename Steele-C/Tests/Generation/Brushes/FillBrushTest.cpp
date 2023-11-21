@@ -24,8 +24,8 @@ TEST(FillBrush__defaults)
 {
 	FillBrush f;
 	
-	ASSERT_IS(NULL_ID, f.get_palette_id());
-	ASSERT_IS(NULL_ID, f.get_ground_id());
+	ASSERT_IS(STEELE_NULL_ID, f.get_palette_id());
+	ASSERT_IS(STEELE_NULL_ID, f.get_ground_id());
 }
 
 
@@ -39,14 +39,14 @@ TEST(FillBrush__set_ground_id)
 	
 	
 	ASSERT_IS(12, f.get_ground_id());
-	ASSERT_IS(NULL_ID, f.get_palette_id());
+	ASSERT_IS(STEELE_NULL_ID, f.get_palette_id());
 	
 	
 	f.set_ground_id(14);
 	
 	
 	ASSERT_IS(14, f.get_ground_id());
-	ASSERT_IS(NULL_ID, f.get_palette_id());
+	ASSERT_IS(STEELE_NULL_ID, f.get_palette_id());
 }
 
 
@@ -59,14 +59,14 @@ TEST(FillBrush__set_palette_id)
 	f.set_palette_id(13);
 	
 	
-	ASSERT_IS(NULL_ID, f.get_ground_id());
+	ASSERT_IS(STEELE_NULL_ID, f.get_ground_id());
 	ASSERT_IS(13, f.get_palette_id());
 	
 	
 	f.set_palette_id(15);
 	
 	
-	ASSERT_IS(NULL_ID, f.get_ground_id());
+	ASSERT_IS(STEELE_NULL_ID, f.get_ground_id());
 	ASSERT_IS(15, f.get_palette_id());
 }
 
@@ -140,8 +140,8 @@ TEST(FillBrush__paint__MissingGroundAndPaletteID__ExceptionThrown)
 	FillBrush f;
 	GenerationScope gs;
 	
-	f.set_palette_id(NULL_ID);
-	f.set_ground_id(NULL_ID);
+	f.set_palette_id(STEELE_NULL_ID);
+	f.set_ground_id(STEELE_NULL_ID);
 	
 	try
 	{

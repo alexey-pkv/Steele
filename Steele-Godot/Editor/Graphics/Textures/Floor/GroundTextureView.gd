@@ -75,7 +75,7 @@ func _redraw() -> void:
 		
 		sprite.floor_id = floor_id
 		
-		if floor_id != SteeleID.NULL:
+		if floor_id != SteeleID.NULL_ID:
 			sprite.floor_id		= floor_id
 			sprite.direction	= dir
 			sprite.position		= pos

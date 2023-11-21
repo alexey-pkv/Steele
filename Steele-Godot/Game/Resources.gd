@@ -51,7 +51,7 @@ static func add_r(r: SteeleResource) -> bool:
 		push_error("Resources node not set!")
 		return false
 	
-	r.id = SteeleID.next_id()
+	r.id = SteeleID.next()
 	m_node.add_res(r)
 	
 	return true

@@ -26,7 +26,7 @@ namespace Steele
 	public:
 		inline bool has(t_id id) const { return contains(m_byID, id); }
 		inline bool has(const std::string& s) const { return contains(m_byName, s); }
-		inline t_id get(const std::string& s) const { return get_value(m_byName, s, NULL_ID); }
+		inline t_id get(const std::string& s) const { return get_value(m_byName, s, STEELE_NULL_ID); }
 		inline std::string get(t_id id) const { return get_value(m_byID, id, std::string("")); }
 		
 		

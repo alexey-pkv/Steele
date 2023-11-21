@@ -11,7 +11,7 @@ namespace Steele
 	class Palette
 	{
 	private:
-		t_id m_id = NULL_ID;
+		t_id m_id = STEELE_NULL_ID;
 		
 		GenericIDPalette	m_ground;
 		BrushPalette		m_brushes;

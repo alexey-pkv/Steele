@@ -42,10 +42,10 @@ func _on_game_resources_failed(path: String) -> void:
 
 var last_id: int
 
-func _on_game_resources_loaded(id: int) -> void:
+
+func handle_resource_loaded(id: int) -> void:
 	last_id = id
 	c_tree.add_resource(id)
 
-func _handle_explorer_open(id: int):
+func handle_explorer_open(id: int):
 	c_editor_tabs.open_resource(id)
-

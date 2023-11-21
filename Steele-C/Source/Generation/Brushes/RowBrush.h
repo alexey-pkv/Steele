@@ -14,8 +14,8 @@ namespace Steele
 		int m_maxHeight	= 100;
 		int m_minHeight	= 1;
 		
-		t_id m_paletteID	= NULL_ID;
-		t_id m_fillID		= NULL_ID;
+		t_id m_paletteID	= STEELE_NULL_ID;
+		t_id m_fillID		= STEELE_NULL_ID;
 		
 		
 	private:

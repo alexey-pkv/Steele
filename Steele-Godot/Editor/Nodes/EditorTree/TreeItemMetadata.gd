@@ -2,7 +2,7 @@ extends Resource
 class_name TreeItemMetadata
 
 
-@export var resource_id:	int		= SteeleID.NULL
+@export var resource_id:	int		= SteeleID.NULL_ID
 @export var folder:			String
 @export var item_name:		String
 
@@ -11,13 +11,16 @@ var has_folder: bool:
 	get: return folder != ""
 
 var is_folder: bool:
-	get: return resource_id == SteeleID.NULL
+	get: return resource_id == SteeleID.NULL_ID
 
 var is_module: bool:
 	get: return !folder.contains("/")
 
 var is_resource: bool:
-	get: return resource_id != SteeleID.NULL
+	get: return resource_id != SteeleID.NULL_ID
+
+var resource: SteeleResource:
+	get: return Resources.get_id(resource_id) if is_resource else null
 
 var relative_path: String:
 	get:

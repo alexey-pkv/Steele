@@ -44,7 +44,7 @@ var is_selected: bool:
 var selected_id: int: 
 	get:
 		var selected = get_selected()
-		return Editor_Tree.get_metadata(selected).resource_id if selected != null else SteeleID.NULL
+		return Editor_Tree.get_metadata(selected).resource_id if selected != null else SteeleID.NULL_ID
 
 var root: TreeItem: 
 	get:

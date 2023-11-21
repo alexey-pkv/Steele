@@ -52,7 +52,7 @@ var atlas_id: int:
 		if value == atlas_id:
 			return
 		
-		if value != SteeleID.NULL && !Resources.validate_type(value, SteeleResource.TYPE_FLOOR_ATLAS):
+		if value != SteeleID.NULL_ID && !Resources.validate_type(value, SteeleResource.TYPE_FLOOR_ATLAS):
 			push_error("Atlas with ID " + str(value) + " not found")
 			return
 		
@@ -89,7 +89,7 @@ func _add_view(id: int, pos: Vector2) -> void:
 
 
 func _update():
-	if !is_inside_tree() || atlas_id == SteeleID.NULL:
+	if !is_inside_tree() || atlas_id == SteeleID.NULL_ID:
 		_clear()
 		return
 	

@@ -14,7 +14,7 @@ IDMap IDMap::m_global = {};
 t_id IDMap::add(const string& name)
 {
 	if (has(name))
-		return NULL_ID;
+		return STEELE_NULL_ID;
 	
 	auto id = m_nextID++;
 	
@@ -30,7 +30,7 @@ bool IDMap::update(t_id id, const std::string& newName)
 	
 	if (currentID == id)
 		return true;
-	if (currentID != NULL_ID)
+	if (currentID != STEELE_NULL_ID)
 		return false;
 	
 	auto currentName = get(id);
@@ -45,7 +45,7 @@ bool IDMap::update(t_id id, const std::string& newName)
 
 bool IDMap::remove(t_id id)
 {
-	if (id == NULL_ID || !has(id))
+	if (id == STEELE_NULL_ID || !has(id))
 		return false;
 	
 	auto name = get(id);

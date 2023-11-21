@@ -6,7 +6,7 @@
 
 void Steele::FillBrush::paint(Steele::IGenerationScope& scope, const Steele::Area& area) const
 {
-	if (m_groundID == NULL_ID && m_paletteID == NULL_ID)
+	if (m_groundID == STEELE_NULL_ID && m_paletteID == STEELE_NULL_ID)
 		throw MisconfiguredBrushException("One of Ground ID or Palette ID must be set for a Fill Brush");
 	if (area.is_empty())
 		return;
@@ -19,7 +19,7 @@ void Steele::FillBrush::paint(Steele::IGenerationScope& scope, const Steele::Are
 	auto& map = scope.map();
 	auto& rng = scope.rng();
 	
-	if (groundID == NULL_ID)
+	if (groundID == STEELE_NULL_ID)
 	{
 		palette = scope.palette_db().get(m_paletteID);
 		
@@ -61,11 +61,11 @@ void Steele::FillBrush::json_write(nlohmann::json& into) const
 	
 	m_dir.json_write(into["dir"]);
 	
-	if (m_paletteID != NULL_ID)
+	if (m_paletteID != STEELE_NULL_ID)
 	{
 		into["palette"]	= map.require(m_paletteID);
 	}
-	else if (m_groundID != NULL_ID)
+	else if (m_groundID != STEELE_NULL_ID)
 	{
 		into["ground"]	= map.require(m_groundID);
 	}
@@ -75,8 +75,8 @@ void Steele::FillBrush::json_read(const nlohmann::json& from)
 {
 	auto& map = IDMap::global();
 	
-	m_groundID = NULL_ID;
-	m_paletteID = NULL_ID;
+	m_groundID = STEELE_NULL_ID;
+	m_paletteID = STEELE_NULL_ID;
 	
 	m_dir.json_read(from);
 	

@@ -11,6 +11,7 @@
 #include "GDNative/DataTypes/IDMap.h"
 #include "GDNative/DataTypes/Map/Cell.h"
 #include "GDNative/DataTypes/Map/MapPatch.h"
+#include "GDNative/DataTypes/SteeleID.h"
 
 
 using namespace godot;
@@ -31,6 +32,7 @@ void initialize_steele_module(ModuleInitializationLevel p_level)
 	ClassDB::register_class<Dir>();
 	ClassDB::register_class<Area>();
 	ClassDB::register_abstract_class<IDMap>();
+	ClassDB::register_abstract_class<SteeleID>();
 
 	// Data Types :: Map
 	ClassDB::register_class<GroundTile>();
@@ -42,6 +44,9 @@ void initialize_steele_module(ModuleInitializationLevel p_level)
 	// RNG
 	ClassDB::register_class<XoroshiroRNG>();
 	ClassDB::register_class<RandomState>();
+	
+	
+	
 }
 
 void uninitialize_steele_module(ModuleInitializationLevel p_level)

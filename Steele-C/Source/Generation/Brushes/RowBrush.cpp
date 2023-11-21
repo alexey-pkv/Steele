@@ -160,7 +160,7 @@ bool RowBrush::can_fill(const Area& a) const
 
 void RowBrush::paint(IGenerationScope& scope, const Area& area) const
 {
-	if (m_fillID == NULL_ID || m_paletteID == NULL_ID)
+	if (m_fillID == STEELE_NULL_ID || m_paletteID == STEELE_NULL_ID)
 		throw PaintException("Fill ID and Palette ID must be set!");
 	
 	if (area.height() > area.width())
@@ -207,11 +207,11 @@ void RowBrush::json_write(json& into) const
 	into["min_height"] = m_minHeight;
 	into["max_height"] = m_maxHeight;
 	
-	if (m_paletteID != NULL_ID)
+	if (m_paletteID != STEELE_NULL_ID)
 	{
 		into["palette"]	= map.require(m_paletteID);
 	}
-	else if (m_fillID != NULL_ID)
+	else if (m_fillID != STEELE_NULL_ID)
 	{
 		into["ground"] = map.require(m_fillID);
 	}

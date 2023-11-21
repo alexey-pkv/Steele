@@ -17,8 +17,8 @@ namespace Steele
 		Area		m_area;
 		Direction	m_direction	= Direction::North;
 		bool 		m_isLocal	= false;
-		t_id		m_brushID	= NULL_ID;
-		t_id 		m_paletteID	= NULL_ID;
+		t_id		m_brushID	= STEELE_NULL_ID;
+		t_id 		m_paletteID	= STEELE_NULL_ID;
 		
 		
 	public:
@@ -49,12 +49,12 @@ namespace Steele
 		inline void set_direction(Direction d) { m_direction = d; }
 		
 		inline t_id get_brush_id() const { return m_brushID; }
-		inline void set_brush_id(t_id id) { m_brushID = id; m_paletteID = NULL_ID; }
-		inline bool has_brush_id() const { return m_brushID != NULL_ID; }
+		inline void set_brush_id(t_id id) { m_brushID = id; m_paletteID = STEELE_NULL_ID; }
+		inline bool has_brush_id() const { return m_brushID != STEELE_NULL_ID; }
 		
 		inline t_id get_palette_id() const { return m_paletteID; }
-		inline void set_palette_id(t_id id) { m_paletteID = id; m_brushID = NULL_ID; }
-		inline bool has_palette_id() const { return m_brushID != NULL_ID; }
+		inline void set_palette_id(t_id id) { m_paletteID = id; m_brushID = STEELE_NULL_ID; }
+		inline bool has_palette_id() const { return m_brushID != STEELE_NULL_ID; }
 		
 		
 	public:

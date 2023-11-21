@@ -39,11 +39,11 @@ void Steele::AreaComponent::paint(Steele::IGenerationScope& scope, const Steele:
 {
 	const IBrush* brush;
 	
-	if (m_brushID != NULL_ID)
+	if (m_brushID != STEELE_NULL_ID)
 	{
 		brush = scope.brush_db().require(m_brushID);
 	}
-	else if (m_paletteID != NULL_ID)
+	else if (m_paletteID != STEELE_NULL_ID)
 	{
 		auto palette = scope.palette_db().require(m_paletteID);
 		brush = palette->brushes().select_random(scope, area);
@@ -73,11 +73,11 @@ void Steele::AreaComponent::json_write(nlohmann::json& into) const
 		into["dir"] = m_direction;
 	};
 	
-	if (m_brushID != NULL_ID)
+	if (m_brushID != STEELE_NULL_ID)
 	{
 		into["brush"] = map.require(m_brushID);
 	}
-	else if (m_paletteID != NULL_ID)
+	else if (m_paletteID != STEELE_NULL_ID)
 	{
 		into["palette"] = map.require(m_paletteID);
 	}
@@ -89,8 +89,8 @@ void Steele::AreaComponent::json_read(const nlohmann::json& from)
 {
 	auto& map = IDMap::global();
 	
-	m_paletteID	= NULL_ID;
-	m_brushID	= NULL_ID;
+	m_paletteID	= STEELE_NULL_ID;
+	m_brushID	= STEELE_NULL_ID;
 	
 	m_area.clear();
 	m_direction = Direction::North;

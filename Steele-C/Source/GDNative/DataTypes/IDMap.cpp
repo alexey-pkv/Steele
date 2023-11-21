@@ -54,7 +54,7 @@ bool godot::IDMap::remove_by_name(const godot::String& name)
 {
 	auto id = map().get(to_std_str(name));
 	
-	if (id == NULL_ID)
+	if (id == STEELE_NULL_ID)
 		return false;
 	
 	return map().remove(id);

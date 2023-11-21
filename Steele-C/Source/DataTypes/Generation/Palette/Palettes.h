@@ -116,7 +116,7 @@ namespace Steele
 			auto weight = this->total_weight() ;
 			
 			if (weight <= 0)
-				return NULL_ID;
+				return STEELE_NULL_ID;
 			
 			auto rnd = rng.next_double(0, weight);
 			

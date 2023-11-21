@@ -54,7 +54,7 @@ func _open_floor_atlas(data: ResourceFloorAtlas) -> void:
 	_add_tab(ATLAS_TAB_SCENE, data.id)
 
 
-func open_test(id: int = SteeleID.NULL) -> void:
+func open_test(id: int = SteeleID.NULL_ID) -> void:
 	if id == null:
 		id = 1
 	

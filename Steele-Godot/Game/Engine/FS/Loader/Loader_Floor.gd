@@ -24,7 +24,7 @@ static func fail_on_size(img: Image) -> int:
 		str(FLOOR_SIZE.x * 4) + "x" + str(FLOOR_SIZE.y) + "n), " + 
 		"got " + str(img.get_width()) + "x" + str(img.get_height()) + "), instead" )
 
-	return SteeleID.NULL
+	return SteeleID.NULL_ID
 
 
 static func load_floor(path: String) -> int:

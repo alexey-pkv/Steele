@@ -37,7 +37,7 @@ typedef godot::Rect2i	r2i;
 
 
 typedef std::int32_t	t_id;
-#define NULL_ID 0
+#define STEELE_NULL_ID 0
 
 
 typedef unsigned char byte;

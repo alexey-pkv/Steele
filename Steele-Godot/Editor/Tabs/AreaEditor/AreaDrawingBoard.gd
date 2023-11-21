@@ -6,7 +6,7 @@ class_name AreaDrawingBoard
 const SCENE_CellNode = preload("res://Game/Graphics/World/Map/CellNode.tscn")
 
 
-var brush_id: int = SteeleID.NULL:
+var brush_id: int = SteeleID.NULL_ID:
 	get: return brush_id
 	set(b): brush_id = b
 	
@@ -23,7 +23,7 @@ var current_hover_y = null
 
 	
 func draw_placeholder(event: GridCellMotionArgs):
-	if brush_id == SteeleID.NULL:
+	if brush_id == SteeleID.NULL_ID:
 		return
 	
 	if (current_hover_x == event.at.x && current_hover_y == event.at.y):

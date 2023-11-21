@@ -3,7 +3,7 @@ extends SteeleResource
 class_name ResourceFloor
 
 
-var m_textures = [SteeleID.NULL, SteeleID.NULL, SteeleID.NULL, SteeleID.NULL]
+var m_textures = [SteeleID.NULL_ID, SteeleID.NULL_ID, SteeleID.NULL_ID, SteeleID.NULL_ID]
 
 
 func _init():
@@ -34,7 +34,7 @@ func dir_to_index(dir: int) -> int:
 	return int(floor(Direction.dir_floor(dir)) / 2)
 
 func has_direction(dir: int) -> int:
-	return m_textures[dir_to_index(dir)] != SteeleID.NULL
+	return m_textures[dir_to_index(dir)] != SteeleID.NULL_ID
 
 func get_direction_id(dir: int) -> int:
 	return m_textures[dir_to_index(dir)]

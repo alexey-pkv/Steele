@@ -33,7 +33,7 @@ var c_main: GridContainer:
 		cell_size = v
 		_update()
 
-var selected_id: int = SteeleID.NULL: 
+var selected_id: int = SteeleID.NULL_ID: 
 	get: return selected_id
 
 
@@ -50,7 +50,7 @@ func _clear() -> void:
 	if c_main == null:
 		return
 	
-	selected_id = SteeleID.NULL
+	selected_id = SteeleID.NULL_ID
 	
 	for child in c_main.get_children():
 		child.queue_free()
