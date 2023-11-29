@@ -76,7 +76,7 @@ func _handle_item_menu(item: TreeItem, at: Vector2) -> void:
 		_open_popup($EmptySpaceMenu, at)
 		return
 	
-	var metadata = self.get_metadata(item)
+	var metadata = Editor_Tree.get_metadata(item)
 		
 	if metadata.is_module:
 		_open_popup($ModuleMenu, at)
@@ -146,7 +146,7 @@ func handle_gui_input(event):
 
 func handle_create_new_module():
 	var temp_name = find_temp_name()
-	var item = self.get_or_create(root, temp_name)
+	var item = Editor_Tree.get_or_create(root, temp_name)
 	
 	set_selected(item, 0)
 	edit_selected.call_deferred(true)
@@ -177,7 +177,7 @@ func handle_item_edited():
 
 
 func handle_open_in_os(item: TreeItem):
-	var metadata = get_metadata(item)
+	var metadata = Editor_Tree.get_metadata(item)
 	var path
 	
 	if metadata != null:
@@ -191,7 +191,7 @@ func handle_open_in_os(item: TreeItem):
 	OS.shell_show_in_file_manager(path)
 
 
-func handle_delete(item: TreeItem):
+func handle_delete(_item: TreeItem):
 	pass # Replace with function body.
 
 func handle_rename(item: TreeItem):

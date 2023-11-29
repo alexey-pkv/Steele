@@ -23,3 +23,10 @@ Steele::DrawingAreaDoesNotOverlapException::DrawingAreaDoesNotOverlapException()
 {
 	
 }
+
+
+Steele::AbortException::AbortException()
+	: PaintException("Abort generation")
+{
+	
+}

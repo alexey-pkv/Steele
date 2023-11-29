@@ -2,7 +2,10 @@ extends TabContainer
 class_name Editor_Tabs
 
 
-const ATLAS_TAB_SCENE = preload("res://Editor/Tabs/AtlasViewTab.tscn")
+const TAB_ATLAS_SCENE = preload("res://Editor/Tabs/AtlasViewTab.tscn")
+
+const TAB_AREA_BRUSH_SCENE = preload("res://Editor/Tabs/Brushes/AreaBrushTab.tscn")
+const TAB_FILL_BRUSH_SCENE = preload("res://Editor/Tabs/Brushes/FillBrushTab.tscn")
 
 const TEST_SCENE = preload("res://Editor/Tabs/PaletteTab.tscn")
 
@@ -51,7 +54,7 @@ func _open_floor_atlas(data: ResourceFloorAtlas) -> void:
 	if select_tab(data.id):
 		return
 	
-	_add_tab(ATLAS_TAB_SCENE, data.id)
+	_add_tab(TAB_ATLAS_SCENE, data.id)
 
 
 func open_test(id: int = SteeleID.NULL_ID) -> void:
@@ -59,6 +62,12 @@ func open_test(id: int = SteeleID.NULL_ID) -> void:
 		id = 1
 	
 	_add_tab(TEST_SCENE, id)
+
+func open_test_scene(scene: PackedScene, id: int = SteeleID.NULL_ID) -> void:
+	if id == null:
+		id = 1
+	
+	_add_tab(scene, id)
 
 func open_resource(id: int) -> void:
 	var data = Resources.get_id(id)

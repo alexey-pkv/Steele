@@ -12,11 +12,9 @@ namespace Steele
 	template<typename CELL>
 	class IGenerationMap :
 		public IMap<CELL>,
-		public ITransformable,
-		public IStackableMap
+		public ITransformable
 	{
-	public:
-		virtual std::string debug_info() const = 0;
+		
 	};
 	
 	

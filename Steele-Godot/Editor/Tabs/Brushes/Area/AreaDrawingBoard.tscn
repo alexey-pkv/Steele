@@ -1,0 +1,45 @@
+[gd_scene load_steps=5 format=3 uid="uid://b4neuseb6w4hi"]
+
+[ext_resource type="Script" path="res://Editor/Tabs/Brushes/Area/AreaDrawingBoard.gd" id="1_cjeka"]
+[ext_resource type="PackedScene" uid="uid://bg77q3rcd023p" path="res://Editor/Graphics/Board/DrawingBoard.tscn" id="2_37hy5"]
+[ext_resource type="PackedScene" uid="uid://b2breuq480gc0" path="res://Game/Graphics/World/Map/MapPatchNode.tscn" id="3_trfc1"]
+[ext_resource type="Script" path="res://Library/Atoms/Map/IsometricGrid.gd" id="4_3dp6o"]
+
+[node name="AreaDrawingBoard" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_cjeka")
+
+[node name="_margin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Control" type="Control" parent="_margin"]
+clip_contents = true
+layout_mode = 2
+
+[node name="DrawingBoard" parent="_margin/Control" node_paths=PackedStringArray("mouse_control_node") instance=ExtResource("2_37hy5")]
+mouse_control_node = NodePath("..")
+
+[node name="MapPatchNode" parent="_margin/Control/DrawingBoard" node_paths=PackedStringArray("mouse_control_node") instance=ExtResource("3_trfc1")]
+mouse_control_node = NodePath("../..")
+
+[node name="HoverGrid" type="Node2D" parent="_margin/Control/DrawingBoard"]
+modulate = Color(1, 1, 1, 0.396078)
+script = ExtResource("4_3dp6o")
+size = Vector3i(32, 16, 0)
+
+[connection signal="on_click" from="_margin/Control/DrawingBoard/MapPatchNode" to="." method="handle_grid_mouse_click"]
+[connection signal="on_hover" from="_margin/Control/DrawingBoard/MapPatchNode" to="." method="handle_grid_mouse_motion"]

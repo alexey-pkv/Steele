@@ -1,16 +1,12 @@
 @tool
-extends GridCellArgs
+extends GridCellMouseArgs
 class_name GridCellMotionArgs
 
 
-@export var previous_at: Vector2i:
-	get: return previous_at
-	set(v): previous_at = v
-
-@export var mouse_event: InputEventMouseMotion:
-	get: return mouse_event
-	set(e): mouse_event = e
+@export var previous_at: Vector2i
+@export var mouse_event: InputEventMouseMotion
 
 
-var button_mask: int:
-	get: return mouse_event.button_mask
+func get_mouse_event() -> InputEventMouse:
+	return mouse_event
+

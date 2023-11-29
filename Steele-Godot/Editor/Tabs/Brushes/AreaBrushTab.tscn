@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://bodesmmqx46yg"]
+
+[ext_resource type="Script" path="res://Editor/Tabs/Brushes/AreaBrushTab.gd" id="1_4v2tb"]
+[ext_resource type="PackedScene" uid="uid://b4neuseb6w4hi" path="res://Editor/Tabs/Brushes/AreaEditor/AreaDrawingBoard.tscn" id="2_8qvh3"]
+[ext_resource type="PackedScene" uid="uid://vkofhmmva7ll" path="res://Editor/Graphics/ResourceExplorer/ResourceExplorer.tscn" id="3_qjskf"]
+[ext_resource type="Script" path="res://Library/Atoms/DoUndoNode.gd" id="4_v651x"]
+
+[node name="AreaEditorTag" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_4v2tb")
+
+[node name="_split_container" type="HSplitContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/autohide = 0
+
+[node name="AreaDrawingBoard" parent="_split_container" instance=ExtResource("2_8qvh3")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ResourceExplorer" parent="_split_container" instance=ExtResource("3_qjskf")]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+
+[node name="DoUndoNode" type="Node" parent="."]
+script = ExtResource("4_v651x")
+
+[connection signal="on_selected" from="_split_container/ResourceExplorer" to="." method="_on_resource_explorer_on_selected"]

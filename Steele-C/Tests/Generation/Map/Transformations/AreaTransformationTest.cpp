@@ -8,7 +8,7 @@
 #include "Base/Map/SimpleMap.h"
 #include "Generation/Map/Transformations/AreaTransformation.h"
 #include "Base/Map/TransformedMap.h"
-#include "Generation/Map/AbstractGenerationMap.h"
+#include "Generation/Map/GenerationMap.h"
 
 
 using namespace Steele;

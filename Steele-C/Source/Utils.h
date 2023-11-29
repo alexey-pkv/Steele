@@ -8,6 +8,21 @@
 #include <vector>
 #include <algorithm>
 
+#include "godot_cpp/classes/ref.hpp"
+
+
+template <typename T>
+using r = godot::Ref<T>;
+
+
+template <typename T>
+inline r<T> make_ref()
+{
+	r<T> r;
+	r.instantiate();
+	return r;
+}
+
 
 template <typename T>
 using sptr = std::shared_ptr<T>;

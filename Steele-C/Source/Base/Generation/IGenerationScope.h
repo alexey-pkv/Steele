@@ -23,6 +23,18 @@ namespace Steele
 		
 		virtual IPaletteDB& palette_db() = 0;
 		virtual IBrushDB& brush_db() = 0;
+		
+		virtual void set_rng_state(const RandomState& state) = 0;
+		virtual void using_map(IMap<Cell>* map) = 0;
+		
+		virtual void validate_abort() = 0;
+		virtual float get_progress() const = 0;
+		virtual void abort() = 0;
+		
+		virtual bool generate() = 0;
+		virtual bool generate(IBrush& brush, const Area& area) = 0;
+		
+		virtual void reset_generation() = 0;
 	};
 }
 

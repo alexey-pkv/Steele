@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://8y67re87h0dp"]
+
+[ext_resource type="PackedScene" uid="uid://bg77q3rcd023p" path="res://Editor/Graphics/Board/DrawingBoard.tscn" id="1_7ss8j"]
+[ext_resource type="Script" path="res://Editor/Nodes/Tabs/EditorBoard.gd" id="1_eymwk"]
+[ext_resource type="PackedScene" uid="uid://b2breuq480gc0" path="res://Game/Graphics/World/Map/MapPatchNode.tscn" id="2_brw72"]
+[ext_resource type="Script" path="res://Library/Atoms/Map/IsometricGrid.gd" id="3_0s5ic"]
+
+[node name="EditorBoard" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_eymwk")
+
+[node name="DrawingBoard" parent="." node_paths=PackedStringArray("mouse_control_node") instance=ExtResource("1_7ss8j")]
+mouse_control_node = NodePath("..")
+
+[node name="MapPatchNode" parent="DrawingBoard" node_paths=PackedStringArray("mouse_control_node") instance=ExtResource("2_brw72")]
+scale = Vector2(0.333333, 0.333333)
+mouse_control_node = NodePath("../..")
+
+[node name="Grid" type="Node2D" parent="DrawingBoard"]
+script = ExtResource("3_0s5ic")

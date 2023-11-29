@@ -72,7 +72,6 @@ TEST(SimpleMap__JSON__Sanity)
 	
 	
 	original.json_write(json, 1, 2);
-	cout << json.dump(1, '\t') << endl;
 	result.json_read(json, 3, 4);
 	
 	

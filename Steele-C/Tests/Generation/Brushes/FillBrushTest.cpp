@@ -159,18 +159,17 @@ TEST(FillBrush__paint__EmptyArea__MapNotModified)
 {
 	FillBrush f;
 	GenerationScope gs;
+	SimpleMap<Cell> map;
 	
 	
 	f.set_ground_id(1);
 	
 	
-	f.paint(gs, Area::ZERO);
+	gs.using_map(&map);
+	gs.generate(f, Area::ZERO);
 	
 	
-	auto& m = ((GenerationMap&)gs.map()).map();
-	
-	
-	ASSERT_IS(0, m.size());
+	ASSERT_IS(0, map.size());
 }
 
 
@@ -178,15 +177,12 @@ TEST(FillBrush__paint__SimpleFill)
 {
 	FillBrush f;
 	GenerationScope gs;
+	SimpleMap<Cell> m;
 	
 	
 	f.set_ground_id(1);
-	
-	
-	f.paint(gs, Area::ONE);
-	
-	
-	auto& m = ((GenerationMap&)gs.map()).map();
+	gs.using_map(&m);
+	gs.generate(f, Area::ONE);
 	
 	
 	ASSERT_IS(1, m.size());

@@ -59,7 +59,7 @@ namespace Steele
 	
 	
 	public:
-		explicit TransformedMap(IMap<CELL>& map) : MapDecorator<CELL>(map) { }
+		explicit TransformedMap(IMap<CELL>* map) : MapDecorator<CELL>(map) { }
 		~TransformedMap() = default;
 		
 		

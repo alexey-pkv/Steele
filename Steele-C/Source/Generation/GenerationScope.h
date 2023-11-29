@@ -7,6 +7,7 @@
 #include "Generation/Map/GenerationMap.h"
 #include "DataTypes/Generation/DB/BrushDB.h"
 #include "DataTypes/Generation/DB/PaletteDB.h"
+#include "Base/Map/AbortMap.h"
 
 #include <map>
 
@@ -25,9 +26,13 @@ namespace Steele
 		
 	private:
 		XoroshiroRNG	m_rng;
-		GenerationMap	m_map;
 		PaletteDB		m_pallets;
 		BrushDB			m_brushes;
+		
+		AbortMap<Cell>	m_abort;
+		IMap<Cell>*		m_target	= nullptr;
+		
+		uptr<GenerationMap>	m_map = nullptr;
 		
 		
 	public:
@@ -45,9 +50,16 @@ namespace Steele
 		IPaletteDB& palette_db() override;
 		IBrushDB& brush_db() override;
 		
+		void set_rng_state(const RandomState& state) override;
+		void using_map(IMap<Cell>* map) override;
+		void validate_abort() override;
+		float get_progress() const override;
+		void abort() override;
 		
-	public: // For Debug
-		inline void set_in_debug_mode() { m_map.set_in_debug_mode(); }
+		bool generate() override;
+		bool generate(IBrush& brush, const Area& area) override;
+		
+		void reset_generation() override;
 	};
 }
 

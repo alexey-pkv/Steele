@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://beyh1mpsbvtwb"]
+
+[ext_resource type="Script" path="res://Editor/Tabs/Brushes/FillBrushTab.gd" id="1_g7rqg"]
+[ext_resource type="PackedScene" uid="uid://vkofhmmva7ll" path="res://Editor/Graphics/ResourceExplorer/ResourceExplorer.tscn" id="2_d2xji"]
+[ext_resource type="PackedScene" uid="uid://8y67re87h0dp" path="res://Editor/Nodes/Tabs/EditorBoard.tscn" id="2_m65uk"]
+
+[node name="FillBrushTab" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_g7rqg")
+
+[node name="_split_container" type="HSplitContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="EditorBoard" parent="_split_container" instance=ExtResource("2_m65uk")]
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ResourceExplorer" parent="_split_container" instance=ExtResource("2_d2xji")]
+clip_contents = true
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+cell_size = Vector2i(32, 16)

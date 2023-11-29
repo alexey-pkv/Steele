@@ -67,6 +67,13 @@ namespace Steele
 		~CanvasAreaOutsideOfBoundException() override = default;
 		CanvasAreaOutsideOfBoundException(v2i position);
 	};
+	
+	class AbortException : public PaintException
+	{
+	public:
+		~AbortException() override = default;
+		AbortException();
+	};
 }
 
 

@@ -1,11 +1,10 @@
 #include "GenerationMap.h"
-#include "RNG/XoroshiroRNG.h"
 
 
-#include "Debug/MapDebug.h"
+using namespace Steele;
 
 
-std::string Steele::GenerationMap::debug_info() const
+GenerationMap::GenerationMap(IMap<Cell>* map) : AbstractGenerationMap<Cell>(map)
 {
-	return std::move(Steele::debug_info(map()));
+	
 }
