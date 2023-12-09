@@ -121,6 +121,10 @@ namespace Steele
 			
 			return false;
 		}
+		
+	public:
+		size_t size() const override { return m_map.size(); }
+		
 	
 	public:
 		void clear() override
@@ -158,7 +162,6 @@ namespace Steele
 		
 		
 	public:
-		inline size_t size() const { return m_map.size(); }
 		
 		typename std::map<v3i, CELL>::iterator begin() { return m_map.begin(); }
 		typename std::map<v3i, CELL>::iterator end() { return m_map.end(); }

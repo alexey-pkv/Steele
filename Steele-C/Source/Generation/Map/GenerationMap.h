@@ -24,7 +24,7 @@ namespace Steele
 		
 		
 	public:
-		AbstractGenerationMap(IMap<CELL>* map) : 
+		AbstractGenerationMap(sptr<IMap<CELL>> map) : 
 			m_transformed(map) {}
 		
 		~AbstractGenerationMap() = default;
@@ -73,6 +73,13 @@ namespace Steele
 			return m_transformed.remove(at);
 		}
 		
+		
+	public:
+		size_t size() const override
+		{
+			return m_transformed.size();
+		}
+	
 	public: // ITransformable
 		void reset_transformation() override { m_transformations.clear(); m_transformed.reset_transform(); }
 		bool is_transformed() const override { return m_transformations.is_transformed(); }
@@ -98,7 +105,7 @@ namespace Steele
 	class GenerationMap : public AbstractGenerationMap<Cell>
 	{
 	public:
-		GenerationMap(IMap<Cell>* map);
+		GenerationMap(sptr<IMap<Cell>> map);
 		~GenerationMap() = default;
 	};
 }

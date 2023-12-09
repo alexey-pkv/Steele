@@ -403,6 +403,10 @@ namespace Steele
 			
 			return true;
 		}
+		
+		
+	public:
+		size_t size() const override { return m_total.size(); }
 	};
 }
 

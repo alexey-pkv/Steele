@@ -31,7 +31,6 @@ namespace Steele
 		void remove_at(int index);
 		void remove_at(int from, int to);
 		void add_area(const Area& a);
-		void add_area(const Area& a, const string& name);
 		void move(int from, int to);
 		
 		

@@ -5,8 +5,6 @@
 #include "Base/Generation/IGenerationScope.h"
 #include "RNG/XoroshiroRNG.h"
 #include "Generation/Map/GenerationMap.h"
-#include "DataTypes/Generation/DB/BrushDB.h"
-#include "DataTypes/Generation/DB/PaletteDB.h"
 #include "Base/Map/AbortMap.h"
 
 #include <map>
@@ -25,14 +23,16 @@ namespace Steele
 		
 		
 	private:
+		sptr<const GenerationResourcesDB> m_db = nullptr;
+		
 		XoroshiroRNG	m_rng;
-		PaletteDB		m_pallets;
-		BrushDB			m_brushes;
 		
 		AbortMap<Cell>	m_abort;
-		IMap<Cell>*		m_target	= nullptr;
 		
-		uptr<GenerationMap>	m_map = nullptr;
+		sptr<IMap<Cell>>	m_target	= nullptr;
+		uptr<GenerationMap>	m_map 		= nullptr;
+		
+		uint64_t m_targetSize = 0;
 		
 		
 	public:
@@ -46,20 +46,23 @@ namespace Steele
 		const IStateRNG& rng_state() const override;
 		IGenerationWorldMap& map() override;
 		const IGenerationWorldMap& map() const override;
-		
-		IPaletteDB& palette_db() override;
-		IBrushDB& brush_db() override;
+		const GenerationResourcesDB& db() const override;
 		
 		void set_rng_state(const RandomState& state) override;
-		void using_map(IMap<Cell>* map) override;
+		void using_map(sptr<IMap<Cell>> map) override;
+		void using_db(sptr<const GenerationResourcesDB> db) override;
 		void validate_abort() override;
-		float get_progress() const override;
+		double get_progress() const override;
 		void abort() override;
 		
 		bool generate() override;
-		bool generate(IBrush& brush, const Area& area) override;
+		bool generate(const IBrush& brush, const Area& area) override;
 		
 		void reset_generation() override;
+		
+	
+	public:
+		
 	};
 }
 

@@ -22,13 +22,13 @@ namespace godot
 		
 		
 	private:
-		Steele::SimpleMap<Steele::Cell>	m_patch;
+		sptr<Steele::SimpleMap<Steele::Cell>>	m_patch = make_shared<Steele::SimpleMap<Steele::Cell>>();
 	
 		
 	public:
 		~MapPatch() override = default;
 		MapPatch() = default;
-		MapPatch(Steele::SimpleMap<Steele::Cell>& source);
+		MapPatch(sptr<Steele::SimpleMap<Steele::Cell>> source);
 		
 		
 	public:
@@ -58,6 +58,10 @@ namespace godot
 	
 	public:
 		godot::String to_json() const;
+		
+		
+	public:
+		inline sptr<Steele::IMap<Steele::Cell>> steele_map() { return m_patch; }
 	};
 }
 

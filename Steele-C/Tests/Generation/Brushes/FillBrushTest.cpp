@@ -159,17 +159,17 @@ TEST(FillBrush__paint__EmptyArea__MapNotModified)
 {
 	FillBrush f;
 	GenerationScope gs;
-	SimpleMap<Cell> map;
+	sptr<SimpleMap<Cell>> map = make_shared<SimpleMap<Cell>>();
 	
 	
 	f.set_ground_id(1);
 	
 	
-	gs.using_map(&map);
+	gs.using_map(map);
 	gs.generate(f, Area::ZERO);
 	
 	
-	ASSERT_IS(0, map.size());
+	ASSERT_IS(0, map->size());
 }
 
 
@@ -177,19 +177,19 @@ TEST(FillBrush__paint__SimpleFill)
 {
 	FillBrush f;
 	GenerationScope gs;
-	SimpleMap<Cell> m;
+	sptr<SimpleMap<Cell>> m = make_shared<SimpleMap<Cell>>();
 	
 	
 	f.set_ground_id(1);
-	gs.using_map(&m);
+	gs.using_map(m);
 	gs.generate(f, Area::ONE);
 	
 	
-	ASSERT_IS(1, m.size());
-	ASSERT_FALSE(m.is_empty(0, 0));
-	ASSERT_IS_NOT(nullptr, m.try_get(0, 0));
-	ASSERT_TRUE(m.get(0, 0)->Ground.has(1));
-	ASSERT_IS(1, m.get(0, 0)->Ground.size());
+	ASSERT_IS(1, m->size());
+	ASSERT_FALSE(m->is_empty(0, 0));
+	ASSERT_IS_NOT(nullptr, m->try_get(0, 0));
+	ASSERT_TRUE(m->get(0, 0)->Ground.has(1));
+	ASSERT_IS(1, m->get(0, 0)->Ground.size());
 }
 
 

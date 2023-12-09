@@ -195,9 +195,9 @@ void foo_3()
 
 #include "Library/json.hpp"
 #include "json.h"
+#include "GDNative/Generation/FillBrush.h"
 
 
-		
 template<typename T, typename = std::enable_if_t<std::is_invocable_v<decltype(&T::json_write), json>>>
 void from_json(json& json, const T& t)
 {
@@ -221,6 +221,10 @@ namespace Steele
 
 int main()
 {
+	{
+		godot::FillBrush b;
+		b.set_ground_id(12);
+	}
 	
 	return 0;
 }

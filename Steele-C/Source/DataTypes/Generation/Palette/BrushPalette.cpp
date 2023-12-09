@@ -2,6 +2,7 @@
 
 
 #include "Base/Generation/IGenerationScope.h"
+#include "DataTypes/Generation/GenerationResourcesDB.h"
 
 
 using namespace Steele;
@@ -10,7 +11,7 @@ using namespace Steele;
 const IBrush* BrushPalette::select_random(const map<t_id, float>& from, IGenerationScope& scope, const Area* a) 
 {
 	GenericIDPalette curr;
-	auto& db = scope.brush_db();
+	const auto& db = scope.db().brushes();
 	
 	for (auto [id, w] : from)
 	{
@@ -40,11 +41,11 @@ const IBrush* BrushPalette::select_random(IGenerationScope& scope, const Area& a
 	return select_random(palette(), scope, &a);
 }
 
-const IBrush* BrushPalette::select_random_where(IGenerationScope& scope, const Area& a, function<bool(IBrush*)>& lambda) const
+const IBrush* BrushPalette::select_random_where(IGenerationScope& scope, const Area& a, function<bool(const IBrush*)>& lambda) const
 {
 	std::map<t_id, float> map;
 	
-	auto& db = scope.brush_db();
+	const auto& db = scope.db().brushes();
 	
 	for (auto t : palette())
 	{
@@ -65,7 +66,7 @@ const IBrush* BrushPalette::select_random_where(IGenerationScope& scope, const A
 void BrushPalette::get_reduced_palette(BrushPalette& p, IGenerationScope& scope, std::function<bool(
 		const IBrush*)>& where) const
 {
-	auto& db = scope.brush_db();
+	const auto& db = scope.db().brushes();
 	
 	for (auto t : palette())
 	{
@@ -83,7 +84,7 @@ void BrushPalette::get_reduced_palette(BrushPalette& p, IGenerationScope& scope,
 
 void BrushPalette::reduce_palette(IGenerationScope& scope, function<bool(const IBrush*)>& where)
 {
-	auto& db = scope.brush_db();
+	const auto& db = scope.db().brushes();
 	auto& p = palette();
 	
 	for (auto it = p.cbegin(); it != p.cend();)

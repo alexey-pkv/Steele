@@ -26,6 +26,10 @@ namespace Steele
 		
 		
 	public:
+		size_t size() const override { return m_head->size(); }
+	
+	
+	public:
 		void clear() override { m_head->clear(); }
 		
 		

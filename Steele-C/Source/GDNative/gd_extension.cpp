@@ -12,6 +12,8 @@
 #include "GDNative/DataTypes/Map/Cell.h"
 #include "GDNative/DataTypes/Map/MapPatch.h"
 #include "GDNative/DataTypes/SteeleID.h"
+#include "GDNative/Generation/Brushes/FillBrush.h"
+#include "GDNative/DataTypes/ResourcesDBNode.h"
 
 
 using namespace godot;
@@ -40,6 +42,9 @@ void initialize_steele_module(ModuleInitializationLevel p_level)
 	ClassDB::register_class<Cell>();
 	ClassDB::register_class<MapPatch>();
 	
+	// Data Types :: Generation
+	ClassDB::register_class<ResourcesDBNode>();
+	ClassDB::register_class<FillBrush>();
 	
 	// RNG
 	ClassDB::register_class<XoroshiroRNG>();

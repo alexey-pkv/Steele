@@ -59,6 +59,10 @@ namespace Steele
 	
 		
 	public:
+		size_t size() const override				{ return get_map().size(); };
+		
+		
+	public:
 		void abort()
 		{
 			m_abort = true;

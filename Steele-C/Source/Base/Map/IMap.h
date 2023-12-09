@@ -28,6 +28,10 @@ namespace Steele
 		
 		
 	public:
+		virtual size_t size() const = 0;
+		
+		
+	public:
 		inline CELL* get(int x, int y)			{ return _get({x, y, 0}); }
 		inline CELL* get(int x, int y, int z)	{ return _get({x, y, z}); }
 		inline CELL* get(v2i at)				{ return _get({at.x, at.y, 0}); }

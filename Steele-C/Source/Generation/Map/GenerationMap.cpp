@@ -1,10 +1,12 @@
 #include "GenerationMap.h"
 
+#include <utility>
+
 
 using namespace Steele;
 
 
-GenerationMap::GenerationMap(IMap<Cell>* map) : AbstractGenerationMap<Cell>(map)
+GenerationMap::GenerationMap(sptr<IMap<Cell>> map) : AbstractGenerationMap<Cell>(std::move(map))
 {
 	
 }

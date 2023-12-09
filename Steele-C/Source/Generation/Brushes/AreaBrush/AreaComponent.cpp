@@ -4,6 +4,7 @@
 #include <utility>
 
 #include "Base/Generation/IGenerationScope.h"
+#include "DataTypes/Generation/GenerationResourcesDB.h"
 #include "Exceptions/JSONException.h"
 
 
@@ -13,11 +14,6 @@ Steele::AreaComponent::AreaComponent(Steele::Area area) :
 	
 }
 
-Steele::AreaComponent::AreaComponent(Steele::Area area, string name) : 
-	m_area(std::move(area))
-{
-	set_name(std::move(name));
-}
 
 void Steele::AreaComponent::paint_in_area(Steele::IGenerationScope& scope) const
 {
@@ -41,11 +37,11 @@ void Steele::AreaComponent::paint(Steele::IGenerationScope& scope, const Steele:
 	
 	if (m_brushID != STEELE_NULL_ID)
 	{
-		brush = scope.brush_db().require(m_brushID);
+		brush = scope.db().brushes().require(m_brushID);
 	}
 	else if (m_paletteID != STEELE_NULL_ID)
 	{
-		auto palette = scope.palette_db().require(m_paletteID);
+		auto palette = scope.db().palettes().require(m_paletteID);
 		brush = palette->brushes().select_random(scope, area);
 	}
 	else

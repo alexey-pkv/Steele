@@ -1,6 +1,7 @@
 #include "FillBrush.h"
 
 #include "Base/Generation/IGenerationScope.h"
+#include "DataTypes/Generation/GenerationResourcesDB.h"
 #include "Exceptions/JSONException.h"
 
 
@@ -14,14 +15,15 @@ void Steele::FillBrush::paint(Steele::IGenerationScope& scope, const Steele::Are
 	Direction	dir;
 	Cell*		cell;
 	t_id		groundID = m_groundID;
-	Palette*	palette = nullptr;
+	
+	const Palette*	palette = nullptr;
 	
 	auto& map = scope.map();
 	auto& rng = scope.rng();
 	
 	if (groundID == STEELE_NULL_ID)
 	{
-		palette = scope.palette_db().get(m_paletteID);
+		palette = scope.db().palettes().get(m_paletteID);
 		
 		if (palette == nullptr)
 		{

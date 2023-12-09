@@ -48,12 +48,6 @@ void Steele::AreaBrush::add_area(const Steele::Area& a)
 	m_components.emplace_back(a);
 }
 
-void Steele::AreaBrush::add_area(const Steele::Area& a, const string& name)
-{
-	m_components.emplace_back(a);
-	last(m_components).set_name(name);
-}
-
 void Steele::AreaBrush::move(int from, int to)
 {
 	::rotate(m_components, from, to);

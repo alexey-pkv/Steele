@@ -26,7 +26,6 @@ namespace Steele
 		AreaComponent() = default;
 		
 		explicit AreaComponent(Area area);
-		explicit AreaComponent(Area area, string name);
 		
 		
 	public: // IBrush

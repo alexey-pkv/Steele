@@ -1,5 +1,7 @@
 #include "MapPatch.h"
 
+#include <utility>
+
 
 void MapPatch::_bind_methods()
 {
@@ -27,8 +29,8 @@ void MapPatch::_bind_methods()
 }
 
 
-MapPatch::MapPatch(Steele::SimpleMap<Steele::Cell>& source) : 
-	m_patch(source)
+MapPatch::MapPatch(sptr<Steele::SimpleMap<Steele::Cell>> source) : 
+	m_patch(std::move(source))
 {
 	
 }
@@ -39,29 +41,29 @@ Ref<godot::Area> MapPatch::area() const
 	Ref<Area> area;
 	
 	area.instantiate();
-	area->steele_area() = m_patch.get_area();
+	area->steele_area() = m_patch->get_area();
 	
 	return area; 
 }
 
 int MapPatch::size() const
 {
-	return (int)m_patch.size();
+	return (int)m_patch->size();
 }
 
 bool MapPatch::has(int x, int y, int z) const
 {
-	return !m_patch.is_empty(x, y, z);
+	return !m_patch->is_empty(x, y, z);
 }
 
 bool MapPatch::has_v3i(v3i at) const
 {
-	return !m_patch.is_empty(at);
+	return !m_patch->is_empty(at);
 }
 
 bool MapPatch::has_v2i(v2i at) const
 {
-	return !m_patch.is_empty(at);
+	return !m_patch->is_empty(at);
 }
 
 Ref<Cell> MapPatch::get(int x, int y, int z) const
@@ -92,7 +94,7 @@ void MapPatch::get_c(int x, int y, int z, Ref<Cell>& into) const
 
 void MapPatch::get_v3i_c(v3i at, Ref<Cell>& into) const
 {
-	auto cell = m_patch.try_get(at);
+	auto cell = m_patch->try_get(at);
 	
 	if (cell != nullptr)
 	{
@@ -116,32 +118,32 @@ void MapPatch::get_v2i_c(v2i at, Ref<Cell>& into) const
 
 void MapPatch::set(int x, int y, int z, const Ref<Cell>& cell)
 {
-	m_patch.set(cell->steele_cell(), x, y, z);
+	m_patch->set(cell->steele_cell(), x, y, z);
 }
 
 void MapPatch::set_v3i(v3i at, const Ref<Cell>& cell)
 {
-	m_patch.set(cell->steele_cell(), at);
+	m_patch->set(cell->steele_cell(), at);
 }
 
 void MapPatch::set_v2i(v2i at, const Ref<Cell>& cell)
 {
-	m_patch.set(cell->steele_cell(), at);
+	m_patch->set(cell->steele_cell(), at);
 }
 
 bool MapPatch::remove(int x, int y, int z)
 {
-	return m_patch.remove(x, y, z);
+	return m_patch->remove(x, y, z);
 }
 
 bool MapPatch::remove_v3i(v3i at)
 {
-	return m_patch.remove(at);
+	return m_patch->remove(at);
 }
 
 bool MapPatch::remove_v2i(v2i at)
 {
-	return m_patch.remove(at);
+	return m_patch->remove(at);
 }
 
 
@@ -149,7 +151,7 @@ godot::String MapPatch::to_json() const
 {
 	nlohmann::json target;
 	
-	m_patch.json_write(target);
+	m_patch->json_write(target);
 	
 	return { target.dump(1, '\t').c_str() };
 }

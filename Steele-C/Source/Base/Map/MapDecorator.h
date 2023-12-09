@@ -10,7 +10,7 @@ namespace Steele
 	class MapDecorator : public IMap<CELL>
 	{
 	private:
-		IMap<CELL>* m_map;
+		sptr<IMap<CELL>> m_map;
 		
 	
 	protected:
@@ -19,7 +19,7 @@ namespace Steele
 	
 		
 	public:
-		explicit MapDecorator(IMap<CELL>* map) : m_map(map) { }
+		explicit MapDecorator(sptr<IMap<CELL>> map) : m_map(map) { }
 		
 		MapDecorator() : m_map(nullptr) { }
 		~MapDecorator() = default;

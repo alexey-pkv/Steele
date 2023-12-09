@@ -51,6 +51,13 @@ namespace Steele
 			this->next().set(std::move(c), m_transformation.apply(at));
 		}
 	
+		
+	public:
+		size_t size() const override
+		{
+			return this->next().size();
+		}
+	
 	public:
 		void clear() override
 		{
@@ -59,7 +66,7 @@ namespace Steele
 	
 	
 	public:
-		explicit TransformedMap(IMap<CELL>* map) : MapDecorator<CELL>(map) { }
+		explicit TransformedMap(sptr<IMap<CELL>> map) : MapDecorator<CELL>(std::move(map)) { }
 		~TransformedMap() = default;
 		
 		

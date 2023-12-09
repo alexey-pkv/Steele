@@ -3,6 +3,7 @@
 #include "Base/Generation/IGenerationScope.h"
 #include "Generation/Brushes/Row/combination.h"
 #include "Exceptions/JSONException.h"
+#include "DataTypes/Generation/GenerationResourcesDB.h"
 
 #include <set>
 
@@ -23,7 +24,7 @@ void reduce_brushes_to_size(IGenerationScope& scope, BrushPalette& bp, const std
 
 void get_brush_sizes(IGenerationScope& scope, BrushPalette& bp, std::set<int>& sizes)
 {
-	auto& db = scope.brush_db();
+	const auto& db = scope.db().brushes();
 	
 	for (auto [id, _] : bp.brushes())
 	{
@@ -69,7 +70,7 @@ bool RowBrush::filter_brushes(const IBrush* brush) const
 
 void RowBrush::get_filtered_brushes_palette(BrushPalette& bp, IGenerationScope& scope) const
 {
-	auto* palette_ref = scope.palette_db().get(m_paletteID);
+	const auto* palette_ref = scope.db().palettes().get(m_paletteID);
 	
 	if (palette_ref == nullptr)
 		throw PaintException("Palette ", m_paletteID, " not found");
@@ -141,7 +142,7 @@ void RowBrush::paint_one_side_relative(IGenerationScope& scope, Area& area) cons
 
 void RowBrush::fill(IGenerationScope& scope, Area& area) const
 {
-	auto fillBrush = scope.brush_db().require(m_fillID);
+	auto fillBrush = scope.db().brushes().require(m_fillID);
 	
 	{
 		auto lt = scope.map().local_transform(area.offset());
