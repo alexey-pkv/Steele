@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dcwjnf2n3dhcr"]
+
+[ext_resource type="Script" path="res://Game/Nodes/World/Spaces/ActorsSpace.gd" id="1_jigo4"]
+
+[node name="ActorsSpace" type="Node2D"]
+script = ExtResource("1_jigo4")

@@ -156,17 +156,17 @@ func handle_item_edited():
 	var new_name = item.get_text(0)
 	var metadata = Editor_Tree.get_metadata(item)
 	
-	if new_name == metadata.item_name:
+	if new_name == metadata.short_name:
 		return
 	
 	if !is_valid_name(item):
-		item.set_text(0, metadata.item_name)
+		item.set_text(0, metadata.short_name)
 		return
 	
-	var original_path = metadata.relative_path
+	var original_path = metadata.relative_path()
 	
 	if metadata.rename(new_name) != OK:
-		item.set_text(0, metadata.item_name)
+		item.set_text(0, metadata.short_name)
 		return
 	
 	if metadata.is_resource:

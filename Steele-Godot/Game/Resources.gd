@@ -9,6 +9,9 @@ func _init():
 static var m_node: ResourcesNode = null
 
 
+static func get_resource_node() -> ResourcesNode:
+	return m_node
+
 static func deregister(node: ResourcesNode) -> void:
 	if m_node == node:
 		m_node = null

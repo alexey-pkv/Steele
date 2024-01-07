@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://dfqxdyd2vgf4g"]
+
+[ext_resource type="Script" path="res://Editor/Nodes/EditorTree/EditorPopupMenu.gd" id="1_ce3it"]
+
+[node name="EditorPopupMenu" type="PopupMenu"]
+visible = true
+script = ExtResource("1_ce3it")
+
+[connection signal="id_pressed" from="." to="." method="handle_index_pressed"]

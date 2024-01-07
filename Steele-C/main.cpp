@@ -1,8 +1,7 @@
 #include <iostream>
 #include <chrono>
-#include "DataTypes/Generation/DB/BrushDB.h"
-#include "DataTypes/Generation/DB/PaletteDB.h"
 #include "RNG/XoroshiroRNG.h"
+#include "DataTypes/Generation/GenerationResourcesDB.h"
 #include "Generation/Brushes/GridBlock/GridBlockGenerator.h"
 #include "Generation/Brushes/VoronoiSquare/VoronoiSquareGenerator.h"
 #include "Debug/MapDebug.h"
@@ -141,14 +140,20 @@ void foo_2(std::string s)
 	cout << gen.debug_info() << endl;
 }
 
+/*
 void foo_3()
 {
 	GenerationScope scope;
+	sptr<GenerationResourcesDB> db;
 	
 	// scope.set_in_debug_mode();
 	
-	auto& brushDB = scope.brush_db();
-	auto p = scope.palette_db().create(100);
+	Palette p;
+	
+	db->palettes().set(100, &p);
+	
+	scope.using_db(db);
+	auto& brushDB = db->brushes();
 	
 	auto f = brushDB.create_fill(1);
 	f->set_ground_id(1);
@@ -191,11 +196,11 @@ void foo_3()
 	cout << "-----------------------" << endl 
 		<< "Complete in " << fixed << runtime << " seconds" << endl;
 }
-
+*/
 
 #include "Library/json.hpp"
 #include "json.h"
-#include "GDNative/Generation/FillBrush.h"
+#include "GDNative/Generation/Brushes/FillBrush.h"
 
 
 template<typename T, typename = std::enable_if_t<std::is_invocable_v<decltype(&T::json_write), json>>>
@@ -218,13 +223,63 @@ namespace Steele
 }
 
 
+#include <sqlite3.h>
+#include <filesystem>
 
+
+namespace fs = std::filesystem;
+
+	
 int main()
 {
+	Direction d;
+	
+	auto j = nlohmann::json::object();
+	
+	auto b = j["a"];
+	b.get<v2i>();
+	
+	/*
 	{
 		godot::FillBrush b;
 		b.set_ground_id(12);
 	}
+	 */
+	
+	sqlite3 *db;
+	
+	uptr<int> a;
+	
+	auto n = a.get();
+	
+	
+	auto res = sqlite3_open("test.db", &db);
+	auto sql = "CREATE TABLE IF NOT EXISTS COMPANY("  \
+		"ID INT PRIMARY KEY     NOT NULL," \
+		"NAME           TEXT    NOT NULL," \
+		"AGE            INT     NOT NULL," \
+		"ADDRESS        CHAR(50)," \
+		"SALARY         REAL );";
+	
+	sqlite3_exec(db, sql, nullptr, nullptr, nullptr);
+	
+	for (int i = 0; i < 1000; i++)
+	{
+		char * error;
+		string n = "INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY) VALUES " \
+			"(" + std::to_string(i * 100) + ", 'Paul', 32, 'California', 20000.00 )";
+	
+		for (int a = 1; a < 100; a++)
+		{
+			n += ", (" + std::to_string(i * 100 + a) + ", 'Paul', 32, 'California', 20000.00 )";
+		}
+		
+		sqlite3_exec(db, n.c_str(), nullptr, nullptr, &error);
+		
+		cout << i << " " << endl;
+	}
+	
+	sqlite3_close(db);
 	
 	return 0;
 }

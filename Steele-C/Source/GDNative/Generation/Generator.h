@@ -42,6 +42,7 @@ namespace godot
 		
 		
 	public:
+		bool generate_brush(t_id id, const Ref<Area>& area);
 		bool generate_fill_brush(const Ref<FillBrush>& brush, const Ref<Area>& area);
 	};
 }

@@ -12,7 +12,7 @@ config_version=5
 
 config/name="Steele-godot"
 run/main_scene="res://Editor/Editor.tscn"
-config/features=PackedStringArray("4.1", "Forward Plus")
+config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 
 [display]
@@ -22,6 +22,15 @@ window/stretch/aspect="expand"
 [editor]
 
 movie_writer/fps=100
+
+[file_customization]
+
+folder_colors={
+"res://Editor/": "purple",
+"res://Extensions/": "red",
+"res://Game/": "green",
+"res://TestScene/": "yellow"
+}
 
 [rendering]
 

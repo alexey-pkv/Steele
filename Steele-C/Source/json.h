@@ -32,6 +32,13 @@ namespace Steele
 		return v;
 	}
 	
+	inline v2i json_read_v2i(const json& json, const v2i& def = v2i_zero)
+	{
+		v2i v;
+		json_read(json, v, def);
+		return v;
+	}
+	
 	
 	template<class T>
 	T json_read(const json& json)
@@ -72,6 +79,49 @@ namespace Steele
 	void to_json(json& json, const T& t)
 	{
 		t.json_write(json);
+	}
+}
+
+
+namespace godot
+{
+	inline void to_json(nlohmann::json& j, const v2i& v)
+	{
+		j = Steele::json_write(v);
+	}
+	
+	inline void from_json(const nlohmann::json& j, v2i& v)
+	{
+		v = Steele::json_read_v2i(j);
+	}
+	
+	inline void to_json(nlohmann::json& j, const v3i& v)
+	{
+		j = Steele::json_write(v);
+	}
+	
+	inline void from_json(const nlohmann::json& j, v3i& v)
+	{
+		v = Steele::json_read_v3i(j);
+	}
+	inline void to_json(nlohmann::json& j, const v2& v)
+	{
+		j = Steele::json_write(v);
+	}
+	
+	inline void from_json(const nlohmann::json& j, v2& v)
+	{
+		Steele::json_read(j, v);
+	}
+	
+	inline void to_json(nlohmann::json& j, const v3& v)
+	{
+		j = Steele::json_write(v);
+	}
+	
+	inline void from_json(const nlohmann::json& j, v3& v)
+	{
+		Steele::json_read(j, v);
 	}
 }
 

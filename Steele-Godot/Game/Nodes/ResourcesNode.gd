@@ -23,6 +23,9 @@ func _ready():
 	register()
 
 
+func get_steele_db() -> ResourcesDBNode:
+	return m_db
+
 func register() -> void:
 	if Engine.is_editor_hint():
 		return

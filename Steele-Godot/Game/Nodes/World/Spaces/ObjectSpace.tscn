@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c581cgkrhf3mf"]
+
+[ext_resource type="Script" path="res://Game/Nodes/World/Spaces/ObjectSpace.gd" id="1_kp3j3"]
+
+[node name="ObjectSpace" type="Node2D"]
+script = ExtResource("1_kp3j3")

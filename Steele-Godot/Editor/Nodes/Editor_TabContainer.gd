@@ -17,7 +17,7 @@ func _add_tab(tab_scene: PackedScene, id: int) -> GenericTab:
 	
 	add_child(tab)
 	
-	set_tab_title(index, data.name)
+	set_tab_title(index, data.short_name)
 	current_tab = index
 	
 	tab.resource_id = id

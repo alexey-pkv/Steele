@@ -46,6 +46,9 @@ double GenerationScope::get_progress() const
 	auto size = (double)m_map->size();
 	auto target = (double)m_targetSize;
 	
+	if (target == 0)
+		return 0;
+	
 	return size / target;
 }
 

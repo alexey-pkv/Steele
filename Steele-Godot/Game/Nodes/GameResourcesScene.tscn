@@ -1,10 +1,9 @@
 [gd_scene load_steps=3 format=3 uid="uid://csb0kvos7rijd"]
 
 [ext_resource type="Script" path="res://Game/Nodes/GameResourcesScene.gd" id="1_d5tud"]
-[ext_resource type="Script" path="res://Game/Nodes/ResourcesNode.gd" id="4_85snx"]
+[ext_resource type="PackedScene" uid="uid://6l73l6ref5o0" path="res://Game/Nodes/ResourcesNode.tscn" id="2_wuv8m"]
 
 [node name="GameResourcesScene" type="Node"]
 script = ExtResource("1_d5tud")
 
-[node name="ResourcesNode" type="Node" parent="."]
-script = ExtResource("4_85snx")
+[node name="ResourcesNode" parent="." instance=ExtResource("2_wuv8m")]

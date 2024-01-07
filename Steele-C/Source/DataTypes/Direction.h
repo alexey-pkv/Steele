@@ -119,6 +119,7 @@ namespace Steele
 		void RotateInPlace(godot::Vector3& source) const;
 		void RotateInPlace(godot::Vector3i& source) const;
 		
+		inline int round_to_index() const { return ((int)m_direction / 2); } 
 		
 	public:
 		static const Direction North;  

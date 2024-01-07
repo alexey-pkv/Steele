@@ -2,8 +2,8 @@
 #pragma ide diagnostic ignored "modernize-use-auto"
 
 
-#ifndef GODOT_FEEL_BRUSH_H
-#define GODOT_FEEL_BRUSH_H
+#ifndef GODOT_FILL_BRUSH_H
+#define GODOT_FILL_BRUSH_H
 
 
 #include <godot.hpp>

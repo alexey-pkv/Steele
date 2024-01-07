@@ -3,6 +3,8 @@ extends Resource
 class_name SteeleResource
 
 
+const DEFULT_PATH		= "user://assets/"
+
 const TYPE_UNDEFINED	= 0
 
 const TYPE_FLOOR_ATLAS	= 1
@@ -21,31 +23,20 @@ const TYPE_BRUSH_FILL		= TYPE_BRUSH | 1
 	get: return id
 	set(i): id = i
 
-@export var name: String = ""
+@export var short_name: String
 @export var path: String = ""
+@export var folder: String = ""
 @export var module: String = ""
 @export var parent_id: int = SteeleID.NULL_ID
 @export var is_valid: bool = true
-
 @export var type: int = TYPE_UNDEFINED
 
 
-var folder_path: String:
-	get: 
-		if path != "":
-			return module + "/" + path
-		else:
-			return module
+var relative_path: String:
+	get: return path.trim_prefix(DEFULT_PATH)
 
-var file_path: String:
-	get: 
-		if path != "":
-			return module + "/" + path + "/" + name
-		else:
-			return module + "/" + name
-	
-var steele_path: String:
-	get: return module + ":" + path + ":" + name
+var is_file: bool: 
+	get: return folder != ""
 
 var parent: SteeleResource: 
 	get:
@@ -58,23 +49,30 @@ func _init(_type: int = TYPE_UNDEFINED):
 	
 	type = _type
 
+func define_path(_path: String) -> void:
+	path = _path
+	
+	var parts = path.trim_prefix(DEFULT_PATH).split("/", false)
+	
+	if len(parts) == 1:
+		module = ""
+		short_name = parts[0]
+		folder = ""
+		return
 
+	module = parts[0]
+	short_name = parts[-1]
+	folder = _path.trim_suffix("/" + short_name)
 
 func get_path_parts() -> Array:
-	var result = [module]
-	
-	for part in path.split('/', false):
-		result.push_back(part)
-	
-	result.push_back(name)
-	
-	return result
+	return path.trim_prefix(DEFULT_PATH).split('/', false)
 
 func setup_child(child: SteeleResource, _name: String) -> void:
-	child.parent_id	= id
-	child.module	= module
-	child.path		= path + ":" + name
-	child.name		= _name
+	child.parent_id		= id
+	child.path			= path + ":" + _name
+	child.short_name	= _name
+	child.folder		= ""
+	child.module		= module
 
 func has_id() -> bool:
 	return id != SteeleID.NULL_ID
@@ -100,17 +98,17 @@ func register(from_path: String = "") -> bool:
 		return true
 	
 	if from_path != "":
-		from_path = Resources_Common.get_resource_path(from_path)
-		from_path = SteeleResource._remove_prefix(from_path)
-		
-		var parts = from_path.split('/', false, 1)
-		
-		module = parts[0]
-		parts = parts[-1].split('/', false, 1)
-		path = parts[0] if len(parts) > 1 else ""
-		name = parts[-1]
+		define_path(from_path)
 	
 	return Resources.add_r(self)
+
+func rename_partial(old_prefix: String, new_prefix: String) -> bool:
+	if !path.begins_with(old_prefix):
+		return false
+	
+	define_path(new_prefix + path.trim_prefix(old_prefix))
+	
+	return true
 	
 
 func debug_data() -> String:
@@ -120,7 +118,7 @@ func debug_data() -> String:
 func _to_string():
 	var data = str(id)
 	
-	data += ":" + steele_path + ":" + str(type)
+	data += ":" + path + ":" + str(type)
 	
 	var debug = debug_data()
 	

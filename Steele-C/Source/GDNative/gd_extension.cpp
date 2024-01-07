@@ -14,6 +14,7 @@
 #include "GDNative/DataTypes/SteeleID.h"
 #include "GDNative/Generation/Brushes/FillBrush.h"
 #include "GDNative/DataTypes/ResourcesDBNode.h"
+#include "GDNative/Generation/Generator.h"
 
 
 using namespace godot;
@@ -45,6 +46,8 @@ void initialize_steele_module(ModuleInitializationLevel p_level)
 	// Data Types :: Generation
 	ClassDB::register_class<ResourcesDBNode>();
 	ClassDB::register_class<FillBrush>();
+	
+	ClassDB::register_class<Generator>();
 	
 	// RNG
 	ClassDB::register_class<XoroshiroRNG>();

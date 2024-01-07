@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://67bmx1fv2myu"]
+
+[ext_resource type="Script" path="res://Game/Nodes/GeneratorNode.gd" id="1_nmhwg"]
+
+[node name="GeneratorNode" type="Node"]
+script = ExtResource("1_nmhwg")
+
+[node name="Generator" type="Generator" parent="."]
+
+[node name="StatusTimer" type="Timer" parent="."]
+wait_time = 0.1
+
+[connection signal="timeout" from="StatusTimer" to="." method="handle_timeout"]

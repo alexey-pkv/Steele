@@ -33,6 +33,15 @@ using wptr = std::weak_ptr<T>;
 template <typename T>
 using uptr = std::unique_ptr<T>;
 
+template <typename T>
+using vec = std::vector<T>;
+
+template <typename T>
+using vec_unique = std::vector<std::unique_ptr<T>>;
+
+template <typename T>
+using svec = sptr<std::vector<T>>;
+
 
 template <typename T>
 inline bool contains(const std::vector<T>& v, const T& t)

@@ -18,6 +18,19 @@ static func grid_to_local(v_grid: Vector3i, grid_size: Vector3i, style: int = ST
 	
 	return v
 
+static func grid_to_local_v3(v_grid: Vector3, grid_size: Vector3i, style: int = STYLE_CENTER) -> Vector2:
+	grid_size = Vector3(grid_size) / 2
+	
+	var v = Vector2(
+		v_grid.x * grid_size.x + v_grid.y * grid_size.x,
+		v_grid.x * grid_size.y - v_grid.y * grid_size.y - v_grid.z * grid_size.z
+	);
+	
+	if (style != STYLE_CENTER):
+		v += Vector2(grid_size.x, grid_size.y)
+	
+	return v
+
 static func local_to_grid(v_at: Vector2, grid_size: Vector3i, style: int = STYLE_CENTER) -> Vector2i:
 	grid_size = grid_size / 2
 	

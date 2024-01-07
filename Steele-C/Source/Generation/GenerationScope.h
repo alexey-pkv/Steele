@@ -62,7 +62,7 @@ namespace Steele
 		
 	
 	public:
-		
+		inline bool has_db() { return m_map != nullptr; }
 	};
 }
 

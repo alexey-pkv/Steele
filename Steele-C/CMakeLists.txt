@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.24)
 project(Steele)
 
 set(CMAKE_CXX_STANDARD 17)
-set(CXX_WARNINGS "-Wno-reorder")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-reorder")
 
 
 include_directories( 
@@ -71,7 +71,7 @@ endforeach ()
 ### Main.cpp executable ###
 ###########################
 add_executable(Steele_With_Godot ${LIBRARIES_SRC} ${GODOT_SRC} ${MAIN_SOURCE}  main.cpp)
-
+target_link_libraries(Steele_With_Godot sqlite3)
 
 #############
 ### Tests ###
